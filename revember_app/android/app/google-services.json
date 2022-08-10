@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "175147512443",
+    "project_id": "revember-fd629",
+    "storage_bucket": "revember-fd629.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:175147512443:android:0178db1f25bb3d0bdd28de",
+        "android_client_info": {
+          "package_name": "com.example.revember_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "175147512443-qtoraesvm2nhfkh54pjiv0pbs8hgj6m4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAb7-3lPAhAg38n9qM-AgR0L7b1ny-dBAI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "175147512443-qtoraesvm2nhfkh54pjiv0pbs8hgj6m4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
