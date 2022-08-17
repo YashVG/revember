@@ -1,20 +1,17 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:revember_app/screens/signup_screen2.dart';
 
-class SignUpScreen extends StatefulWidget {
-  static const String id = 'signup_screen';
-  const SignUpScreen({Key? key}) : super(key: key);
+class LoginRecoveryScreen extends StatefulWidget {
+  static const String id = 'login_recovery';
+
+  const LoginRecoveryScreen({Key? key}) : super(key: key);
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<LoginRecoveryScreen> createState() => _LoginRecoveryScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
-  late String username;
-  late String password;
-  late String email;
+class _LoginRecoveryScreenState extends State<LoginRecoveryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +22,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                'Sign up',
+                'Login Recovery',
                 style: TextStyle(fontSize: 30.0),
               ),
               SizedBox(
@@ -34,30 +31,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
               TextField(
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.center,
-                onChanged: (value) {
-                  username = value;
-                },
-                decoration: InputDecoration(
-                  hintText: 'Enter your desired username',
-                ),
-              ),
-              TextField(
-                keyboardType: TextInputType.emailAddress,
-                textAlign: TextAlign.center,
                 decoration: InputDecoration(
                   hintText: 'Enter your email',
                 ),
-                onChanged: (value) {
-                  email = value;
-                },
               ),
               SizedBox(
-                height: 20.0,
+                height: 20,
+              ),
+              TextField(
+                textAlign: TextAlign.center,
+                decoration: InputDecoration(
+                  hintText: 'Enter your username',
+                ),
+              ),
+              SizedBox(
+                height: 20,
               ),
               ElevatedButton(
-                child: Text('Continue'),
+                child: Text('Send request'),
                 onPressed: () {
-                  Navigator.pushNamed(context, SignUpScreen2.id);
+                  Navigator.pop(context);
                 },
               ),
             ],

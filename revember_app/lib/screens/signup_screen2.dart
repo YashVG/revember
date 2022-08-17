@@ -1,17 +1,17 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:revember_app/screens/signup_screen2.dart';
+import 'login_screen.dart';
 
-class SignUpScreen extends StatefulWidget {
-  static const String id = 'signup_screen';
-  const SignUpScreen({Key? key}) : super(key: key);
+class SignUpScreen2 extends StatefulWidget {
+  static const String id = 'signup2_screen';
+  const SignUpScreen2({Key? key}) : super(key: key);
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<SignUpScreen2> createState() => _SignUpScreen2State();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _SignUpScreen2State extends State<SignUpScreen2> {
   late String username;
   late String password;
   late String email;
@@ -25,39 +25,37 @@ class _SignUpScreenState extends State<SignUpScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                'Sign up',
+                'Sign up continued',
                 style: TextStyle(fontSize: 30.0),
               ),
               SizedBox(
                 height: 20.0,
               ),
               TextField(
-                keyboardType: TextInputType.emailAddress,
-                textAlign: TextAlign.center,
                 onChanged: (value) {
-                  username = value;
+                  password = value;
                 },
+                textAlign: TextAlign.center,
                 decoration: InputDecoration(
-                  hintText: 'Enter your desired username',
+                  hintText: 'Enter your password',
                 ),
               ),
               TextField(
-                keyboardType: TextInputType.emailAddress,
+                onChanged: (value) {
+                  password = value;
+                },
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
-                  hintText: 'Enter your email',
+                  hintText: 'Confirm your password',
                 ),
-                onChanged: (value) {
-                  email = value;
-                },
               ),
               SizedBox(
                 height: 20.0,
               ),
               ElevatedButton(
-                child: Text('Continue'),
+                child: Text('Login'),
                 onPressed: () {
-                  Navigator.pushNamed(context, SignUpScreen2.id);
+                  Navigator.pushNamed(context, LoginScreen.id);
                 },
               ),
             ],

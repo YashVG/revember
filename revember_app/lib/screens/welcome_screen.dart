@@ -21,7 +21,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Revember',
+              'Revember 📖',
               style: TextStyle(fontSize: 30.0),
             ),
             SizedBox(
