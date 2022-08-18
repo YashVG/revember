@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class SignUpScreen2 extends StatefulWidget {
   static const String id = 'signup2_screen';
@@ -12,6 +14,7 @@ class SignUpScreen2 extends StatefulWidget {
 }
 
 class _SignUpScreen2State extends State<SignUpScreen2> {
+  final auth = FirebaseAuth.instance;
   late String username;
   late String password;
   late String email;

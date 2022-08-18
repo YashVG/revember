@@ -1,5 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:revember_app/screens/login_recovery.dart';
 import 'package:revember_app/screens/signup_screen2.dart';
@@ -12,8 +14,11 @@ import 'screens/login_recovery.dart';
 import 'dart:io' show Platform;
 //Platform allows us to identify the current platform
 
-void main() => runApp(Revember());
-//runApp executes the widget tree and renders the app to the screen
+void main() async {
+  runApp(Revember());
+  Firebase.initializeApp();
+}
+//runApp executes the widget tree and renders the app to the screen, once the Firebase app is initialized
 
 class Revember extends StatelessWidget {
   @override
