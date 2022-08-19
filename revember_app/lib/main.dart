@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:revember_app/firebase_options.dart';
 import 'package:revember_app/screens/login_recovery.dart';
 import 'package:revember_app/screens/signup_screen2.dart';
 import 'screens/welcome_screen.dart';
@@ -15,8 +16,9 @@ import 'dart:io' show Platform;
 //Platform allows us to identify the current platform
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(Revember());
-  Firebase.initializeApp();
 }
 //runApp executes the widget tree and renders the app to the screen, once the Firebase app is initialized
 
