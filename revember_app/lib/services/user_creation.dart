@@ -1,21 +1,24 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:revember_app/constants.dart';
 
-final auth = FirebaseAuth.instance;
-final firestore = FirebaseFirestore.instance;
+late String username;
+late String email;
+late String password;
 
-Future<User?> createUser(String email, String password) async {
+Future<User?> createUser(String username, String email, String password) async {
   try {
-    var result = await auth.createUserWithEmailAndPassword(
-        email: email, password: password);
-    var user = result.user;
-    return user;
+    firestore.collection('users').add({
+      'username': username,
+      'email': email,
+      'password': password,
+    });
   } catch (e) {
-    print(e.toString());
     return null;
+    //TODO: find suitable way to prompt error message in app if user creation fails for whatever reason
   }
 }
 
+//TODO: Fix checkDuplicateUsername function so that it actually works
 Future checkDuplicateUsername(String username) async {
   var query = await firestore
       .collection('users')

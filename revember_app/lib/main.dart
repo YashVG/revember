@@ -24,6 +24,7 @@ class Revember extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      useInheritedMediaQuery: false,
       debugShowCheckedModeBanner: false,
       initialRoute: WelcomeScreen.id,
       routes: {

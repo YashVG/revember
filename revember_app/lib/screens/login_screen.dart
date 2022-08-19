@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart';
 import 'login_recovery.dart';
+import 'package:revember_app/components/back_button.dart';
+import 'package:revember_app/services/user_login.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'login_screen';
@@ -23,16 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
     //size is a variable that holds the size of the screen
 
     return Scaffold(
-      floatingActionButton: Padding(
-        padding:
-            EdgeInsets.only(bottom: size.height * 0.8, right: size.width * 0.8),
-        child: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
+      floatingActionButton: GoBackButton(),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: size.height * 0.02),
         child: Center(
@@ -61,7 +54,9 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               TextField(
                 textAlign: TextAlign.center,
-                onChanged: ((value) => password = value),
+                onChanged: (value) {
+                  password = value;
+                },
                 decoration: InputDecoration(
                   hintText: 'Enter your password',
                 ),
@@ -71,8 +66,13 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               ElevatedButton(
                 child: Text('Login'),
-                onPressed: () {
-                  Navigator.pushNamed(context, HomePage.id);
+                onPressed: () async {
+                  if (await checkPassword(username, password) == true) {
+                    print("Yes it works");
+                    Navigator.pushNamed(context, HomePage.id);
+                  } else {
+                    Navigator.pushNamed(context, LoginRecoveryScreen.id);
+                  }
                 },
               ),
               SizedBox(

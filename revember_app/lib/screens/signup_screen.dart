@@ -2,8 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:revember_app/screens/signup_screen2.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:revember_app/services/user_creation.dart';
+import 'package:revember_app/components/back_button.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const String id = 'signup_screen';
@@ -14,13 +15,10 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  final _auth = FirebaseAuth.instance;
-  late String username;
-  late String password;
-  late String email;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: GoBackButton(),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Center(
@@ -59,7 +57,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               ElevatedButton(
                 child: Text('Continue'),
-                onPressed: () {
+                onPressed: () async {
+                  if (username == null || email == null) {
+                    return showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text('Error'),
+                          content: Text('Please fill in all fields'),
+                          actions: <Widget>[
+                            TextButton(
+                              child: Text('Okay'),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
                   if (checkDuplicateUsername(username) == true) {
                     showDialog(
                       context: context,
@@ -68,7 +85,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           title: Text('Username already exists'),
                           content: Text('Please choose another username'),
                           actions: <Widget>[
-                            FlatButton(
+                            TextButton(
                               child: Text('Okay'),
                               onPressed: () {
                                 Navigator.of(context).pop();
@@ -79,10 +96,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       },
                     );
                   } else {
-                    createUser(email, password);
                     Navigator.pushNamed(context, SignUpScreen2.id);
                   }
-                  Navigator.pushNamed(context, SignUpScreen2.id);
                 },
               ),
             ],

@@ -1,26 +1,23 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'login_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:revember_app/services/user_creation.dart';
+import 'package:revember_app/components/back_button.dart';
 
 class SignUpScreen2 extends StatefulWidget {
   static const String id = 'signup2_screen';
-  const SignUpScreen2({Key? key}) : super(key: key);
-
   @override
   State<SignUpScreen2> createState() => _SignUpScreen2State();
 }
 
 class _SignUpScreen2State extends State<SignUpScreen2> {
-  final auth = FirebaseAuth.instance;
-  late String username;
-  late String password;
-  late String email;
+  late String inputtedPassword;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: GoBackButton(),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Center(
@@ -45,7 +42,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
               ),
               TextField(
                 onChanged: (value) {
-                  password = value;
+                  inputtedPassword = value;
                 },
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
@@ -56,9 +53,33 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                 height: 20.0,
               ),
               ElevatedButton(
-                child: Text('Login'),
+                child: Text('Create account'),
                 onPressed: () {
-                  Navigator.pushNamed(context, LoginScreen.id);
+                  if (password == inputtedPassword) {
+                    createUser(email, password, password);
+                    Navigator.pushNamed(context, LoginScreen.id);
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text(
+                            'Passwords do not match!',
+                            style: TextStyle(color: Colors.red),
+                          ),
+                          content: Text('Please try again'),
+                          actions: <Widget>[
+                            TextButton(
+                              child: Text('Okay'),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            )
+                          ],
+                        );
+                      },
+                    );
+                  }
                 },
               ),
             ],
