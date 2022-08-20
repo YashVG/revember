@@ -8,9 +8,9 @@ late String password;
 Future<User?> createUser(String username, String email, String password) async {
   try {
     firestore.collection('users').add({
-      'username': username,
       'email': email,
       'password': password,
+      'username': username,
     });
   } catch (e) {
     return null;

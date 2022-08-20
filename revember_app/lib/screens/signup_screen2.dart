@@ -56,7 +56,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                 child: Text('Create account'),
                 onPressed: () {
                   if (password == inputtedPassword) {
-                    createUser(email, password, password);
+                    createUser(username, email, password);
                     Navigator.pushNamed(context, LoginScreen.id);
                   } else {
                     showDialog(
