@@ -25,3 +25,18 @@ Future checkPassword(String username, String password) async {
     }
   }
 }
+
+Future test2(String username, String password) async {
+  var query = await firestore.collection('test').doc(username);
+
+  print(query.get());
+  // if (query.get().) {
+  //   var user = query.data();
+  //   print(user);
+  //   if (user == password) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
+}

@@ -30,3 +30,23 @@ Future checkDuplicateUsername(String username) async {
     return false;
   }
 }
+
+Future<User?> test(String username, String email, String password) async {
+  try {
+    firestore.collection('tests').add({'username': username});
+    firestore
+        .collection('test')
+        .doc(username)
+        .collection('private')
+        .doc('password')
+        .set({'password': password});
+    firestore
+        .collection('test')
+        .doc(username)
+        .collection('private')
+        .doc('email')
+        .set({'email': email});
+  } catch (e) {
+    return null;
+  }
+}

@@ -67,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ElevatedButton(
                 child: Text('Login'),
                 onPressed: () async {
-                  if (await checkPassword(username, password) == true) {
+                  if (await test2(username, password) == true) {
                     print("Yes it works");
                     Navigator.pushNamed(context, HomePage.id);
                   } else {

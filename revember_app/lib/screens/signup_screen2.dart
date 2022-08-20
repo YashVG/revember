@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'login_screen.dart';
 import 'package:revember_app/services/user_creation.dart';
+
 import 'package:revember_app/components/back_button.dart';
 
 class SignUpScreen2 extends StatefulWidget {
@@ -56,7 +57,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                 child: Text('Create account'),
                 onPressed: () {
                   if (password == inputtedPassword) {
-                    createUser(username, email, password);
+                    test(username, email, password);
                     Navigator.pushNamed(context, LoginScreen.id);
                   } else {
                     showDialog(
