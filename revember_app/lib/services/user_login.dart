@@ -14,8 +14,10 @@ Future checkPassword(String username, String password) async {
   var user =
       firestore.collection('users').where('username', isEqualTo: username);
   var query = await user.get();
+  print(query);
   if (query.docs.isNotEmpty) {
     var user = query.docs.first.data();
+    print(user['password']);
     if (user['password'] == password) {
       return true;
     } else {
