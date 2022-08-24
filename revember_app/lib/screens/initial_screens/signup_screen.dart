@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:revember_app/screens/signup_screen2.dart';
+import 'package:revember_app/screens/initial_screens/signup_screen2.dart';
 
 import 'package:revember_app/services/user_creation.dart';
 import 'package:revember_app/components/back_button.dart';

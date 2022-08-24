@@ -1,16 +1,16 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:revember_app/firebase_options.dart';
-import 'package:revember_app/screens/login_recovery.dart';
-import 'package:revember_app/screens/signup_screen2.dart';
-import 'screens/welcome_screen.dart';
-import 'screens/login_screen.dart';
-import 'screens/signup_screen.dart';
-import 'screens/home_page.dart';
-import 'screens/login_recovery.dart';
+import 'package:revember_app/screens/initial_screens/login_recovery.dart';
+import 'package:revember_app/screens/initial_screens/signup_screen2.dart';
+import 'screens/initial_screens/welcome_screen.dart';
+import 'screens/initial_screens/login_screen.dart';
+import 'screens/initial_screens/signup_screen.dart';
+import 'screens/main_screens/home_page.dart';
+import 'screens/initial_screens/login_recovery.dart';
+import 'screens/main_screens/settings.dart';
 
 import 'dart:io' show Platform;
 //Platform allows us to identify the current platform
@@ -36,6 +36,7 @@ class Revember extends StatelessWidget {
         SignUpScreen2.id: (context) => SignUpScreen2(),
         LoginRecoveryScreen.id: (context) => LoginRecoveryScreen(),
         HomePage.id: (context) => HomePage(),
+        SettingsScreen.id: (context) => SettingsScreen(),
       },
     );
   }
