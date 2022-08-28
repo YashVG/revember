@@ -1,0 +1,98 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+//TODO: Fix test date page
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
+import 'package:revember_app/services/calendar_services/schedule_calc.dart';
+
+class AddTestDate extends StatefulWidget {
+  static const String id = 'add_test';
+  const AddTestDate({Key? key}) : super(key: key);
+
+  @override
+  State<AddTestDate> createState() => _AddTestDateState();
+}
+
+class _AddTestDateState extends State<AddTestDate> {
+  final TextEditingController _dateInput = TextEditingController();
+
+  late int revisionIntervals = 14;
+  late Duration daysBeforeTest = Duration(days: 18);
+
+  @override
+  void initState() {
+    _dateInput.text = "";
+
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Add test date to get revision schedule"),
+        backgroundColor: Colors.blueGrey, //background color of app bar
+      ),
+      body: Container(
+        padding: EdgeInsets.only(
+            left: size.width * 0.025, right: size.width * 0.025),
+        height: MediaQuery.of(context).size.width / 3,
+        child: Center(
+          child: Column(
+            children: [
+              TextField(
+                controller: _dateInput,
+                //editing controller of this TextField
+                decoration: const InputDecoration(
+                    icon: Icon(Icons.calendar_today),
+                    labelText: "Enter Test Date"),
+                readOnly: true,
+
+                onTap: () async {
+                  DateTime? pickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime(2100),
+                  );
+                  if (pickedDate != null) {
+                    setState(
+                      () {
+                        String formattedDate =
+                            DateFormat('dd-MM-yyyy').format(pickedDate);
+                        _dateInput.text = formattedDate;
+                        //set output date to TextField value.
+                      },
+                    );
+                  }
+                },
+              ),
+              TextField(
+                decoration: InputDecoration(
+                    icon: Icon(Icons.question_mark),
+                    labelText: "Enter how many times you wish to revise",
+                    hintText: "Default revision intervals are set to 5"),
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly
+                ],
+                onChanged: (value) {},
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  print(createRevisionSchedule(
+                      revisionIntervals, daysBeforeTest));
+                },
+                child: Text('Create schedule'),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import '../main_screens/home_page.dart';
 import 'login_recovery.dart';
-import 'package:revember_app/services/user_login.dart';
-import 'package:revember_app/constants.dart';
+import 'package:revember_app/services/user_services/user_login.dart';
+import 'package:revember_app/constants/user_constants.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'login_screen';
@@ -52,6 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               TextField(
                 textAlign: TextAlign.center,
+                obscureText: true,
                 onChanged: (value) {
                   password = value;
                 },

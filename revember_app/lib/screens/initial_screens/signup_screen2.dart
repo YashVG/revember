@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'login_screen.dart';
-import 'package:revember_app/services/user_creation.dart';
+import 'package:revember_app/services/user_services/user_creation.dart';
 import 'package:revember_app/components/back_button.dart';
 
 class SignUpScreen2 extends StatefulWidget {

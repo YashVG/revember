@@ -3,7 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:revember_app/screens/initial_screens/welcome_screen.dart';
 import 'settings.dart';
-import 'package:revember_app/constants.dart';
+import 'package:revember_app/constants/user_constants.dart';
+import 'package:revember_app/screens/calendar_screens/add_testdate.dart';
 
 class HomePage extends StatefulWidget {
   static const String id = 'home_page';
@@ -89,6 +90,12 @@ class _HomePageState extends State<HomePage> {
               Column(
                 children: [
                   Text('Calendar'),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, AddTestDate.id);
+                    },
+                    child: Text('Add test date'),
+                  )
                   // Calendar(),
                 ],
               ),

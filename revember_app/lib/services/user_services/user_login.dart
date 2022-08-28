@@ -1,4 +1,4 @@
-import 'package:revember_app/constants.dart';
+import 'package:revember_app/constants/user_constants.dart';
 
 Future loginUser(String username, String password) async {}
 
