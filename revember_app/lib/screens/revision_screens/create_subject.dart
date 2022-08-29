@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:revember_app/constants/user_constants.dart';
+import 'package:revember_app/constants/revision_constants.dart';
 
 import 'package:flutter/material.dart';
 import 'package:revember_app/services/revision_services/add_subject.dart';
 import 'package:revember_app/services/revision_services/add_topic.dart';
+import 'package:revember_app/services/revision_services/get_subjects.dart';
 import 'subject_screen.dart';
 
 class CreateSubjectScreen extends StatefulWidget {
@@ -52,7 +54,8 @@ class _CreateSubjectScreenState extends State<CreateSubjectScreen> {
                       actions: <Widget>[
                         TextButton(
                           child: Text('Okay!'),
-                          onPressed: () {
+                          onPressed: () async {
+                            await getSubjects();
                             Navigator.pushNamed(context, SubjectScreen.id);
                           },
                         ),

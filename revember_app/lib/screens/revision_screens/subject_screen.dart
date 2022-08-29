@@ -16,6 +16,7 @@ class SubjectScreen extends StatefulWidget {
 class _SubjectScreenState extends State<SubjectScreen> {
   @override
   Widget build(BuildContext context) {
+    subjectList;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -44,18 +45,22 @@ class _SubjectScreenState extends State<SubjectScreen> {
         backgroundColor: Colors.blueGrey,
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: size.height * 0.02),
+        padding: EdgeInsets.symmetric(
+            horizontal: size.height * 0.02, vertical: size.height * 0.02),
         child: GridView.count(
           childAspectRatio: size.aspectRatio * 1.5,
           crossAxisCount: 2,
           crossAxisSpacing: size.width * 0.03,
           mainAxisSpacing: size.height * 0.05,
           children: [
-            ElevatedButton(
-              onPressed: null,
-              child: Text('Update subjects'),
-            ),
-            for (var i in subjectList) Text(i.toString())
+            for (var i in subjectList)
+              ElevatedButton(
+                onPressed: () {},
+                child: Text(
+                  i.toString(),
+                  style: TextStyle(fontSize: size.width * 0.04),
+                ),
+              ),
           ],
         ),
       ),
