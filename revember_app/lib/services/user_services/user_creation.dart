@@ -7,11 +7,13 @@ late String password;
 
 Future<User?> createUser(String username, String email, String password) async {
   try {
-    firestore.collection('users').add({
-      'email': email,
-      'password': password,
-      'username': username,
-    });
+    firestore.collection('users').add(
+      {
+        'email': email,
+        'password': password,
+        'username': username,
+      },
+    );
   } catch (e) {
     return null;
     //TODO: find suitable way to prompt error message in app if user creation fails for whatever reason

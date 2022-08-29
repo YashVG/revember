@@ -2,6 +2,7 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:revember_app/firebase_options.dart';
 import 'package:revember_app/screens/initial_screens/login_recovery.dart';
 import 'package:revember_app/screens/initial_screens/signup_screen2.dart';
@@ -13,6 +14,8 @@ import 'screens/initial_screens/login_recovery.dart';
 import 'screens/main_screens/settings.dart';
 import 'screens/calendar_screens/add_testdate.dart';
 import 'screens/calendar_screens/calendar_screen.dart';
+import 'screens/revision_screens/subject_screen.dart';
+import 'screens/revision_screens/create_subject.dart';
 
 import 'dart:io' show Platform;
 //Platform allows us to identify the current platform
@@ -41,6 +44,8 @@ class Revember extends StatelessWidget {
         SettingsScreen.id: (context) => SettingsScreen(),
         AddTestDate.id: ((context) => AddTestDate()),
         CalendarScreen.id: (context) => CalendarScreen(),
+        SubjectScreen.id: (context) => SubjectScreen(),
+        CreateSubjectScreen.id: (context) => CreateSubjectScreen(),
       },
     );
   }

@@ -1,4 +1,3 @@
-//TODO: Fix schedule calculator
 import 'dart:math';
 
 final _random = Random();
@@ -21,13 +20,13 @@ List createRevisionSchedule(int sessions, Duration differenceInDays) {
   for (int i = 1; i != sessions; i++) {
     counter = counter - 1;
     if (daysBeforeTest > 10) {
-      num value = (0.5 * pow(i, 2) - (0.5 * i)) * (daysBeforeTest / 10);
+      num value = (0.5 * pow(i, 2) + (0.5 * i)) * (daysBeforeTest / 10);
       daysToRevise.add(value);
       if (value == daysBeforeTest) {
         break;
       }
     } else {
-      num value = (0.5 * pow(i, 2) - (0.5 * i)) * (10 / daysBeforeTest);
+      num value = (0.5 * pow(i, 2) + (0.5 * i)) * (10 / daysBeforeTest);
       daysToRevise.add(value);
       if (value == daysBeforeTest) {
         break;

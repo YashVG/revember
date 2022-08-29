@@ -8,6 +8,7 @@ import 'package:revember_app/constants/user_constants.dart';
 import 'package:revember_app/constants/calendar_constants.dart';
 import 'package:revember_app/screens/calendar_screens/add_testdate.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:revember_app/screens/revision_screens/subject_screen.dart';
 
 class HomePage extends StatefulWidget {
   static const String id = 'home_page';
@@ -110,7 +111,9 @@ class _HomePageState extends State<HomePage> {
               Column(
                 children: [
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, SubjectScreen.id);
+                    },
                     child: Text('Revision'),
                   )
                 ],
