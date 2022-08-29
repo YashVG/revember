@@ -4,6 +4,7 @@ import 'package:revember_app/constants/user_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:revember_app/services/revision_services/add_subject.dart';
 import 'package:revember_app/services/revision_services/add_topic.dart';
+import 'subject_screen.dart';
 
 class CreateSubjectScreen extends StatefulWidget {
   static const String id = 'create_subject';
@@ -39,23 +40,28 @@ class _CreateSubjectScreenState extends State<CreateSubjectScreen> {
             SizedBox(
               height: 50,
             ),
-            TextField(
-              onChanged: (value) {
-                topicTitle = value;
-              },
-              decoration: InputDecoration(
-                labelText: "Enter topic name",
-                hintText: "You need to input at least one topic",
-              ),
-            ),
-            SizedBox(
-              height: 50,
-            ),
             ElevatedButton(
               onPressed: () async {
-                await addSubjectAndTopic(subjectTitle, topicTitle);
+                await addSubjectName(subjectTitle);
+                return showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text('Success'),
+                      content: Text('Subject has been successfully added'),
+                      actions: <Widget>[
+                        TextButton(
+                          child: Text('Okay!'),
+                          onPressed: () {
+                            Navigator.pushNamed(context, SubjectScreen.id);
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
               },
-              child: Text('Add subject and topic'),
+              child: Text('Add subject'),
             ),
           ],
         ),

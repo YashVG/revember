@@ -1,9 +1,16 @@
 import 'package:revember_app/constants/user_constants.dart';
+import 'package:revember_app/constants/revision_constants.dart';
 
 Future addSubjectName(subjectTitle) async {
   final docRef = firestore
       .collection("revision_notes")
       .doc(username)
-      .collection(subjectTitle);
-  await docRef.add({});
+      .collection('subjects')
+      .doc();
+  await docRef.set(
+    {
+      "subject_name": subjectTitle,
+    },
+  );
+  // subjectList.add(subjectTitle);
 }

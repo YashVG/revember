@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:revember_app/constants/revision_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:revember_app/services/revision_services/get_subjects.dart';
 import 'create_subject.dart';
 
 class SubjectScreen extends StatefulWidget {
@@ -49,10 +51,11 @@ class _SubjectScreenState extends State<SubjectScreen> {
           crossAxisSpacing: size.width * 0.03,
           mainAxisSpacing: size.height * 0.05,
           children: [
-            Text('hello'),
-            Text('data'),
-            Text('work'),
-            Text('Work'),
+            ElevatedButton(
+              onPressed: null,
+              child: Text('Update subjects'),
+            ),
+            for (var i in subjectList) Text(i.toString())
           ],
         ),
       ),

@@ -6,5 +6,7 @@ Future addSubjectAndTopic(String subjectName, String? topicName) async {
       .doc(username)
       .collection(subjectName)
       .doc(topicName);
-  await docRef.set({});
+  await docRef.set({
+    "topic": topicName,
+  });
 }
