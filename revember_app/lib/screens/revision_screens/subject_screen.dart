@@ -4,6 +4,7 @@ import 'package:revember_app/constants/revision_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:revember_app/services/revision_services/get_subjects.dart';
 import 'create_subject.dart';
+import 'topic_screen.dart';
 
 class SubjectScreen extends StatefulWidget {
   static const String id = 'subject_screen';
@@ -55,7 +56,9 @@ class _SubjectScreenState extends State<SubjectScreen> {
           children: [
             for (var i in subjectList)
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, TopicScreen.id);
+                },
                 child: Text(
                   i.toString(),
                   style: TextStyle(fontSize: size.width * 0.04),

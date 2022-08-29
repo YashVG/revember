@@ -16,6 +16,7 @@ import 'screens/calendar_screens/add_testdate.dart';
 import 'screens/calendar_screens/calendar_screen.dart';
 import 'screens/revision_screens/subject_screen.dart';
 import 'screens/revision_screens/create_subject.dart';
+import 'screens/revision_screens/topic_screen.dart';
 
 import 'dart:io' show Platform;
 //Platform allows us to identify the current platform
@@ -46,6 +47,7 @@ class Revember extends StatelessWidget {
         CalendarScreen.id: (context) => CalendarScreen(),
         SubjectScreen.id: (context) => SubjectScreen(),
         CreateSubjectScreen.id: (context) => CreateSubjectScreen(),
+        TopicScreen.id: ((context) => TopicScreen()),
       },
     );
   }
