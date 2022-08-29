@@ -1,10 +1,13 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:revember_app/screens/calendar_screens/calendar_screen.dart';
 import 'package:revember_app/screens/initial_screens/welcome_screen.dart';
 import 'settings.dart';
 import 'package:revember_app/constants/user_constants.dart';
+import 'package:revember_app/constants/calendar_constants.dart';
 import 'package:revember_app/screens/calendar_screens/add_testdate.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class HomePage extends StatefulWidget {
   static const String id = 'home_page';
@@ -89,7 +92,12 @@ class _HomePageState extends State<HomePage> {
             children: [
               Column(
                 children: [
-                  Text('Calendar'),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, CalendarScreen.id);
+                      },
+                      child: Text('Calendar')),
+
                   ElevatedButton(
                     onPressed: () {
                       Navigator.pushNamed(context, AddTestDate.id);
@@ -101,7 +109,10 @@ class _HomePageState extends State<HomePage> {
               ),
               Column(
                 children: [
-                  Text('Revision'),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Text('Revision'),
+                  )
                 ],
               ),
             ],

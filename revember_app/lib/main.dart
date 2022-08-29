@@ -12,6 +12,7 @@ import 'screens/main_screens/home_page.dart';
 import 'screens/initial_screens/login_recovery.dart';
 import 'screens/main_screens/settings.dart';
 import 'screens/calendar_screens/add_testdate.dart';
+import 'screens/calendar_screens/calendar_screen.dart';
 
 import 'dart:io' show Platform;
 //Platform allows us to identify the current platform
@@ -38,7 +39,8 @@ class Revember extends StatelessWidget {
         LoginRecoveryScreen.id: (context) => LoginRecoveryScreen(),
         HomePage.id: (context) => HomePage(),
         SettingsScreen.id: (context) => SettingsScreen(),
-        AddTestDate.id: ((context) => AddTestDate())
+        AddTestDate.id: ((context) => AddTestDate()),
+        CalendarScreen.id: (context) => CalendarScreen(),
       },
     );
   }
