@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:revember_app/constants/revision_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:revember_app/services/revision_services/get_subjects.dart';
+import 'package:revember_app/services/revision_services/get_topics.dart';
 import 'create_subject.dart';
 import 'topic_screen.dart';
 
@@ -56,7 +57,9 @@ class _SubjectScreenState extends State<SubjectScreen> {
           children: [
             for (var i in subjectList)
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
+                  currentSubject = i.toString();
+                  await getTopics();
                   Navigator.pushNamed(context, TopicScreen.id);
                 },
                 child: Text(

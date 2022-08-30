@@ -1,12 +1,15 @@
 import 'package:revember_app/constants/user_constants.dart';
+import 'package:revember_app/constants/revision_constants.dart';
 
-Future addSubjectAndTopic(String subjectName, String? topicName) async {
+Future addTopic(String topicName) async {
   final docRef = firestore
       .collection("revision_notes")
       .doc(username)
-      .collection(subjectName)
-      .doc(topicName);
-  await docRef.set({
-    "topic": topicName,
-  });
+      .collection("subjects");
+
+  docRef.doc(currentSubject).collection('notes').doc(topicName).set(
+    {
+      "topic_name": topicName,
+    },
+  );
 }

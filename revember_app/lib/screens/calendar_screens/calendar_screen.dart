@@ -18,10 +18,14 @@ class _CalendarScreenState extends State<CalendarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blueGrey,
+        title: Text('Calendar'),
+      ),
       body: Container(
           child: SingleChildScrollView(
         child: TableCalendar(
-          rowHeight: 20,
+          rowHeight: 80,
           focusedDay: DateTime.now(),
           firstDay: DateTime(now.year),
           lastDay: DateTime.utc(2030, 3, 14),

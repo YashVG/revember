@@ -6,7 +6,7 @@ Future addSubjectName(subjectTitle) async {
       .collection("revision_notes")
       .doc(username)
       .collection('subjects')
-      .doc();
+      .doc(subjectTitle);
   await docRef.set(
     {
       "subject_name": subjectTitle,

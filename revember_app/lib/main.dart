@@ -17,6 +17,10 @@ import 'screens/calendar_screens/calendar_screen.dart';
 import 'screens/revision_screens/subject_screen.dart';
 import 'screens/revision_screens/create_subject.dart';
 import 'screens/revision_screens/topic_screen.dart';
+import 'screens/revision_screens/create_topic.dart';
+import 'screens/revision_screens/notes_screen.dart';
+import 'screens/revision_screens/writing_screens/write_notes.dart';
+import 'screens/revision_screens/writing_screens/guide.dart';
 
 import 'dart:io' show Platform;
 //Platform allows us to identify the current platform
@@ -43,11 +47,15 @@ class Revember extends StatelessWidget {
         LoginRecoveryScreen.id: (context) => LoginRecoveryScreen(),
         HomePage.id: (context) => HomePage(),
         SettingsScreen.id: (context) => SettingsScreen(),
-        AddTestDate.id: ((context) => AddTestDate()),
+        AddTestDate.id: (context) => AddTestDate(),
         CalendarScreen.id: (context) => CalendarScreen(),
         SubjectScreen.id: (context) => SubjectScreen(),
         CreateSubjectScreen.id: (context) => CreateSubjectScreen(),
-        TopicScreen.id: ((context) => TopicScreen()),
+        TopicScreen.id: (context) => TopicScreen(),
+        CreateTopicScreen.id: (context) => CreateTopicScreen(),
+        NotesScreen.id: (context) => NotesScreen(),
+        WriteNotesScreen.id: (context) => WriteNotesScreen(),
+        NotesGuides.id: (context) => NotesGuides(),
       },
     );
   }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class RevisionTemplate extends StatefulWidget {
-  List<String> subject_titles;
+  List<String> subjectTitles;
 
-  RevisionTemplate({required this.subject_titles});
+  RevisionTemplate({Key? key, required this.subjectTitles}) : super(key: key);
 
   @override
   State<RevisionTemplate> createState() => _RevisionTemplateState();

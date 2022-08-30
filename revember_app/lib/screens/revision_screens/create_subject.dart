@@ -19,7 +19,7 @@ class CreateSubjectScreen extends StatefulWidget {
 
 class _CreateSubjectScreenState extends State<CreateSubjectScreen> {
   late String subjectTitle;
-  late String topicTitle = 'Topic 1';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,6 +45,7 @@ class _CreateSubjectScreenState extends State<CreateSubjectScreen> {
             ElevatedButton(
               onPressed: () async {
                 await addSubjectName(subjectTitle);
+                await getSubjects();
                 return showDialog(
                   context: context,
                   builder: (context) {
@@ -55,8 +56,7 @@ class _CreateSubjectScreenState extends State<CreateSubjectScreen> {
                         TextButton(
                           child: Text('Okay!'),
                           onPressed: () async {
-                            await getSubjects();
-                            Navigator.pushNamed(context, SubjectScreen.id);
+                            Navigator.pop(context);
                           },
                         ),
                       ],

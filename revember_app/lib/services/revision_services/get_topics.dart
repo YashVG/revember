@@ -1,22 +1,24 @@
 import 'package:revember_app/constants/revision_constants.dart';
 import 'package:revember_app/constants/user_constants.dart';
+import 'package:revember_app/screens/revision_screens/topic_screen.dart';
 
-Future getSubjects() async {
-  subjectList = [];
+Future getTopics() async {
+  topicList = [];
   int counter = 0;
   final docRef = firestore
       .collection("revision_notes")
       .doc(username)
       .collection('subjects')
-      .where("subject_name");
+      .doc(currentSubject)
+      .collection('notes')
+      .where('topic_name');
   var query = await docRef.get();
   if (query.docs.isNotEmpty) {
     for (var i in query.docs) {
-      print(query.docs[counter].data()['subject_name']);
-      if (subjectList.contains(i.toString()) == true) {
+      if (topicList.contains(i.toString()) == true) {
         continue;
       }
-      subjectList.add(query.docs[counter].data()['subject_name']);
+      topicList.add(query.docs[counter].data()['topic_name']);
       counter += 1;
     }
   }

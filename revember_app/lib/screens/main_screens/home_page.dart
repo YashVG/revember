@@ -96,10 +96,14 @@ class _HomePageState extends State<HomePage> {
               Column(
                 children: [
                   ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, CalendarScreen.id);
-                      },
-                      child: Text('Calendar')),
+                    onPressed: () {
+                      Navigator.pushNamed(context, CalendarScreen.id);
+                    },
+                    child: Text('Calendar'),
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
 
                   ElevatedButton(
                     onPressed: () {
