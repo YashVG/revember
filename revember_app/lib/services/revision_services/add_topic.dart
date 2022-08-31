@@ -10,6 +10,7 @@ Future addTopic(String topicName) async {
   docRef.doc(currentSubject).collection('notes').doc(topicName).set(
     {
       "topic_name": topicName,
+      "notes": "",
     },
   );
 }

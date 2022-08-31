@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last
 
 import 'package:flutter/material.dart';
+import 'package:revember_app/services/revision_services/upload_notes.dart';
 
 class WriteNotesScreen extends StatefulWidget {
   const WriteNotesScreen({Key? key}) : super(key: key);
@@ -11,6 +12,9 @@ class WriteNotesScreen extends StatefulWidget {
 }
 
 class _WriteNotesScreenState extends State<WriteNotesScreen> {
+  bool _enabled = true;
+  bool _enabled2 = true;
+  String notes = '';
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -36,7 +40,8 @@ class _WriteNotesScreenState extends State<WriteNotesScreen> {
                   Column(
                     children: [
                       SizedBox(
-                        child: TextField(
+                        child: TextFormField(
+                          readOnly: !_enabled,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10)),
@@ -49,15 +54,26 @@ class _WriteNotesScreenState extends State<WriteNotesScreen> {
                       ),
                       SizedBox(height: size.height * 0.05),
                       ElevatedButton(
-                        onPressed: null,
-                        child: Text('Click if notes completed'),
+                        style: ElevatedButton.styleFrom(
+                            primary: _enabled ? Colors.blue : Colors.grey),
+                        onPressed: () {
+                          _enabled = !_enabled;
+                          setState(() {});
+                        },
+                        child: _enabled
+                            ? Text("Click if notes completed")
+                            : Text("Click if notes incomplete"),
                       )
                     ],
                   ),
                   Column(
                     children: [
                       SizedBox(
-                        child: TextField(
+                        child: TextFormField(
+                          onChanged: (value) {
+                            notes = value;
+                          },
+                          readOnly: !_enabled2,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10)),
@@ -70,12 +86,51 @@ class _WriteNotesScreenState extends State<WriteNotesScreen> {
                       ),
                       SizedBox(height: size.height * 0.05),
                       ElevatedButton(
-                        onPressed: null,
-                        child: Text('Click to analyze notes'),
+                        style: ElevatedButton.styleFrom(
+                            primary: _enabled2 ? Colors.blue : Colors.grey),
+                        onPressed: () {
+                          _enabled2 = !_enabled2;
+                          setState(() {});
+                        },
+                        child: _enabled2
+                            ? Text("Click if concise notes completed")
+                            : Text("Click if concise notes incomplete"),
                       ),
                     ],
                   )
                 ],
+              ),
+              SizedBox(
+                height: size.height * 0.1,
+              ),
+              ElevatedButton(
+                onPressed: _enabled || _enabled2
+                    ? null
+                    : () async {
+                        await uploadNotes(notes);
+                        return showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text('Success!'),
+                              content:
+                                  Text('Notes have been added successfully'),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: Text('Okay!'),
+                                  onPressed: () async {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                child: Text('Save and upload notes'),
+              ),
+              SizedBox(
+                height: size.height * 0.1,
               ),
             ],
           ),
