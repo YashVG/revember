@@ -1,4 +1,7 @@
+// ignore_for_file: use_build_context_synchronously, prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:revember_app/services/revision_services/get_topichash.dart';
 import 'create_topic.dart';
 import 'package:revember_app/constants/revision_constants.dart';
 import 'notes_screen.dart';
@@ -54,8 +57,10 @@ class _TopicScreenState extends State<TopicScreen> {
           children: [
             for (var i in topicList)
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   currentTopic = i.toString();
+                  currentTopicHash = await getTopicHash(currentTopic);
+
                   Navigator.pushNamed(context, NotesScreen.id);
                 },
                 child: Text(

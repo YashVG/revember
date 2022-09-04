@@ -1,13 +1,12 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:revember_app/components/back_button.dart';
+import 'package:revember_app/screens/revision_screens/question_screens/create_questions.dart';
 import 'package:revember_app/screens/revision_screens/writing_screens/write_notes.dart';
 
-class NotesGuides extends StatelessWidget {
-  static const String id = 'guide_screen';
+class QuestionGuide extends StatelessWidget {
+  static const String id = 'question_guide';
 
-  const NotesGuides({Key? key}) : super(key: key);
+  const QuestionGuide({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,28 +23,28 @@ class NotesGuides extends StatelessWidget {
             SizedBox(height: size.height * 0.11),
             Center(
               child: Text(
-                'Guide for writing notes',
+                'Guide for creating questions',
                 style: TextStyle(fontSize: 36),
               ),
             ),
             SizedBox(height: size.height * 0.1),
             Center(
               child: Text(
-                'Step 1. Write down your notes as you normally would',
+                'Step 1. Create fill-in-the-blank questions',
                 style: TextStyle(fontSize: 21),
               ),
             ),
             SizedBox(height: size.height * 0.075),
             Center(
               child: Text(
-                'Step 2. Look through your notes and see how you can make them more concise.',
+                'Step 2. Look for a key fact, name or figure that you have trouble remembering',
                 style: TextStyle(fontSize: 21),
               ),
             ),
             SizedBox(height: size.height * 0.075),
             Center(
               child: Text(
-                  'Step 3. Once you have written your preliminary notes, enter your new more concise notes into the section provided.',
+                  'Step 3. Once done, add that as one of your answer options, and create three other similar answer options that are incorrect',
                   style: TextStyle(
                     fontSize: 21,
                   )),
@@ -55,10 +54,11 @@ class NotesGuides extends StatelessWidget {
             ),
             Center(
               child: Text(
-                  "Step 4. Use the hypen (-) to split separate points or sentences.",
-                  style: TextStyle(
-                    fontSize: 21,
-                  )),
+                "Step 4. From the question, replace the word with underscores (____)",
+                style: TextStyle(
+                  fontSize: 21,
+                ),
+              ),
             ),
             SizedBox(height: size.height * 0.05),
             Center(
@@ -70,7 +70,7 @@ class NotesGuides extends StatelessWidget {
                     elevation: 3, //elevation of button
                     padding: EdgeInsets.all(20)),
                 onPressed: () {
-                  Navigator.pushNamed(context, WriteNotesScreen.id);
+                  Navigator.pushNamed(context, CreateQuestionScreen.id);
                 },
                 child: Text('Proceed'),
               ),

@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:revember_app/firebase_options.dart';
 import 'package:revember_app/screens/initial_screens/login_recovery.dart';
 import 'package:revember_app/screens/initial_screens/signup_screen2.dart';
+import 'package:revember_app/screens/revision_screens/question_screens/create_questions.dart';
 import 'screens/initial_screens/welcome_screen.dart';
 import 'screens/initial_screens/login_screen.dart';
 import 'screens/initial_screens/signup_screen.dart';
@@ -20,7 +21,9 @@ import 'screens/revision_screens/topic_screen.dart';
 import 'screens/revision_screens/create_topic.dart';
 import 'screens/revision_screens/notes_screen.dart';
 import 'screens/revision_screens/writing_screens/write_notes.dart';
-import 'screens/revision_screens/writing_screens/guide.dart';
+import 'screens/revision_screens/writing_screens/writing_guide.dart';
+import 'package:revember_app/screens/revision_screens/question_screens/main_question_screen.dart';
+import 'package:revember_app/screens/revision_screens/question_screens/question_guide.dart';
 
 import 'dart:io' show Platform;
 //Platform allows us to identify the current platform
@@ -55,7 +58,9 @@ class Revember extends StatelessWidget {
         CreateTopicScreen.id: (context) => CreateTopicScreen(),
         NotesScreen.id: (context) => NotesScreen(),
         WriteNotesScreen.id: (context) => WriteNotesScreen(),
-        NotesGuides.id: (context) => NotesGuides(),
+        QuestionGuide.id: (context) => QuestionGuide(),
+        MainQuestionScreen.id: (context) => MainQuestionScreen(),
+        CreateQuestionScreen.id: (context) => CreateQuestionScreen(),
       },
     );
   }

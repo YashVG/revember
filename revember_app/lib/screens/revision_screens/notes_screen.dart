@@ -2,11 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:revember_app/constants/revision_constants.dart';
-import 'package:revember_app/screens/revision_screens/writing_screens/guide.dart';
+import 'package:revember_app/screens/revision_screens/writing_screens/writing_guide.dart';
 import 'writing_screens/write_notes.dart';
 import 'dart:io' show Platform;
 
 import 'package:revember_app/screens/revision_screens/writing_screens/write_notes.dart';
+import 'package:revember_app/screens/revision_screens/question_screens/main_question_screen.dart';
 
 class NotesScreen extends StatefulWidget {
   const NotesScreen({Key? key}) : super(key: key);
@@ -48,10 +49,15 @@ class _NotesScreenState extends State<NotesScreen> {
                   if (Platform.isMacOS || Platform.isWindows)
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, NotesGuides.id);
+                        Navigator.pushNamed(context, NotesGuidesScreen.id);
                       },
                       child: Text('Write notes'),
                     ),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, MainQuestionScreen.id);
+                      },
+                      child: Text('Questions'))
                 ],
               ),
               SizedBox(
