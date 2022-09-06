@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:revember_app/constants/revision_constants.dart';
+import 'package:revember_app/screens/quiz_screens/quiz_screen.dart';
 import 'create_questions.dart';
 import 'question_guide.dart';
+import 'package:revember_app/services/revision_services/get_questions.dart';
 
 class MainQuestionScreen extends StatefulWidget {
   const MainQuestionScreen({Key? key}) : super(key: key);
@@ -30,7 +33,7 @@ class _MainQuestionScreenState extends State<MainQuestionScreen> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, QuestionGuide.id);
+                    Navigator.pushNamed(context, CreateQuestionScreen.id);
                   },
                   child: Icon(
                     Icons.add,
@@ -48,7 +51,9 @@ class _MainQuestionScreenState extends State<MainQuestionScreen> {
             SizedBox(height: size.height * 0.1),
             Expanded(
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await getQuestionsAndAnswers(currentTopicHash);
+                },
                 child: Text(
                   'Easy',
                   style: TextStyle(fontSize: size.height * 0.05),
@@ -60,7 +65,9 @@ class _MainQuestionScreenState extends State<MainQuestionScreen> {
             ),
             Expanded(
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, TestQuizScreen.id);
+                },
                 child: Text('Medium',
                     style: TextStyle(fontSize: size.height * 0.05)),
               ),

@@ -1,6 +1,7 @@
 // ignore_for_file: sort_child_properties_last, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:revember_app/services/revision_services/add_user_question.dart';
 
 class CreateQuestionScreen extends StatefulWidget {
   const CreateQuestionScreen({Key? key}) : super(key: key);
@@ -148,7 +149,31 @@ class _CreateQuestionScreenState extends State<CreateQuestionScreen> {
                 height: size.height * 0.05,
               ),
               ElevatedButton(
-                onPressed: () async {},
+                onPressed: () async {
+                  await addUserMadeQuestion(
+                      _question, _answer1, _answer2, _answer3, _answer4);
+
+                  return showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text('Success!'),
+                        content: Text('Question added successfully!'),
+                        actions: <Widget>[
+                          TextButton(
+                            child: Text('Okay'),
+                            onPressed: () {
+                              int count = 0;
+                              Navigator.popUntil(context, (route) {
+                                return count++ == 2;
+                              });
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
                 child: Text('Create question'),
               )
             ],

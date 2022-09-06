@@ -24,6 +24,7 @@ import 'screens/revision_screens/writing_screens/write_notes.dart';
 import 'screens/revision_screens/writing_screens/writing_guide.dart';
 import 'package:revember_app/screens/revision_screens/question_screens/main_question_screen.dart';
 import 'package:revember_app/screens/revision_screens/question_screens/question_guide.dart';
+import 'package:revember_app/screens/quiz_screens/quiz_screen.dart';
 
 import 'dart:io' show Platform;
 //Platform allows us to identify the current platform
@@ -57,10 +58,12 @@ class Revember extends StatelessWidget {
         TopicScreen.id: (context) => TopicScreen(),
         CreateTopicScreen.id: (context) => CreateTopicScreen(),
         NotesScreen.id: (context) => NotesScreen(),
+        NotesGuidesScreen.id: (context) => NotesGuidesScreen(),
         WriteNotesScreen.id: (context) => WriteNotesScreen(),
         QuestionGuide.id: (context) => QuestionGuide(),
         MainQuestionScreen.id: (context) => MainQuestionScreen(),
         CreateQuestionScreen.id: (context) => CreateQuestionScreen(),
+        TestQuizScreen.id: (context) => TestQuizScreen(),
       },
     );
   }
