@@ -19,7 +19,8 @@ Future addUserMadeQuestion(
       .doc(timestamp)
       .withConverter(
         fromFirestore: UserQuestion.fromFirestore,
-        toFirestore: (UserQuestion city, options) => city.toFirestore(),
+        toFirestore: (UserQuestion questionQuery, options) =>
+            questionQuery.toFirestore(),
       );
   firestore
       .collection('user_made_questions')

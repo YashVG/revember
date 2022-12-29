@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:revember_app/constants/revision_constants.dart';
 import 'package:revember_app/screens/quiz_screens/quiz_screen.dart';
+import 'package:revember_app/test/test_screen.dart';
 import 'create_questions.dart';
 import 'question_guide.dart';
+import 'package:revember_app/test/test_query.dart';
 import 'package:revember_app/services/revision_services/get_questions.dart';
 
 class MainQuestionScreen extends StatefulWidget {
@@ -41,7 +43,12 @@ class _MainQuestionScreenState extends State<MainQuestionScreen> {
                 ),
                 Text('⬅️ Choose to add your own questions, or delete them ➡️'),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    await addUserMadeQuestion1();
+                    await addUserMadeQuestion2();
+                    await addUserMadeQuestion3();
+                    await addUserMadeQuestion4();
+                  },
                   child: Icon(
                     Icons.delete,
                   ),
@@ -53,6 +60,7 @@ class _MainQuestionScreenState extends State<MainQuestionScreen> {
               child: ElevatedButton(
                 onPressed: () async {
                   await getQuestionsAndAnswers(currentTopicHash);
+                  Navigator.pushNamed(context, TestQuizScreen.id);
                 },
                 child: Text(
                   'Easy',
@@ -66,7 +74,7 @@ class _MainQuestionScreenState extends State<MainQuestionScreen> {
             Expanded(
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, TestQuizScreen.id);
+                  Navigator.pushNamed(context, TestScreen.id);
                 },
                 child: Text('Medium',
                     style: TextStyle(fontSize: size.height * 0.05)),
@@ -77,8 +85,22 @@ class _MainQuestionScreenState extends State<MainQuestionScreen> {
             ),
             Expanded(
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, TestScreen.id);
+                },
                 child: Text('Hard',
+                    style: TextStyle(fontSize: size.height * 0.05)),
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.05,
+            ),
+            Expanded(
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, TestScreen.id);
+                },
+                child: Text('Auto-Generated',
                     style: TextStyle(fontSize: size.height * 0.05)),
               ),
             ),

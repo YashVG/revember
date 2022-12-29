@@ -19,9 +19,6 @@ class _AddTestDateState extends State<AddTestDate> {
   final TextEditingController _dateInput = TextEditingController();
   CalendarFormat _calendarFormat = CalendarFormat.month;
 
-  late int revisionIntervals = 14;
-  late Duration daysBeforeTest = Duration(days: 18);
-
   @override
   void initState() {
     _dateInput.text = "";
@@ -68,6 +65,7 @@ class _AddTestDateState extends State<AddTestDate> {
                           //set output date to TextField value.
                         },
                       );
+                      daysBeforeTest = getDaysBeforeTest(pickedDate);
                     }
                   },
                 ),
@@ -80,37 +78,45 @@ class _AddTestDateState extends State<AddTestDate> {
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly
                   ],
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    if (int.tryParse(value) != null) {
+                      revisionIntervals = int.parse(value);
+                    }
+                  },
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    print(createRevisionSchedule(
-                        revisionIntervals, daysBeforeTest));
+                    revisionScheduleInInt = createRevisionSchedule(
+                        revisionIntervals, daysBeforeTest);
+                    print(revisionScheduleInInt);
                   },
                   child: Text('Create schedule'),
                 ),
                 ClipRect(
                   clipBehavior: Clip.hardEdge,
                   child: TableCalendar(
-                      calendarFormat: _calendarFormat,
-                      onFormatChanged: (format) {
-                        if (_calendarFormat != format) {
-                          setState(() {
+                    calendarFormat: _calendarFormat,
+                    onFormatChanged: (format) {
+                      if (_calendarFormat != format) {
+                        setState(
+                          () {
                             _calendarFormat = format;
-                          });
-                        }
-                      },
-                      availableCalendarFormats: {
-                        CalendarFormat.month: 'week',
-                        CalendarFormat.week: 'month'
-                      },
-                      rowHeight: 50,
-                      focusedDay: DateTime.now(),
-                      firstDay: DateTime(now.month),
-                      lastDay: DateTime.utc(2030, 3, 14)),
+                          },
+                        );
+                      }
+                    },
+                    availableCalendarFormats: {
+                      CalendarFormat.month: 'week',
+                      CalendarFormat.week: 'month'
+                    },
+                    rowHeight: 50,
+                    focusedDay: DateTime.now(),
+                    firstDay: DateTime(now.month),
+                    lastDay: DateTime.utc(2030, 3, 14),
+                  ),
                 ),
               ],
             ),

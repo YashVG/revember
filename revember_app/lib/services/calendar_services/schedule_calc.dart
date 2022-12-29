@@ -2,12 +2,17 @@ import 'dart:math';
 
 final _random = Random();
 
+double roundDouble(double value, int places) {
+  num mod = pow(10.0, places);
+  return ((value * mod).round().toDouble() / mod);
+}
+
 Duration getDaysBeforeTest(DateTime testDate) {
   DateTime now = DateTime.now(); //gets current time
   DateTime date = DateTime(
       now.year, now.month, now.day); //filters out seconds and milliseconds
   Duration daysBeforeTest = testDate.difference(date);
-  print(daysBeforeTest); //gets difference between two days
+  //gets difference between two days
   return daysBeforeTest;
 }
 
@@ -37,11 +42,20 @@ List createRevisionSchedule(int sessions, Duration differenceInDays) {
   for (int i = 0; i != counter; i++) {
     num max = daysToRevise.last;
     num min = daysToRevise[daysToRevise.length - 2];
-    int result = (max - min).toInt();
+    int result = (max).toInt();
     num value2 = _random.nextInt(result) + min;
     daysToRevise.add(value2);
-    daysToRevise.sort();
   }
   daysToRevise.sort();
+
+  //scale factor for squeezing test dates within given time range
+  num maxDate = daysToRevise.last;
+  num scaleFactor = maxDate / daysBeforeTest;
+
+  for (int i = 0; i != daysToRevise.length; i++) {
+    daysToRevise[i] = daysToRevise[i] / scaleFactor;
+    daysToRevise[i] = roundDouble(daysToRevise[i], 2);
+  }
+
   return daysToRevise;
 }
