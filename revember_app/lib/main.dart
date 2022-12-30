@@ -40,53 +40,34 @@ void main() async {
 class Revember extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<ThemeModel>(
-      create: (_) => ThemeModel(),
-      child: Consumer<ThemeModel>(
-        builder: (_, model, __) {
-          return MaterialApp(
-            theme: ThemeData.light(),
-            darkTheme: ThemeData.dark(),
-            useInheritedMediaQuery: false,
-            debugShowCheckedModeBanner: false,
-            initialRoute: WelcomeScreen.id,
-            routes: {
-              WelcomeScreen.id: (context) => WelcomeScreen(),
-              LoginScreen.id: (context) => LoginScreen(),
-              SignUpScreen.id: (context) => SignUpScreen(),
-              SignUpScreen2.id: (context) => SignUpScreen2(),
-              LoginRecoveryScreen.id: (context) => LoginRecoveryScreen(),
-              HomePage.id: (context) => HomePage(),
-              SettingsScreen.id: (context) => SettingsScreen(),
-              AddTestDate.id: (context) => AddTestDate(),
-              CalendarScreen.id: (context) => CalendarScreen(),
-              SubjectScreen.id: (context) => SubjectScreen(),
-              CreateSubjectScreen.id: (context) => CreateSubjectScreen(),
-              TopicScreen.id: (context) => TopicScreen(),
-              CreateTopicScreen.id: (context) => CreateTopicScreen(),
-              NotesScreen.id: (context) => NotesScreen(),
-              NotesGuidesScreen.id: (context) => NotesGuidesScreen(),
-              WriteNotesScreen.id: (context) => WriteNotesScreen(),
-              QuestionGuide.id: (context) => QuestionGuide(),
-              MainQuestionScreen.id: (context) => MainQuestionScreen(),
-              CreateQuestionScreen.id: (context) => CreateQuestionScreen(),
-              TestQuizScreen.id: (context) => TestQuizScreen(),
-              TestScreen.id: (context) => TestScreen(),
-            },
-          );
-        },
-      ),
+    return MaterialApp(
+      theme: ThemeData.dark(),
+      useInheritedMediaQuery: false,
+      debugShowCheckedModeBanner: false,
+      initialRoute: WelcomeScreen.id,
+      routes: {
+        WelcomeScreen.id: (context) => WelcomeScreen(),
+        LoginScreen.id: (context) => LoginScreen(),
+        SignUpScreen.id: (context) => SignUpScreen(),
+        SignUpScreen2.id: (context) => SignUpScreen2(),
+        LoginRecoveryScreen.id: (context) => LoginRecoveryScreen(),
+        HomePage.id: (context) => HomePage(),
+        SettingsScreen.id: (context) => SettingsScreen(),
+        AddTestDate.id: (context) => AddTestDate(),
+        CalendarScreen.id: (context) => CalendarScreen(),
+        SubjectScreen.id: (context) => SubjectScreen(),
+        CreateSubjectScreen.id: (context) => CreateSubjectScreen(),
+        TopicScreen.id: (context) => TopicScreen(),
+        CreateTopicScreen.id: (context) => CreateTopicScreen(),
+        NotesScreen.id: (context) => NotesScreen(),
+        NotesGuidesScreen.id: (context) => NotesGuidesScreen(),
+        WriteNotesScreen.id: (context) => WriteNotesScreen(),
+        QuestionGuide.id: (context) => QuestionGuide(),
+        MainQuestionScreen.id: (context) => MainQuestionScreen(),
+        CreateQuestionScreen.id: (context) => CreateQuestionScreen(),
+        TestQuizScreen.id: (context) => TestQuizScreen(),
+        TestScreen.id: (context) => TestScreen(),
+      },
     );
-  }
-}
-
-class ThemeModel with ChangeNotifier {
-  ThemeMode _mode;
-  ThemeMode get mode => _mode;
-  ThemeModel({ThemeMode mode = ThemeMode.light}) : _mode = mode;
-
-  void toggleMode() {
-    _mode = _mode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
-    notifyListeners();
   }
 }
