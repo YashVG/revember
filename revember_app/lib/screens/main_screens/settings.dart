@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:revember_app/components/back_button.dart';
+import 'package:revember_app/preferences/themes.dart';
 
 class SettingsScreen extends StatefulWidget {
   static const String id = 'settings_page';
@@ -15,20 +16,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
   final List<bool> isSelected;
 
   _SettingsScreenState(this.isSelected);
+
   @override
   Widget build(BuildContext context) {
-    // Color getColor(Set<MaterialState> states) {
-    //   const Set<MaterialState> interactiveStates = <MaterialState>{
-    //     MaterialState.pressed,
-    //     MaterialState.hovered,
-    //     MaterialState.focused,
-    //   };
-    //   if (states.any(interactiveStates.contains)) {
-    //     return Colors.grey;
-    //   }
-    //   return Colors.red;
-    // }
-
     return Scaffold(
       floatingActionButton: GoBackButton(),
       body: Center(
@@ -42,27 +32,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
             SizedBox(
               height: 60,
             ),
-            //TODO: Implement light, dark mode functionality
-            //TODO: Refactor this later
-            ToggleButtons(
-              onPressed: (int index) {
-                setState(() {
-                  for (int buttonIndex = 0;
-                      buttonIndex < isSelected.length;
-                      buttonIndex++) {
-                    if (buttonIndex == index) {
-                      isSelected[buttonIndex] = true;
-                    } else {
-                      isSelected[buttonIndex] = false;
-                    }
-                  }
-                });
+            ElevatedButton(
+              onPressed: () {
+                isDark = isDark == true ? false : true;
               },
-              isSelected: isSelected,
-              children: const <Widget>[
-                Text('Light'),
-                Text('Dark'),
-              ],
+              child: Text('Change light/dark mode'),
             ),
             SizedBox(
               height: 35,
@@ -100,7 +74,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               height: 35,
             ),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(primary: Colors.white70),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.white70),
               onPressed: () {},
               child: Text(
                 'Erase all data',
@@ -111,7 +85,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               height: 15,
             ),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(primary: Colors.white70),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.white70),
               onPressed: () {},
               child: Text(
                 'Delete account',

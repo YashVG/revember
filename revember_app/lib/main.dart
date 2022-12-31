@@ -26,6 +26,7 @@ import 'package:revember_app/screens/revision_screens/question_screens/main_ques
 import 'package:revember_app/screens/revision_screens/question_screens/question_guide.dart';
 import 'package:revember_app/screens/quiz_screens/quiz_screen.dart';
 import 'package:revember_app/test/test_screen.dart';
+import 'package:revember_app/preferences/themes.dart';
 
 import 'dart:io' show Platform;
 //Platform allows us to identify the current platform
@@ -37,11 +38,18 @@ void main() async {
 }
 //runApp executes the widget tree and renders the app to the screen, once the Firebase app is initialized
 
-class Revember extends StatelessWidget {
+class Revember extends StatefulWidget {
+  @override
+  State<Revember> createState() => _RevemberState();
+}
+
+class _RevemberState extends State<Revember> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark(),
+      theme: isDark == true ? ThemeData.dark() : ThemeData.light(),
+      //ternary op to change mode depending on button change in settings page
+      //TODO: Find way to update state of app through widget tree, because only hot reload is working
       useInheritedMediaQuery: false,
       debugShowCheckedModeBanner: false,
       initialRoute: WelcomeScreen.id,
