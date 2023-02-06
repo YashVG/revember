@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'login_screen.dart';
 import 'package:revember_app/services/user_services/user_creation.dart';
 import 'package:revember_app/components/back_button.dart';
+import 'package:revember_app/services/user_services/password_checker.dart';
 
 class SignUpScreen2 extends StatefulWidget {
   static const String id = 'signup2_screen';
@@ -55,19 +56,17 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
               ElevatedButton(
                 child: Text('Create account'),
                 onPressed: () {
-                  if (password == inputtedPassword) {
-                    createUser(username, email, password);
-                    Navigator.pushNamed(context, LoginScreen.id);
-                  } else {
+                  if (verifyPassword(password) == false) {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
                           title: Text(
-                            'Passwords do not match!',
+                            'Change password!',
                             style: TextStyle(color: Colors.red),
                           ),
-                          content: Text('Please try again'),
+                          content: Text(
+                              'Ensure password has at least one uppercase, lowercase letter, number and special character'),
                           actions: <Widget>[
                             TextButton(
                               child: Text('Okay'),
@@ -79,6 +78,32 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                         );
                       },
                     );
+                  } else {
+                    if (password == inputtedPassword) {
+                      createUser(username, email, password);
+                      Navigator.pushNamed(context, LoginScreen.id);
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text(
+                              'Passwords do not match!',
+                              style: TextStyle(color: Colors.red),
+                            ),
+                            content: Text('Please try again'),
+                            actions: <Widget>[
+                              TextButton(
+                                child: Text('Okay'),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              )
+                            ],
+                          );
+                        },
+                      );
+                    }
                   }
                 },
               ),
