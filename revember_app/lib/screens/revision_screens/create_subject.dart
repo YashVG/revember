@@ -44,8 +44,9 @@ class _CreateSubjectScreenState extends State<CreateSubjectScreen> {
             ),
             ElevatedButton(
               onPressed: () async {
-                await addSubjectName(subjectTitle);
+                await addSubjectName(subjectTitle, username);
                 await getSubjects();
+
                 return showDialog(
                   context: context,
                   builder: (context) {
@@ -57,6 +58,7 @@ class _CreateSubjectScreenState extends State<CreateSubjectScreen> {
                           child: Text('Okay!'),
                           onPressed: () async {
                             Navigator.pop(context);
+                            setState(() {});
                           },
                         ),
                       ],

@@ -17,22 +17,22 @@ class _CreateTopicScreenState extends State<CreateTopicScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add topic'),
+        title: const Text('Add topic'),
         backgroundColor: Colors.blueGrey,
       ),
       body: Padding(
-        padding: EdgeInsets.all(45), //change
+        padding: const EdgeInsets.all(45), //change
         child: Column(
           children: [
             TextField(
               onChanged: (value) {
                 topicTitle = value;
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "Enter topic name",
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             ElevatedButton(
@@ -42,11 +42,11 @@ class _CreateTopicScreenState extends State<CreateTopicScreen> {
                   context: context,
                   builder: (context) {
                     return AlertDialog(
-                      title: Text('Success!'),
-                      content: Text('Top has been successfully added'),
+                      title: const Text('Success!'),
+                      content: const Text('Top has been successfully added'),
                       actions: <Widget>[
                         TextButton(
-                          child: Text('Okay!'),
+                          child: const Text('Okay!'),
                           onPressed: () async {
                             Navigator.pop(context);
                           },
@@ -56,7 +56,7 @@ class _CreateTopicScreenState extends State<CreateTopicScreen> {
                   },
                 );
               },
-              child: Text('Add topic'),
+              child: const Text('Add topic'),
             ),
           ],
         ),

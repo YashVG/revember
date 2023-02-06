@@ -15,11 +15,11 @@ class _CreateQuestionScreenState extends State<CreateQuestionScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    String _question = '';
-    String _answer1 = '';
-    String _answer2 = '';
-    String _answer3 = '';
-    String _answer4 = '';
+    String question = '';
+    String answer1 = '';
+    String answer2 = '';
+    String answer3 = '';
+    String answer4 = '';
 
     return Scaffold(
       appBar: AppBar(
@@ -53,7 +53,7 @@ class _CreateQuestionScreenState extends State<CreateQuestionScreen> {
               SizedBox(
                 child: TextFormField(
                   onChanged: (value) {
-                    _answer1 = value;
+                    answer1 = value;
                   },
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -79,7 +79,7 @@ class _CreateQuestionScreenState extends State<CreateQuestionScreen> {
                   SizedBox(
                     child: TextFormField(
                       onChanged: (value) {
-                        _answer2 = value;
+                        answer2 = value;
                       },
                       decoration: InputDecoration(
                           border: OutlineInputBorder(
@@ -96,7 +96,7 @@ class _CreateQuestionScreenState extends State<CreateQuestionScreen> {
                   SizedBox(
                     child: TextFormField(
                       onChanged: (value) {
-                        _answer3 = value;
+                        answer3 = value;
                       },
                       decoration: InputDecoration(
                           border: OutlineInputBorder(
@@ -113,7 +113,7 @@ class _CreateQuestionScreenState extends State<CreateQuestionScreen> {
                   SizedBox(
                     child: TextFormField(
                       onChanged: (value) {
-                        _answer4 = value;
+                        answer4 = value;
                       },
                       decoration: InputDecoration(
                           border: OutlineInputBorder(
@@ -132,7 +132,7 @@ class _CreateQuestionScreenState extends State<CreateQuestionScreen> {
               SizedBox(
                 child: TextFormField(
                   onChanged: (value) {
-                    _question = value;
+                    question = value;
                   },
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -151,7 +151,7 @@ class _CreateQuestionScreenState extends State<CreateQuestionScreen> {
               ElevatedButton(
                 onPressed: () async {
                   await addUserMadeQuestion(
-                      _question, _answer1, _answer2, _answer3, _answer4);
+                      question, answer1, answer2, answer3, answer4);
 
                   return showDialog(
                     context: context,

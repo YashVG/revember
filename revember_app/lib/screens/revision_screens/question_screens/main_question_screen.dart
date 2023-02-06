@@ -23,7 +23,7 @@ class _MainQuestionScreenState extends State<MainQuestionScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueGrey,
-        title: Text("Choose questions or create your own"),
+        title: const Text("Choose questions or create your own"),
       ),
       body: Padding(
         padding: EdgeInsets.all(size.height * 0.1),
@@ -37,11 +37,12 @@ class _MainQuestionScreenState extends State<MainQuestionScreen> {
                   onPressed: () {
                     Navigator.pushNamed(context, CreateQuestionScreen.id);
                   },
-                  child: Icon(
+                  child: const Icon(
                     Icons.add,
                   ),
                 ),
-                Text('⬅️ Choose to add your own questions, or delete them ➡️'),
+                const Text(
+                    '⬅️ Choose to add your own questions, or delete them ➡️'),
                 ElevatedButton(
                   onPressed: () async {
                     await addUserMadeQuestion1();
@@ -49,7 +50,7 @@ class _MainQuestionScreenState extends State<MainQuestionScreen> {
                     await addUserMadeQuestion3();
                     await addUserMadeQuestion4();
                   },
-                  child: Icon(
+                  child: const Icon(
                     Icons.delete,
                   ),
                 ),
@@ -100,7 +101,7 @@ class _MainQuestionScreenState extends State<MainQuestionScreen> {
                 onPressed: () {
                   Navigator.pushNamed(context, TestScreen.id);
                 },
-                child: Text('Auto-Generated',
+                child: Text('User-Generated',
                     style: TextStyle(fontSize: size.height * 0.05)),
               ),
             ),
