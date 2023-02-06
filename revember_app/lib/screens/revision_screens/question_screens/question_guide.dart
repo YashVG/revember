@@ -13,7 +13,7 @@ class QuestionGuide extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      floatingActionButton: GoBackButton(),
+      floatingActionButton: const GoBackButton(),
       body: Container(
         padding:
             EdgeInsets.fromLTRB(size.height * 0.1, 0, size.height * 0.1, 0),
@@ -21,28 +21,28 @@ class QuestionGuide extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             SizedBox(height: size.height * 0.11),
-            Center(
+            const Center(
               child: Text(
                 'Guide for creating questions',
                 style: TextStyle(fontSize: 36),
               ),
             ),
             SizedBox(height: size.height * 0.1),
-            Center(
+            const Center(
               child: Text(
                 'Step 1. Create fill-in-the-blank questions',
                 style: TextStyle(fontSize: 21),
               ),
             ),
             SizedBox(height: size.height * 0.075),
-            Center(
+            const Center(
               child: Text(
                 'Step 2. Look for a key fact, name or figure that you have trouble remembering',
                 style: TextStyle(fontSize: 21),
               ),
             ),
             SizedBox(height: size.height * 0.075),
-            Center(
+            const Center(
               child: Text(
                   'Step 3. Once done, add that as one of your answer options, and create three other similar answer options that are incorrect',
                   style: TextStyle(
@@ -52,7 +52,7 @@ class QuestionGuide extends StatelessWidget {
             SizedBox(
               height: size.height * 0.075,
             ),
-            Center(
+            const Center(
               child: Text(
                 "Step 4. From the question, replace the word with underscores (____)",
                 style: TextStyle(
@@ -65,14 +65,14 @@ class QuestionGuide extends StatelessWidget {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     primary: Colors.redAccent, //background color of button
-                    side: BorderSide(
+                    side: const BorderSide(
                         width: 3, color: Colors.brown), //border width and color
                     elevation: 3, //elevation of button
-                    padding: EdgeInsets.all(20)),
+                    padding: const EdgeInsets.all(20)),
                 onPressed: () {
                   Navigator.pushNamed(context, CreateQuestionScreen.id);
                 },
-                child: Text('Proceed'),
+                child: const Text('Proceed'),
               ),
             )
           ],
