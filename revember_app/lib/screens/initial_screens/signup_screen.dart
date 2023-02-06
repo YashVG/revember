@@ -77,7 +77,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       },
                     );
                   }
-                  if (checkDuplicateUsername(username) == true) {
+                  if (await checkDuplicateUsername(username) == true) {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
