@@ -98,8 +98,9 @@ class _MainQuestionScreenState extends State<MainQuestionScreen> {
             ),
             Expanded(
               child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, TestScreen.id);
+                onPressed: () async {
+                  await getQuestionsAndAnswers(currentTopicHash);
+                  Navigator.pushNamed(context, TestQuizScreen.id);
                 },
                 child: Text('User-Generated',
                     style: TextStyle(fontSize: size.height * 0.05)),

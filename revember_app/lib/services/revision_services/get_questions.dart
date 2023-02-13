@@ -47,15 +47,15 @@ Future getQuestionsAndAnswers(currentSubject) async {
   }
 
   //use this for inputting correct answers, change index to 0 for answer choices only
-  for (var i = 0; i != c.length; i++) {
-    print(c[i][0]); //gets answer choices
-    print(c[i][1]); //gets correct answer
+  // for (var i = 0; i != c.length; i++) {
+  //   // print(c[i][0]); //gets answer choices
+  //   // print(c[i][1]); //gets correct answer
 
-    if (c[i][0][0] == c[i][1]) {
-      print('true');
-      //pseudo method for checking correct answers
-    }
-  }
+  //   if (c[i][0][0] == c[i][1]) {
+  //     print('true');
+  //     //pseudo method for checking correct answers
+  //   }
+  // }
   // print(c[0][1]);
-  print(c);
+  // print(c);
 }

@@ -16,12 +16,10 @@ Future<User?> createUser(String username, String email, String password) async {
     );
   } catch (e) {
     return null;
-    //TODO: find suitable way to prompt error message in app if user creation fails for whatever reason
   }
   return null;
 }
 
-//TODO: Fix checkDuplicateUsername function so that it actually works
 Future checkDuplicateUsername(String username) async {
   var query = await firestore
       .collection('users')

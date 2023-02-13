@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:revember_app/components/back_button.dart';
 import 'package:revember_app/preferences/themes.dart';
+import 'package:revember_app/screens/settings_screens/change_password.dart';
+import 'dart:io' show Platform;
 
 class SettingsScreen extends StatefulWidget {
   static const String id = 'settings_page';
@@ -24,6 +26,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: Center(
         child: Column(
           children: [
+            (Platform.isIOS || Platform.isAndroid)
+                ? SizedBox(height: 40)
+                : SizedBox(height: 0),
             SizedBox(height: 40),
             Text(
               'Settings',
@@ -43,18 +48,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             ElevatedButton(
               onPressed: () {
-                //TODO: Implement change password
+                Navigator.pushNamed(context, ChangePasswordScreen.id);
               },
               child: Text('Change password for account'),
             ),
             SizedBox(
               height: 15,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                //TODO: Implement options to delete account, or erase content
-              },
-              child: Text('Advanced account options'),
             ),
             SizedBox(
               height: 35,

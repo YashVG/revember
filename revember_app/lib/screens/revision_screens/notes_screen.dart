@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:revember_app/constants/revision_constants.dart';
+import 'package:revember_app/screens/revision_screens/notes_view.dart';
 import 'package:revember_app/screens/revision_screens/writing_screens/writing_guide.dart';
 import 'writing_screens/write_notes.dart';
 import 'dart:io' show Platform;
@@ -28,52 +29,64 @@ class _NotesScreenState extends State<NotesScreen> {
         backgroundColor: Colors.blueGrey,
       ),
       body: Padding(
-          padding: EdgeInsets.all(size.height * 0.05),
-          child: Column(
-            children: [
-              SizedBox(
-                height: size.height * 0.05,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  if (Platform.isAndroid || Platform.isIOS)
-                    ElevatedButton(
-                      onPressed: null,
-                      child: Text('Scan Notes'),
-                    ),
-                  if (Platform.isMacOS || Platform.isWindows)
-                    ElevatedButton(
-                        onPressed: null,
-                        child: Text('Upload document to scan')),
-                  if (Platform.isMacOS || Platform.isWindows)
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, NotesGuidesScreen.id);
-                      },
-                      child: Text('Write notes'),
-                    ),
+        padding: EdgeInsets.all(size.height * 0.05),
+        child: Column(
+          children: [
+            SizedBox(
+              height: size.height * 0.05,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                if (Platform.isAndroid || Platform.isIOS)
                   ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, MainQuestionScreen.id);
-                      },
-                      child: Text('Questions'))
-                ],
-              ),
-              SizedBox(
-                height: size.height * 0.05,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text('Style'),
-                ],
-              ),
-              SizedBox(
-                height: size.height * 0.05,
-              )
-            ],
-          )),
+                    onPressed: null,
+                    child: Text('Scan Notes'),
+                  ),
+                if (Platform.isMacOS || Platform.isWindows)
+                  ElevatedButton(
+                      onPressed: null, child: Text('Upload document to scan')),
+                if (Platform.isMacOS || Platform.isWindows)
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, NotesGuidesScreen.id);
+                    },
+                    child: Text('Write notes'),
+                  ),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, MainQuestionScreen.id);
+                    },
+                    child: Text('Questions'))
+              ],
+            ),
+            SizedBox(
+              height: size.height * 0.05,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, NotesView.id);
+                        },
+                        child: Text('Notes',
+                            style: TextStyle(fontSize: size.height * 0.05)),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(
+              height: size.height * 0.05,
+            )
+          ],
+        ),
+      ),
     );
   }
 }

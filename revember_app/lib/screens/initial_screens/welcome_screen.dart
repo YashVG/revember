@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'signup_screen.dart';
 import 'login_screen.dart';
@@ -20,24 +18,24 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
+            const Text(
               'Revember 📖',
               style: TextStyle(fontSize: 30.0),
             ),
-            SizedBox(
+            const SizedBox(
               height: 50.0,
             ),
             ElevatedButton(
-              child: Text('Sign Up'),
+              child: const Text('Sign Up'),
               onPressed: () {
                 Navigator.pushNamed(context, SignUpScreen.id);
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 20.0,
             ),
             ElevatedButton(
-              child: Text('Login'),
+              child: const Text('Login'),
               onPressed: () {
                 Navigator.pushNamed(context, LoginScreen.id);
               },

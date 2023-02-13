@@ -1,5 +1,5 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors
-
+import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,12 +27,17 @@ import 'package:revember_app/screens/revision_screens/question_screens/question_
 import 'package:revember_app/screens/quiz_screens/quiz_screen.dart';
 import 'package:revember_app/test/test_screen.dart';
 import 'package:revember_app/preferences/themes.dart';
+import 'package:revember_app/screens/settings_screens/change_password.dart';
+import 'package:revember_app/screens/revision_screens/notes_view.dart';
 
 import 'dart:io' show Platform;
 //Platform allows us to identify the current platform
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
+    SystemUiOverlay.bottom, //This line is used for showing the bottom bar
+  ]);
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(Revember());
 }
@@ -49,7 +54,7 @@ class _RevemberState extends State<Revember> {
     return MaterialApp(
       theme: isDark == true ? ThemeData.dark() : ThemeData.light(),
       //ternary op to change mode depending on button change in settings page
-      //TODO: Find way to update state of app through widget tree, because only hot reload is working
+
       useInheritedMediaQuery: false,
       debugShowCheckedModeBanner: false,
       initialRoute: WelcomeScreen.id,
@@ -61,6 +66,7 @@ class _RevemberState extends State<Revember> {
         LoginRecoveryScreen.id: (context) => LoginRecoveryScreen(),
         HomePage.id: (context) => HomePage(),
         SettingsScreen.id: (context) => SettingsScreen(),
+        ChangePasswordScreen.id: (context) => ChangePasswordScreen(),
         AddTestDate.id: (context) => AddTestDate(),
         CalendarScreen.id: (context) => CalendarScreen(),
         SubjectScreen.id: (context) => SubjectScreen(),
@@ -75,6 +81,7 @@ class _RevemberState extends State<Revember> {
         CreateQuestionScreen.id: (context) => CreateQuestionScreen(),
         TestQuizScreen.id: (context) => TestQuizScreen(),
         TestScreen.id: (context) => TestScreen(),
+        NotesView.id: (context) => NotesView(),
       },
     );
   }

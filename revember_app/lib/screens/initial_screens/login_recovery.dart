@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:revember_app/services/user_services/retrieve_password.dart';
 
 class LoginRecoveryScreen extends StatefulWidget {
   static const String id = 'login_recovery';
@@ -50,7 +51,28 @@ class _LoginRecoveryScreenState extends State<LoginRecoveryScreen> {
               ElevatedButton(
                 child: Text('Send request'),
                 onPressed: () {
-                  Navigator.pop(context);
+                  retrievePassword(username);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text(
+                          'Email sent!',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                        content: const Text(
+                            'You will shortly receive an email with your password'),
+                        actions: <Widget>[
+                          TextButton(
+                            child: const Text('Okay'),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          )
+                        ],
+                      );
+                    },
+                  );
                 },
               ),
             ],
