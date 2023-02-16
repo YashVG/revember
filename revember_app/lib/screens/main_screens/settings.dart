@@ -24,7 +24,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: Center(
         child: Column(
           children: [
-            SizedBox(height: 40),
+            SizedBox(height: 80),
             Text(
               'Settings',
               style: TextStyle(fontSize: 30.0),

@@ -69,7 +69,25 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (await checkPassword(username, password) == true) {
                     Navigator.pushNamed(context, HomePage.id);
                   } else {
-                    Navigator.pushNamed(context, LoginRecoveryScreen.id);
+                    return showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text(
+                            'Username or password incorrect',
+                          ),
+                          content: Text('Please try again!'),
+                          actions: <Widget>[
+                            TextButton(
+                              child: Text('Okay'),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   }
                 },
               ),
