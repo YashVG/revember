@@ -38,6 +38,7 @@ import 'dart:io' show Platform;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   runApp(Revember());
 }
 //runApp executes the widget tree and renders the app to the screen, once the Firebase app is initialized
@@ -48,24 +49,23 @@ class Revember extends StatefulWidget {
 }
 
 class _RevemberState extends State<Revember> {
+  Future checkLoggedIn() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    bool? checker = pref.getBool('isLoggedIn');
+    return checker;
+  }
+
   bool? check;
   @override
   void initState() {
     super.initState();
-
-    Future checkLoggedIn() async {
-      final SharedPreferences pref = await SharedPreferences.getInstance();
-      bool? checker = pref.getBool('isLoggedIn');
-      return checker;
-    }
-
     getData() async {
       check = await checkLoggedIn();
       print(check);
     }
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      getData();
+      await getData();
       setState(() {});
     });
   }
