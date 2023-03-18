@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:revember_app/screens/calendar_screens/calendar_screen.dart';
 import 'package:revember_app/screens/initial_screens/welcome_screen.dart';
 import 'package:revember_app/services/revision_services/get_subjects.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'settings.dart';
 import 'package:revember_app/constants/user_constants.dart';
 import 'package:revember_app/constants/calendar_constants.dart';
@@ -14,6 +15,8 @@ import 'package:revember_app/constants/revision_constants.dart';
 import 'package:revember_app/services/calendar_services/schedule_calc.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:revember_app/constants/calendar_constants.dart';
+import 'package:revember_app/components/calendar/calendar_test.dart';
+
 import 'dart:io' show Platform;
 
 class HomePage extends StatefulWidget {
@@ -25,6 +28,23 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    Future getUsername() async {
+      final SharedPreferences pref = await SharedPreferences.getInstance();
+      user = pref.getString('username');
+    }
+
+    getData() async {
+      await getUsername();
+      setState(() {});
+    }
+
+    getData();
+    print(user);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -40,7 +60,7 @@ class _HomePageState extends State<HomePage> {
             //evenly spaces out widgets in the Row
             children: [
               Text(
-                'Hi $username, get started on your revision!',
+                'Hi $user, get started on your revision!',
                 style: TextStyle(fontSize: 15),
               ),
               ElevatedButton(
@@ -60,8 +80,14 @@ class _HomePageState extends State<HomePage> {
                           ),
                           TextButton(
                             child: Text('Yes'),
-                            onPressed: () {
-                              username = '';
+                            onPressed: () async {
+                              user = '';
+                              final SharedPreferences sharedPreferences =
+                                  await SharedPreferences.getInstance();
+                              sharedPreferences.remove('username');
+                              sharedPreferences.remove('password');
+                              sharedPreferences.setBool('isLoggedIn', false);
+
                               Navigator.pushNamed(context, WelcomeScreen.id);
                             },
                           ),
@@ -87,7 +113,9 @@ class _HomePageState extends State<HomePage> {
               crossAxisCount: 2,
               children: [
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, Calendar.id);
+                  },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -189,7 +217,7 @@ class _HomePageState extends State<HomePage> {
                                 TextButton(
                                   child: Text('Yes'),
                                   onPressed: () {
-                                    username = '';
+                                    user = '';
                                     Navigator.pushNamed(
                                         context, WelcomeScreen.id);
                                   },
@@ -208,7 +236,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     Text(
-                      'Hi $username, get started on your revision!',
+                      'Hi $user, get started on your revision!',
                       style: TextStyle(fontSize: size.aspectRatio * 15),
                     ),
                     ElevatedButton(

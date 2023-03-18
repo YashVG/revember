@@ -7,6 +7,7 @@ import 'package:revember_app/firebase_options.dart';
 import 'package:revember_app/screens/initial_screens/login_recovery.dart';
 import 'package:revember_app/screens/initial_screens/signup_screen2.dart';
 import 'package:revember_app/screens/revision_screens/question_screens/create_questions.dart';
+import 'package:revember_app/services/user_services/user_login.dart';
 import 'screens/initial_screens/welcome_screen.dart';
 import 'screens/initial_screens/login_screen.dart';
 import 'screens/initial_screens/signup_screen.dart';
@@ -27,6 +28,9 @@ import 'package:revember_app/screens/revision_screens/question_screens/question_
 import 'package:revember_app/screens/quiz_screens/quiz_screen.dart';
 import 'package:revember_app/test/test_screen.dart';
 import 'package:revember_app/preferences/themes.dart';
+import 'package:revember_app/components/calendar/calendar_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:revember_app/constants/user_constants.dart';
 
 import 'dart:io' show Platform;
 //Platform allows us to identify the current platform
@@ -44,15 +48,37 @@ class Revember extends StatefulWidget {
 }
 
 class _RevemberState extends State<Revember> {
+  bool? check;
+  @override
+  void initState() {
+    super.initState();
+
+    Future checkLoggedIn() async {
+      final SharedPreferences pref = await SharedPreferences.getInstance();
+      bool? checker = pref.getBool('isLoggedIn');
+      return checker;
+    }
+
+    getData() async {
+      check = await checkLoggedIn();
+      print(check);
+    }
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      getData();
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: isDark == true ? ThemeData.dark() : ThemeData.light(),
       //ternary op to change mode depending on button change in settings page
-      //TODO: Find way to update state of app through widget tree, because only hot reload is working
-      useInheritedMediaQuery: false,
+
+      useInheritedMediaQuery: true,
       debugShowCheckedModeBanner: false,
-      initialRoute: WelcomeScreen.id,
+      initialRoute: check == true ? HomePage.id : WelcomeScreen.id,
       routes: {
         WelcomeScreen.id: (context) => WelcomeScreen(),
         LoginScreen.id: (context) => LoginScreen(),
@@ -75,6 +101,7 @@ class _RevemberState extends State<Revember> {
         CreateQuestionScreen.id: (context) => CreateQuestionScreen(),
         TestQuizScreen.id: (context) => TestQuizScreen(),
         TestScreen.id: (context) => TestScreen(),
+        Calendar.id: (context) => Calendar(),
       },
     );
   }

@@ -6,7 +6,7 @@ Future getSubjects() async {
   int counter = 0;
   final docRef = firestore
       .collection("revision_notes")
-      .doc(username)
+      .doc(user)
       .collection('subjects')
       .where("subject_name");
   var query = await docRef.get();

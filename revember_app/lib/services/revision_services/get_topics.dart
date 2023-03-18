@@ -7,7 +7,7 @@ Future getTopics() async {
   int counter = 0;
   final docRef = firestore
       .collection("revision_notes")
-      .doc(username)
+      .doc(user)
       .collection('subjects')
       .doc(currentSubject)
       .collection('notes')

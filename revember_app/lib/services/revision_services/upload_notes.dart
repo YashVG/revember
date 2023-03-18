@@ -4,7 +4,7 @@ import 'package:revember_app/constants/revision_constants.dart';
 Future uploadNotes(String notes) async {
   final docRef = firestore
       .collection('revision_notes')
-      .doc(username)
+      .doc(user)
       .collection('subjects')
       .doc(currentSubject)
       .collection('notes')

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'signup_screen.dart';
 import 'login_screen.dart';
 
@@ -38,7 +39,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             ),
             ElevatedButton(
               child: Text('Login'),
-              onPressed: () {
+              onPressed: () async {
+                final SharedPreferences sharedPreferences =
+                    await SharedPreferences.getInstance();
+                print(sharedPreferences.getString('username'));
+                print(sharedPreferences.getString('password'));
+                print(sharedPreferences.getBool('isLoggedIn'));
                 Navigator.pushNamed(context, LoginScreen.id);
               },
             ),

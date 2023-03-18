@@ -4,7 +4,7 @@ import 'package:revember_app/constants/user_constants.dart';
 Future getTopicHash(currentTopic) async {
   final docRef = firestore
       .collection('revision_notes')
-      .doc(username)
+      .doc(user)
       .collection('subjects')
       .doc(currentSubject)
       .collection('notes')

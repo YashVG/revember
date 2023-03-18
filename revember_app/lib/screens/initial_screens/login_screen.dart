@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../main_screens/home_page.dart';
 import 'login_recovery.dart';
 import 'package:revember_app/services/user_services/user_login.dart';
@@ -41,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.center,
                 onChanged: (value) {
-                  username = value;
+                  user = value;
                 },
                 decoration: InputDecoration(
                   hintText: 'Enter your username',
@@ -66,7 +67,12 @@ class _LoginScreenState extends State<LoginScreen> {
               ElevatedButton(
                 child: Text('Login'),
                 onPressed: () async {
-                  if (await checkPassword(username, password) == true) {
+                  if (await checkPassword(user!, password) == true) {
+                    final SharedPreferences sharedPreferences =
+                        await SharedPreferences.getInstance();
+                    sharedPreferences.setString('username', user!);
+                    sharedPreferences.setString('password', password);
+                    sharedPreferences.setBool('isLoggedIn', true);
                     Navigator.pushNamed(context, HomePage.id);
                   } else {
                     return showDialog(

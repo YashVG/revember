@@ -44,7 +44,7 @@ class _CreateSubjectScreenState extends State<CreateSubjectScreen> {
             ),
             ElevatedButton(
               onPressed: () async {
-                await addSubjectName(subjectTitle, username);
+                await addSubjectName(subjectTitle, user);
                 await getSubjects();
 
                 return showDialog(
