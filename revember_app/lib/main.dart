@@ -35,10 +35,17 @@ import 'package:revember_app/constants/user_constants.dart';
 import 'dart:io' show Platform;
 //Platform allows us to identify the current platform
 
+bool isLoggedIn = false;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  final SharedPreferences pref = await SharedPreferences.getInstance();
+  bool? checker = pref.getBool('isLoggedIn');
+  if (checker == true) {
+    isLoggedIn = true;
+  }
 
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(Revember());
 }
 //runApp executes the widget tree and renders the app to the screen, once the Firebase app is initialized
@@ -49,27 +56,6 @@ class Revember extends StatefulWidget {
 }
 
 class _RevemberState extends State<Revember> {
-  Future checkLoggedIn() async {
-    final SharedPreferences pref = await SharedPreferences.getInstance();
-    bool? checker = pref.getBool('isLoggedIn');
-    return checker;
-  }
-
-  bool? check;
-  @override
-  void initState() {
-    super.initState();
-    getData() async {
-      check = await checkLoggedIn();
-      print(check);
-    }
-
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await getData();
-      setState(() {});
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -78,7 +64,7 @@ class _RevemberState extends State<Revember> {
 
       useInheritedMediaQuery: true,
       debugShowCheckedModeBanner: false,
-      initialRoute: check == true ? HomePage.id : WelcomeScreen.id,
+      initialRoute: isLoggedIn == true ? HomePage.id : WelcomeScreen.id,
       routes: {
         WelcomeScreen.id: (context) => WelcomeScreen(),
         LoginScreen.id: (context) => LoginScreen(),

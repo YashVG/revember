@@ -216,7 +216,13 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 TextButton(
                                   child: Text('Yes'),
-                                  onPressed: () {
+                                  onPressed: () async {
+                                    final SharedPreferences sharedPreferences =
+                                        await SharedPreferences.getInstance();
+                                    sharedPreferences.remove('username');
+                                    sharedPreferences.remove('password');
+                                    sharedPreferences.setBool(
+                                        'isLoggedIn', false);
                                     user = '';
                                     Navigator.pushNamed(
                                         context, WelcomeScreen.id);
