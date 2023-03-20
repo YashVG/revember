@@ -75,6 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     sharedPreferences.setBool('isLoggedIn', true);
                     Navigator.pushNamed(context, HomePage.id);
                   } else {
+                    // ignore: use_build_context_synchronously
                     return showDialog(
                       context: context,
                       builder: (context) {

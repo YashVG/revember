@@ -1,6 +1,9 @@
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:revember_app/constants/calendar_display_constants.dart';
 import 'event.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:revember_app/constants/calendar_display_constants.dart';
 
 class Calendar extends StatefulWidget {
   static const String id = 'calendar_test';
@@ -20,8 +23,18 @@ class _CalendarState extends State<Calendar> {
 
   @override
   void initState() {
-    selectedEvents = {};
+    //TODO: add shared_pref thingy here
+
     super.initState();
+
+    selectedEvents = calendarDates;
+  }
+
+  Future getCalendarList() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {});
+
+    return preferences;
   }
 
   List<Event> _getEventsfromDay(DateTime date) {
@@ -64,7 +77,7 @@ class _CalendarState extends State<Calendar> {
               });
 
               print(selectedDay);
-              print(selectedEvents[focusedDay]);
+              print(selectedEvents);
             },
             selectedDayPredicate: (DateTime date) {
               return isSameDay(selectedDay, date);
@@ -121,7 +134,7 @@ class _CalendarState extends State<Calendar> {
         onPressed: () => showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text("Add Revision Date"),
+            title: Text("Add Revision/Test Event"),
             content: TextFormField(
               controller: _eventController,
             ),
@@ -132,9 +145,11 @@ class _CalendarState extends State<Calendar> {
               ),
               TextButton(
                 child: Text("Ok"),
-                onPressed: () {
+                onPressed: () async {
                   if (_eventController.text.isEmpty) {
                   } else {
+                    SharedPreferences _preferences =
+                        await SharedPreferences.getInstance();
                     if (selectedEvents[selectedDay] != null) {
                       selectedEvents[selectedDay]!.add(
                         Event(title: _eventController.text),
@@ -144,6 +159,7 @@ class _CalendarState extends State<Calendar> {
                         Event(title: _eventController.text)
                       ];
                     }
+                    print(calendarDates);
                   }
                   Navigator.pop(context);
                   _eventController.clear();
@@ -154,7 +170,7 @@ class _CalendarState extends State<Calendar> {
             ],
           ),
         ),
-        label: Text("Add Revision Date"),
+        label: Text("Add Test/Revision Event"),
         icon: Icon(Icons.add),
       ),
     );

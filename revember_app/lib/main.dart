@@ -31,18 +31,34 @@ import 'package:revember_app/preferences/themes.dart';
 import 'package:revember_app/components/calendar/calendar_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:revember_app/constants/user_constants.dart';
+import 'package:revember_app/constants/calendar_display_constants.dart';
+import 'package:revember_app/components/calendar/event.dart';
+import 'dart:convert';
 
 import 'dart:io' show Platform;
 //Platform allows us to identify the current platform
 
 bool isLoggedIn = false;
+Map<DateTime, List<Event>> calendar = {};
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final SharedPreferences pref = await SharedPreferences.getInstance();
-  bool? checker = pref.getBool('isLoggedIn');
+
+  bool checker = pref.getBool('isLoggedIn') ?? false;
   if (checker == true) {
     isLoggedIn = true;
+  }
+
+  String encodedCalendar = pref.getString('calendarEvents') ?? '';
+  if (encodedCalendar == '') {
+    var newCalendar = json.encode(calendar);
+    pref.setString('calendarEvents', newCalendar);
+    print(calendar);
+  } else {
+    var updatedCalendar = json.decode(encodedCalendar);
+    calendarDates = updatedCalendar;
+    print(updatedCalendar);
   }
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
