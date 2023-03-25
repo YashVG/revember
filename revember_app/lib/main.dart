@@ -50,17 +50,6 @@ void main() async {
     isLoggedIn = true;
   }
 
-  String encodedCalendar = pref.getString('calendarEvents') ?? '';
-  if (encodedCalendar == '') {
-    var newCalendar = json.encode(calendar);
-    pref.setString('calendarEvents', newCalendar);
-    print(calendar);
-  } else {
-    var updatedCalendar = json.decode(encodedCalendar);
-    calendarDates = updatedCalendar;
-    print(updatedCalendar);
-  }
-
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(Revember());
 }
