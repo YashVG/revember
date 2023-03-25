@@ -2,15 +2,14 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:revember_app/constants/calendar_display_constants.dart';
-import 'event.dart';
+
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:revember_app/constants/calendar_display_constants.dart';
 
 class Calendar extends StatefulWidget {
   static const String id = 'calendar_test';
 
-  const Calendar({super.key});
+  const Calendar({Key? key}) : super(key: key);
   @override
   _CalendarState createState() => _CalendarState();
 }
@@ -25,11 +24,9 @@ class _CalendarState extends State<Calendar> {
 
   @override
   void initState() {
-    //TODO: add shared_pref thingy here
-
     super.initState();
     prefsData();
-    selectedEvents = calendarDates;
+    selectedEvents = {};
   }
 
   prefsData() async {
@@ -142,10 +139,63 @@ class _CalendarState extends State<Calendar> {
             ),
           ),
           ..._getEventsfromDay(selectedDay).map(
-            (dynamic event) => ListTile(
-              title: Text(
-                event,
-              ),
+            (dynamic event) => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                TextButton(
+                  onPressed: () {},
+                  child: Text(event),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Icon(Icons.edit),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    ElevatedButton(
+                      style:
+                          ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                      child: Icon(Icons.delete),
+                      onPressed: () async {
+                        var reference =
+                            selectedEvents[selectedDay].indexOf(event);
+                        if (true) {
+                          return showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('Delete event?',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold)),
+                                content: Text(
+                                    'Are you sure you want to delete $event?'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: Text('Yes'),
+                                    onPressed: () {},
+                                  ),
+                                  TextButton(
+                                    child: Text('No'),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                  )
+                                ],
+                              );
+                            },
+                          );
+                        }
+                      },
+                    ),
+                  ],
+                )
+              ],
             ),
           ),
         ],

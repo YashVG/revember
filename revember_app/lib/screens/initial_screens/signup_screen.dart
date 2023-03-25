@@ -121,6 +121,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   }
                   //checks if username already exists with asynchronous function
                   if (await checkDuplicateUsername(username) == true) {
+                    // ignore: use_build_context_synchronously
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
