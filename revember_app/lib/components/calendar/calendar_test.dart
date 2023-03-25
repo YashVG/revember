@@ -68,7 +68,7 @@ class _CalendarState extends State<Calendar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Calendar"),
+        title: const Text("Calendar"),
         centerTitle: true,
       ),
       body: Column(
@@ -110,7 +110,7 @@ class _CalendarState extends State<Calendar> {
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(5.0),
               ),
-              selectedTextStyle: TextStyle(color: Colors.white),
+              selectedTextStyle: const TextStyle(color: Colors.white),
               todayDecoration: BoxDecoration(
                 color: Colors.purpleAccent,
                 shape: BoxShape.rectangle,
@@ -133,7 +133,7 @@ class _CalendarState extends State<Calendar> {
                 color: Colors.blue,
                 borderRadius: BorderRadius.circular(5.0),
               ),
-              formatButtonTextStyle: TextStyle(
+              formatButtonTextStyle: const TextStyle(
                 color: Colors.white,
               ),
             ),
@@ -150,47 +150,87 @@ class _CalendarState extends State<Calendar> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      onPressed: () {},
-                      child: Icon(Icons.edit),
+                      child: const Icon(Icons.edit),
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blue),
+                      onPressed: () async {
+                        var indexReference =
+                            selectedEvents[selectedDay].indexOf(event);
+                        return showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('Change event title:'),
+                              content: TextField(
+                                onChanged: (value) {
+                                  event = value;
+                                },
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: const Text('Cancel'),
+                                  onPressed: () async {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                                TextButton(
+                                  child: const Text('Change'),
+                                  onPressed: () async {
+                                    selectedEvents[selectedDay]
+                                        [indexReference] = event;
+                                    prefs.setString('events',
+                                        json.encode(encodeMap(selectedEvents)));
+
+                                    Navigator.pop(context);
+                                    setState(() {});
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     ElevatedButton(
                       style:
                           ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                      child: Icon(Icons.delete),
+                      child: const Icon(Icons.delete),
                       onPressed: () async {
-                        var reference =
-                            selectedEvents[selectedDay].indexOf(event);
-                        if (true) {
-                          return showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Text('Delete event?',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold)),
-                                content: Text(
-                                    'Are you sure you want to delete $event?'),
-                                actions: <Widget>[
-                                  TextButton(
-                                    child: Text('Yes'),
-                                    onPressed: () {},
-                                  ),
-                                  TextButton(
-                                    child: Text('No'),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                  )
-                                ],
-                              );
-                            },
-                          );
-                        }
+                        // var indexReference =
+                        //     selectedEvents[selectedDay].indexOf(event);
+                        return showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text('Delete event?',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                              content: Text(
+                                  'Are you sure you want to delete $event?'),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: const Text('Yes'),
+                                  onPressed: () async {
+                                    selectedEvents[selectedDay].remove(event);
+                                    prefs.setString('events',
+                                        json.encode(encodeMap(selectedEvents)));
+                                    Navigator.pop(context);
+                                    setState(() {});
+                                  },
+                                ),
+                                TextButton(
+                                  child: const Text('No'),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                )
+                              ],
+                            );
+                          },
+                        );
                       },
                     ),
                   ],
@@ -204,7 +244,7 @@ class _CalendarState extends State<Calendar> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           TextButton(
-            child: Text('Hello'),
+            child: const Text('Hello'),
             onPressed: () {
               if (selectedEvents[selectedDay] == null) {
                 selectedEvents[selectedDay] = ['I just wanna rock'];
@@ -221,18 +261,18 @@ class _CalendarState extends State<Calendar> {
             onPressed: () => showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                title: Text("Add Event"),
+                title: const Text("Add Event"),
                 content: TextFormField(
                   //_eventController is event title
                   controller: _eventController,
                 ),
                 actions: [
                   TextButton(
-                    child: Text("Cancel"),
+                    child: const Text("Cancel"),
                     onPressed: () => Navigator.pop(context),
                   ),
                   TextButton(
-                    child: Text("Ok"),
+                    child: const Text("Ok"),
                     onPressed: () {
                       if (_eventController.text.isEmpty) {
                       } else {
@@ -255,8 +295,8 @@ class _CalendarState extends State<Calendar> {
                 ],
               ),
             ),
-            label: Text("Add Event"),
-            icon: Icon(Icons.add),
+            label: const Text("Add Event"),
+            icon: const Icon(Icons.add),
           ),
         ],
       ),
