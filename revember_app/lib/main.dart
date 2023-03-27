@@ -28,7 +28,7 @@ import 'package:revember_app/screens/revision_screens/question_screens/question_
 import 'package:revember_app/screens/quiz_screens/quiz_screen.dart';
 import 'package:revember_app/test/test_screen.dart';
 import 'package:revember_app/preferences/themes.dart';
-import 'package:revember_app/components/calendar/calendar_test.dart';
+import 'package:revember_app/screens/calendar_screens/calendar_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:revember_app/constants/user_constants.dart';
 import 'package:revember_app/constants/calendar_display_constants.dart';

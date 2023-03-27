@@ -1,10 +1,12 @@
 import 'dart:convert';
-
+import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:revember_app/constants/calendar_display_constants.dart';
-
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:revember_app/constants/calendar_constants.dart';
+
+import '../../services/calendar_services/schedule_calc.dart';
 
 class Calendar extends StatefulWidget {
   static const String id = 'calendar_test';
@@ -15,11 +17,12 @@ class Calendar extends StatefulWidget {
 }
 
 class _CalendarState extends State<Calendar> {
+  final TextEditingController _dateInput = TextEditingController();
   late Map<DateTime, dynamic> selectedEvents;
   CalendarFormat format = CalendarFormat.month;
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
-  TextEditingController _eventController = TextEditingController();
+  final TextEditingController _eventController = TextEditingController();
   late SharedPreferences prefs;
 
   @override
@@ -27,6 +30,7 @@ class _CalendarState extends State<Calendar> {
     super.initState();
     prefsData();
     selectedEvents = {};
+    _dateInput.text = "";
   }
 
   prefsData() async {
@@ -93,8 +97,8 @@ class _CalendarState extends State<Calendar> {
                 focusedDay = focusDay;
               });
 
-              print(selectedDay);
-              print(selectedEvents[focusedDay]);
+              // print(selectedDay);
+              // print(selectedEvents[focusedDay]);
             },
             selectedDayPredicate: (DateTime date) {
               return isSameDay(selectedDay, date);
@@ -139,8 +143,10 @@ class _CalendarState extends State<Calendar> {
             ),
           ),
           ..._getEventsfromDay(selectedDay).map(
+            // ... is a spread operator which allows for multiple items to be inserted into a collection
+            // similar to a for i in loop and adding i to a list variable declared outside loop
             (dynamic event) => Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextButton(
                   onPressed: () {},
@@ -222,7 +228,10 @@ class _CalendarState extends State<Calendar> {
                                   },
                                 ),
                                 TextButton(
-                                  child: const Text('No'),
+                                  child: const Text(
+                                    'No',
+                                    style: TextStyle(color: Colors.red),
+                                  ),
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
@@ -240,24 +249,10 @@ class _CalendarState extends State<Calendar> {
           ),
         ],
       ),
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      floatingActionButton: Wrap(
         children: [
-          TextButton(
-            child: const Text('Hello'),
-            onPressed: () {
-              if (selectedEvents[selectedDay] == null) {
-                selectedEvents[selectedDay] = ['I just wanna rock'];
-                setState(() {});
-                return;
-              } else {
-                selectedEvents[selectedDay].add('Lowkey rock');
-                setState(() {});
-                return;
-              }
-            },
-          ),
           FloatingActionButton.extended(
+            heroTag: UniqueKey(),
             onPressed: () => showDialog(
               context: context,
               builder: (context) => AlertDialog(
@@ -268,7 +263,10 @@ class _CalendarState extends State<Calendar> {
                 ),
                 actions: [
                   TextButton(
-                    child: const Text("Cancel"),
+                    child: const Text(
+                      "Cancel",
+                      style: TextStyle(color: Colors.red),
+                    ),
                     onPressed: () => Navigator.pop(context),
                   ),
                   TextButton(
@@ -296,6 +294,89 @@ class _CalendarState extends State<Calendar> {
               ),
             ),
             label: const Text("Add Event"),
+            icon: const Icon(Icons.add),
+          ),
+          const SizedBox(
+            width: 25,
+          ),
+          FloatingActionButton.extended(
+            heroTag: UniqueKey(),
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text('Add Test Date'),
+                      actions: [
+                        TextField(
+                          controller: _dateInput,
+                          //editing controller of this TextField
+                          decoration: const InputDecoration(
+                              icon: Icon(Icons.calendar_today),
+                              labelText: "Enter Test Date"),
+                          readOnly: true,
+
+                          onTap: () async {
+                            DateTime? pickedDate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime.now(),
+                              lastDate: DateTime(2100),
+                            );
+                            if (pickedDate != null) {
+                              setState(
+                                () {
+                                  String formattedDate =
+                                      DateFormat('dd-MM-yyyy')
+                                          .format(pickedDate);
+                                  _dateInput.text = formattedDate;
+                                  //set output date to TextField value.
+                                },
+                              );
+                              daysBeforeTest = getDaysBeforeTest(pickedDate);
+                            }
+                          },
+                        ),
+                        TextField(
+                          decoration: const InputDecoration(
+                              icon: Icon(Icons.question_mark),
+                              labelText: "No of revision intervals: ",
+                              hintText: "Default revision intervals: 5"),
+                          keyboardType: const TextInputType.numberWithOptions(
+                              decimal: false),
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          onChanged: (value) {
+                            if (int.tryParse(value) != null) {
+                              revisionIntervals = int.parse(value);
+                            }
+                          },
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            TextButton(
+                              child: const Text(
+                                "Cancel",
+                                style: TextStyle(color: Colors.red),
+                              ),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                            TextButton(
+                              child: const Text("Generate schedule"),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                          ],
+                        ),
+                      ],
+                    );
+                  });
+            },
+            label: const Text("Add Test Date"),
             icon: const Icon(Icons.add),
           ),
         ],

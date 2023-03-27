@@ -17,7 +17,7 @@ Duration getDaysBeforeTest(DateTime testDate) {
 }
 
 List createRevisionSchedule(int sessions, Duration differenceInDays) {
-  //sessions defines the number of revision sessions a user does
+  ///sessions defines the number of revision sessions a user does
   List daysToRevise = []; //where the new schedule is created
   var counter = sessions;
   num daysBeforeTest = differenceInDays.inHours / 24;
