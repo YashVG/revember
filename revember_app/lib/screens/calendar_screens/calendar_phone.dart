@@ -9,7 +9,7 @@ import 'package:revember_app/constants/calendar_constants.dart';
 import '../../services/calendar_services/schedule_calc.dart';
 
 class Calendar extends StatefulWidget {
-  static const String id = 'calendar_test';
+  static const String id = 'calendar_phone';
 
   const Calendar({Key? key}) : super(key: key);
   @override
@@ -22,7 +22,9 @@ class _CalendarState extends State<Calendar> {
   CalendarFormat format = CalendarFormat.month;
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
+  late DateTime testDate;
   final TextEditingController _eventController = TextEditingController();
+  final TextEditingController _eventController2 = TextEditingController();
   late SharedPreferences prefs;
 
   @override
@@ -309,6 +311,12 @@ class _CalendarState extends State<Calendar> {
                       title: Text('Add Test Date'),
                       actions: [
                         TextField(
+                          decoration: const InputDecoration(
+                              icon: Icon(Icons.article),
+                              labelText: 'Enter Test name'),
+                          controller: _eventController2,
+                        ),
+                        TextField(
                           controller: _dateInput,
                           //editing controller of this TextField
                           decoration: const InputDecoration(
@@ -324,6 +332,7 @@ class _CalendarState extends State<Calendar> {
                               lastDate: DateTime(2100),
                             );
                             if (pickedDate != null) {
+                              testDate = pickedDate;
                               setState(
                                 () {
                                   String formattedDate =
@@ -368,7 +377,18 @@ class _CalendarState extends State<Calendar> {
                             ),
                             TextButton(
                               child: const Text("Generate schedule"),
-                              onPressed: () => Navigator.pop(context),
+                              onPressed: () {
+                                revisionScheduleInInt = createRevisionSchedule(
+                                    revisionIntervals, daysBeforeTest);
+
+                                List revisionDates = convertToDateTime(
+                                    revisionScheduleInInt, testDate);
+
+                                _eventController2.clear();
+                                _dateInput.clear();
+
+                                Navigator.pop(context);
+                              },
                             ),
                           ],
                         ),

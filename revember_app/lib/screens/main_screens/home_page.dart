@@ -15,7 +15,7 @@ import 'package:revember_app/constants/revision_constants.dart';
 import 'package:revember_app/services/calendar_services/schedule_calc.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:revember_app/constants/calendar_constants.dart';
-import 'package:revember_app/screens/calendar_screens/calendar_test.dart';
+import 'package:revember_app/screens/calendar_screens/calendar_phone.dart';
 
 import 'dart:io' show Platform;
 
