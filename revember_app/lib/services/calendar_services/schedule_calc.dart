@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:revember_app/constants/calendar_constants.dart';
+
 final _random = Random();
 
 double roundDouble(double value, int places) {
@@ -67,9 +69,12 @@ List convertToDateTime(List doubleValues, DateTime testDate) {
     int number = i.round();
     intValues.add(number);
   }
+  DateTime now = DateTime.now(); //gets current time
+  DateTime date = DateTime(now.year, now.month, now.day);
   for (var number in intValues) {
-    DateTime dateToAdd = testDate.add(Duration(days: number));
+    DateTime dateToAdd = date.add(Duration(days: number));
     dates.add(dateToAdd);
   }
+  // print(dates);
   return dates;
 }

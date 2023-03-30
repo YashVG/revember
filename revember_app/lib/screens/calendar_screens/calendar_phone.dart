@@ -152,7 +152,10 @@ class _CalendarState extends State<Calendar> {
               children: [
                 TextButton(
                   onPressed: () {},
-                  child: Text(event),
+                  child: Text(
+                    event,
+                    style: TextStyle(color: Colors.green),
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -331,6 +334,7 @@ class _CalendarState extends State<Calendar> {
                               firstDate: DateTime.now(),
                               lastDate: DateTime(2100),
                             );
+                            print(pickedDate);
                             if (pickedDate != null) {
                               testDate = pickedDate;
                               setState(
@@ -377,12 +381,29 @@ class _CalendarState extends State<Calendar> {
                             ),
                             TextButton(
                               child: const Text("Generate schedule"),
-                              onPressed: () {
+                              onPressed: () async {
                                 revisionScheduleInInt = createRevisionSchedule(
                                     revisionIntervals, daysBeforeTest);
-
+                                print(daysBeforeTest);
                                 List revisionDates = convertToDateTime(
                                     revisionScheduleInInt, testDate);
+
+                                print(revisionDates);
+
+                                int counter = 0;
+                                for (var date in revisionDates) {
+                                  counter += 1;
+                                  selectedDay = date;
+                                  if (selectedEvents[selectedDay] == null) {
+                                    selectedEvents[selectedDay] = [
+                                      _eventController2.text
+                                    ];
+                                  } else {
+                                    selectedEvents[selectedDay]
+                                        .add(_eventController2.text);
+                                  }
+                                  setState(() {});
+                                }
 
                                 _eventController2.clear();
                                 _dateInput.clear();

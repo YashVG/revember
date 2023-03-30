@@ -87,7 +87,8 @@ class _WriteNotesScreenState extends State<WriteNotesScreen> {
                       SizedBox(height: size.height * 0.05),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            primary: _enabled2 ? Colors.blue : Colors.grey),
+                            backgroundColor:
+                                _enabled2 ? Colors.blue : Colors.grey),
                         onPressed: () {
                           _enabled2 = !_enabled2;
                           setState(() {});
