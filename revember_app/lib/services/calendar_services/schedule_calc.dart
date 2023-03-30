@@ -62,19 +62,18 @@ List createRevisionSchedule(int sessions, Duration differenceInDays) {
   return daysToRevise;
 }
 
-List convertToDateTime(List doubleValues, DateTime testDate) {
+List<DateTime> convertToDateTime(List doubleValues, DateTime testDate) {
   List<int> intValues = [];
   List<DateTime> dates = [];
   for (var i in doubleValues) {
     int number = i.round();
     intValues.add(number);
   }
-  DateTime now = DateTime.now(); //gets current time
-  DateTime date = DateTime(now.year, now.month, now.day);
+  DateTime date = DateTime.now().toUtc(); //gets current time
+
   for (var number in intValues) {
     DateTime dateToAdd = date.add(Duration(days: number));
     dates.add(dateToAdd);
   }
-  // print(dates);
   return dates;
 }

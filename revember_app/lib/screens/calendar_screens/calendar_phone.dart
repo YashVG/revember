@@ -98,9 +98,6 @@ class _CalendarState extends State<Calendar> {
                 selectedDay = selectDay;
                 focusedDay = focusDay;
               });
-
-              // print(selectedDay);
-              // print(selectedEvents[focusedDay]);
             },
             selectedDayPredicate: (DateTime date) {
               return isSameDay(selectedDay, date);
@@ -150,18 +147,24 @@ class _CalendarState extends State<Calendar> {
             (dynamic event) => Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    event,
-                    style: TextStyle(color: Colors.green),
-                  ),
+                Row(
+                  children: [
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        event,
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ),
+                  ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      child: const Icon(Icons.edit),
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blue),
                       onPressed: () async {
@@ -201,6 +204,7 @@ class _CalendarState extends State<Calendar> {
                           },
                         );
                       },
+                      child: const Icon(Icons.edit),
                     ),
                     const SizedBox(
                       width: 10,
@@ -334,7 +338,7 @@ class _CalendarState extends State<Calendar> {
                               firstDate: DateTime.now(),
                               lastDate: DateTime(2100),
                             );
-                            print(pickedDate);
+
                             if (pickedDate != null) {
                               testDate = pickedDate;
                               setState(
@@ -382,33 +386,44 @@ class _CalendarState extends State<Calendar> {
                             TextButton(
                               child: const Text("Generate schedule"),
                               onPressed: () async {
-                                revisionScheduleInInt = createRevisionSchedule(
-                                    revisionIntervals, daysBeforeTest);
-                                print(daysBeforeTest);
-                                List revisionDates = convertToDateTime(
-                                    revisionScheduleInInt, testDate);
+                                List<DateTime> list = [
+                                  DateTime.utc(2023, 03, 29),
+                                  DateTime.utc(2023, 04, 13),
+                                  DateTime.now().toUtc()
+                                ];
+                                List revisionScheduleInNumbers =
+                                    createRevisionSchedule(
+                                        revisionIntervals, daysBeforeTest);
 
-                                print(revisionDates);
+                                List<DateTime> revisionDates =
+                                    convertToDateTime(
+                                        revisionScheduleInNumbers, testDate);
 
-                                int counter = 0;
                                 for (var date in revisionDates) {
-                                  counter += 1;
-                                  selectedDay = date;
-                                  if (selectedEvents[selectedDay] == null) {
-                                    selectedEvents[selectedDay] = [
+                                  if (selectedEvents[date] == null) {
+                                    selectedEvents[date] = [
                                       _eventController2.text
                                     ];
                                   } else {
-                                    selectedEvents[selectedDay]
+                                    selectedEvents[date]
                                         .add(_eventController2.text);
                                   }
-                                  setState(() {});
                                 }
 
-                                _eventController2.clear();
-                                _dateInput.clear();
+                                // for (var date in list) {
+                                //   print(date);
+                                //   if (selectedEvents[date] == null) {
+                                //     selectedEvents[date] = ['Jelly'];
+                                //   } else {
+                                //     selectedEvents[date].add('Jelly2');
+                                //   }
+                                //   setState(() {});
+                                // }
 
                                 Navigator.pop(context);
+                                _eventController2.clear();
+                                _dateInput.clear();
+                                setState(() {});
                               },
                             ),
                           ],
