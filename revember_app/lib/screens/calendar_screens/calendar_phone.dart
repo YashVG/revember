@@ -387,12 +387,6 @@ class _CalendarState extends State<Calendar> {
                             TextButton(
                               child: const Text("Generate schedule"),
                               onPressed: () async {
-                                // List<DateTime> list = [
-                                //   DateTime.now().toUtc(),
-                                //   DateTime.utc(2023, 04, 02),
-                                //   DateTime.utc(2023, 04, 13),
-                                //   DateTime(2023, 04, 15)
-                                // ];
                                 List revisionScheduleInNumbers =
                                     createRevisionSchedule(
                                         revisionIntervals, daysBeforeTest);
@@ -414,19 +408,6 @@ class _CalendarState extends State<Calendar> {
                                   prefs.setString('events',
                                       json.encode(encodeMap(selectedEvents)));
                                 }
-
-                                // for (var date in list) {
-                                //   print(date);
-                                //   if (selectedEvents[date] == null) {
-                                //     selectedEvents[date] = [
-                                //       _eventController2.text
-                                //     ];
-                                //   } else {
-                                //     selectedEvents[date]
-                                //         .add(_eventController2.text);
-                                //   }
-                                //   setState(() {});
-                                // }
 
                                 Navigator.pop(context);
                                 _eventController2.clear();
