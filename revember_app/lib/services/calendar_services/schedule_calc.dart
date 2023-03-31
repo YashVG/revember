@@ -69,11 +69,26 @@ List<DateTime> convertToDateTime(List doubleValues, DateTime testDate) {
     int number = i.round();
     intValues.add(number);
   }
-  DateTime date = DateTime.now().toUtc(); //gets current time
+  DateTime date = DateTime.now().toUtc();
+  int year = date.year;
+  int month = date.month;
+  int day = date.day;
+  var string = '';
+  if (month.toString().length == 1 && day.toString().length == 1) {
+    string = '$year-0$month-0$day 00:00:00.000Z';
+  } else if (month.toString().length == 1) {
+    string = '$year-0$month-$day 00:00:00.000Z';
+  } else if (day.toString().length == 1) {
+    string = '$year-$month-0$day 00:00:00.000Z';
+  } else {
+    string = '$year-$month-$day 00:00:00.000Z';
+  }
+  date = DateTime.parse(string).toUtc();
+  //gets current time in UTC format
 
   for (var number in intValues) {
     DateTime dateToAdd = date.add(Duration(days: number));
-    dates.add(dateToAdd);
+    dates.add(dateToAdd.toUtc());
   }
   return dates;
 }

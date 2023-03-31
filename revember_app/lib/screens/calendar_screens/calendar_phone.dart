@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -386,11 +387,12 @@ class _CalendarState extends State<Calendar> {
                             TextButton(
                               child: const Text("Generate schedule"),
                               onPressed: () async {
-                                List<DateTime> list = [
-                                  DateTime.utc(2023, 03, 29),
-                                  DateTime.utc(2023, 04, 13),
-                                  DateTime.now().toUtc()
-                                ];
+                                // List<DateTime> list = [
+                                //   DateTime.now().toUtc(),
+                                //   DateTime.utc(2023, 04, 02),
+                                //   DateTime.utc(2023, 04, 13),
+                                //   DateTime(2023, 04, 15)
+                                // ];
                                 List revisionScheduleInNumbers =
                                     createRevisionSchedule(
                                         revisionIntervals, daysBeforeTest);
@@ -400,6 +402,7 @@ class _CalendarState extends State<Calendar> {
                                         revisionScheduleInNumbers, testDate);
 
                                 for (var date in revisionDates) {
+                                  print(date);
                                   if (selectedEvents[date] == null) {
                                     selectedEvents[date] = [
                                       _eventController2.text
@@ -408,14 +411,19 @@ class _CalendarState extends State<Calendar> {
                                     selectedEvents[date]
                                         .add(_eventController2.text);
                                   }
+                                  prefs.setString('events',
+                                      json.encode(encodeMap(selectedEvents)));
                                 }
 
                                 // for (var date in list) {
                                 //   print(date);
                                 //   if (selectedEvents[date] == null) {
-                                //     selectedEvents[date] = ['Jelly'];
+                                //     selectedEvents[date] = [
+                                //       _eventController2.text
+                                //     ];
                                 //   } else {
-                                //     selectedEvents[date].add('Jelly2');
+                                //     selectedEvents[date]
+                                //         .add(_eventController2.text);
                                 //   }
                                 //   setState(() {});
                                 // }
