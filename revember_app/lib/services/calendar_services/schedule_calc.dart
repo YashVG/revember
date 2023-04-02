@@ -84,7 +84,7 @@ List<DateTime> convertToDateTime(List doubleValues, DateTime testDate) {
     string = '$year-$month-$day 00:00:00.000Z';
   }
   date = DateTime.parse(string).toUtc();
-  //gets current time in UTC format
+  //gets current time in UTC format with suitable hour formatting
 
   for (var number in intValues) {
     DateTime dateToAdd = date.add(Duration(days: number));

@@ -28,6 +28,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  CalendarFormat format = CalendarFormat.month;
+  DateTime selectedDay = DateTime.now();
+  DateTime focusedDay = DateTime.now();
   @override
   void initState() {
     Future getUsername() async {
@@ -280,13 +283,48 @@ class _HomePageState extends State<HomePage> {
                     )
                   ],
                 ),
-                Container(
-                  child: SingleChildScrollView(
-                    child: TableCalendar(
-                      rowHeight: 80,
-                      focusedDay: DateTime.now(),
-                      firstDay: DateTime(now.year),
-                      lastDay: DateTime.utc(2030, 3, 14),
+                SingleChildScrollView(
+                  child: TableCalendar(
+                    selectedDayPredicate: (DateTime date) {
+                      return isSameDay(selectedDay, date);
+                    },
+                    onDaySelected: (DateTime selectDay, DateTime focusDay) {
+                      setState(() {
+                        selectedDay = selectDay;
+                        focusedDay = focusDay;
+                      });
+                    },
+                    rowHeight: 80,
+                    focusedDay: DateTime.now(),
+                    firstDay: DateTime(now.year),
+                    lastDay: DateTime.utc(2030, 3, 14),
+                    calendarFormat: format,
+                    onFormatChanged: (CalendarFormat _format) {
+                      setState(() {
+                        format = _format;
+                      });
+                    },
+                    calendarStyle: CalendarStyle(
+                      isTodayHighlighted: true,
+                      selectedDecoration: BoxDecoration(
+                        color: Colors.blue,
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                      selectedTextStyle: const TextStyle(color: Colors.white),
+                      todayDecoration: BoxDecoration(
+                        color: Colors.purpleAccent,
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                      defaultDecoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                      weekendDecoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
                     ),
                   ),
                 ),
