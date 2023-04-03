@@ -6,19 +6,15 @@ late String email;
 late String password;
 
 Future<User?> createUser(String username, String email, String password) async {
-  try {
-    firestore.collection('users').add(
-      {
-        'email': email,
-        'password': password,
-        'username': username,
-      },
-    );
-  } catch (e) {
-    return null;
-    //TODO: find suitable way to prompt error message in app if user creation fails for whatever reason
-  }
-  return null;
+  final docRef = firestore.collection('users').doc(username);
+
+  await docRef.set(
+    {
+      'email': email,
+      'password': password,
+      'username': username,
+    },
+  );
 }
 
 //TODO: Fix checkDuplicateUsername function so that it actually works
