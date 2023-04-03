@@ -4,19 +4,16 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:revember_app/screens/calendar_screens/calendar_screen.dart';
 import 'package:revember_app/screens/initial_screens/welcome_screen.dart';
 import 'package:revember_app/services/revision_services/get_subjects.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'settings.dart';
 import 'package:revember_app/constants/user_constants.dart';
 import 'package:revember_app/constants/calendar_constants.dart';
-import 'package:revember_app/screens/calendar_screens/add_testdate.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:revember_app/screens/revision_screens/subject_screen.dart';
 import 'package:revember_app/constants/revision_constants.dart';
 import 'package:revember_app/services/calendar_services/schedule_calc.dart';
-import 'package:table_calendar/table_calendar.dart';
 import 'package:revember_app/constants/calendar_constants.dart';
 import 'package:revember_app/screens/calendar_screens/calendar_phone.dart';
 
@@ -34,7 +31,7 @@ class _HomePageState extends State<HomePage> {
   late DateTime testDate;
   late SharedPreferences prefs;
   late Map<DateTime, dynamic> selectedEvents;
-  CalendarFormat format = CalendarFormat.month;
+  CalendarFormat format = CalendarFormat.twoWeeks;
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
   final TextEditingController _eventController = TextEditingController();
@@ -497,7 +494,11 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ],
                     ),
+                    SizedBox(
+                      height: 10,
+                    ),
                     TableCalendar(
+                      headerStyle: HeaderStyle(formatButtonVisible: false),
                       selectedDayPredicate: (DateTime date) {
                         return isSameDay(selectedDay, date);
                       },
@@ -509,15 +510,10 @@ class _HomePageState extends State<HomePage> {
                       },
                       eventLoader: _getEventsfromDay,
                       rowHeight: 50,
-                      focusedDay: DateTime.now(),
-                      firstDay: DateTime(now.year),
-                      lastDay: DateTime.utc(2030, 3, 14),
+                      focusedDay: selectedDay,
+                      firstDay: DateTime(1990),
+                      lastDay: DateTime(2050),
                       calendarFormat: format,
-                      onFormatChanged: (CalendarFormat _format) {
-                        setState(() {
-                          format = _format;
-                        });
-                      },
                       calendarStyle: CalendarStyle(
                         isTodayHighlighted: true,
                         selectedDecoration: BoxDecoration(
@@ -659,7 +655,7 @@ class _HomePageState extends State<HomePage> {
                                 },
                               ),
                             ],
-                          )
+                          ),
                         ],
                       ),
                     ),
