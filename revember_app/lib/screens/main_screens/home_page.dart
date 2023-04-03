@@ -265,78 +265,85 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.all(size.height * 0.05),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        body: Padding(
+          padding: EdgeInsets.all(size.height * 0.05),
+          child: Row(
+            children: [
+              Expanded(
+                flex: 2,
+                child: Column(
                   children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, AddTestDate.id);
+                    TableCalendar(
+                      selectedDayPredicate: (DateTime date) {
+                        return isSameDay(selectedDay, date);
                       },
-                      child: Text('Add test date'),
+                      onDaySelected: (DateTime selectDay, DateTime focusDay) {
+                        setState(() {
+                          selectedDay = selectDay;
+                          focusedDay = focusDay;
+                        });
+                      },
+                      rowHeight: 60,
+                      focusedDay: DateTime.now(),
+                      firstDay: DateTime(now.year),
+                      lastDay: DateTime.utc(2030, 3, 14),
+                      calendarFormat: format,
+                      onFormatChanged: (CalendarFormat _format) {
+                        setState(() {
+                          format = _format;
+                        });
+                      },
+                      calendarStyle: CalendarStyle(
+                        isTodayHighlighted: true,
+                        selectedDecoration: BoxDecoration(
+                          color: Colors.blue,
+                          shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                        selectedTextStyle: const TextStyle(color: Colors.white),
+                        todayDecoration: BoxDecoration(
+                          color: Colors.purpleAccent,
+                          shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                        defaultDecoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                        weekendDecoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                      ),
                     ),
-                    // Calendar(),
-
-                    ElevatedButton(
-                      onPressed: () async {
-                        await getSubjects();
-                        Navigator.pushNamed(context, SubjectScreen.id);
-                      },
-                      child: Text('Revision'),
-                    )
                   ],
                 ),
-                SingleChildScrollView(
-                  child: TableCalendar(
-                    selectedDayPredicate: (DateTime date) {
-                      return isSameDay(selectedDay, date);
-                    },
-                    onDaySelected: (DateTime selectDay, DateTime focusDay) {
-                      setState(() {
-                        selectedDay = selectDay;
-                        focusedDay = focusDay;
-                      });
-                    },
-                    rowHeight: 60,
-                    focusedDay: DateTime.now(),
-                    firstDay: DateTime(now.year),
-                    lastDay: DateTime.utc(2030, 3, 14),
-                    calendarFormat: format,
-                    onFormatChanged: (CalendarFormat _format) {
-                      setState(() {
-                        format = _format;
-                      });
-                    },
-                    calendarStyle: CalendarStyle(
-                      isTodayHighlighted: true,
-                      selectedDecoration: BoxDecoration(
-                        color: Colors.blue,
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                      selectedTextStyle: const TextStyle(color: Colors.white),
-                      todayDecoration: BoxDecoration(
-                        color: Colors.purpleAccent,
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                      defaultDecoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                      weekendDecoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.circular(5.0),
+              ),
+              Expanded(
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          await getSubjects();
+                          Navigator.pushNamed(context, SubjectScreen.id);
+                        },
+                        child: Text('Revision'),
                       ),
                     ),
-                  ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () async {},
+                        child: Text('Statistics'),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       );
