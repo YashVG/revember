@@ -20,15 +20,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: GoBackButton(),
+      appBar: AppBar(
+        title: Text('Settings'),
+      ),
       body: Center(
         child: Column(
           children: [
-            SizedBox(height: 80),
-            Text(
-              'Settings',
-              style: TextStyle(fontSize: 30.0),
-            ),
             SizedBox(
               height: 60,
             ),

@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
     }
 
     getData();
-    print(user);
+
     super.initState();
   }
 
@@ -53,19 +53,10 @@ class _HomePageState extends State<HomePage> {
     Size size = MediaQuery.of(context).size;
     if (Platform.isIOS || Platform.isAndroid) {
       return Scaffold(
-          body: Column(
-        children: [
-          SizedBox(
-            height: 120,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            //evenly spaces out widgets in the Row
-            children: [
-              Text(
-                'Hi $user, get started on your revision!',
-                style: TextStyle(fontSize: 15),
-              ),
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(80.0),
+          child: AppBar(
+            actions: [
               ElevatedButton(
                 onPressed: () {
                   showDialog(
@@ -84,13 +75,12 @@ class _HomePageState extends State<HomePage> {
                           TextButton(
                             child: Text('Yes'),
                             onPressed: () async {
-                              user = '';
                               final SharedPreferences sharedPreferences =
                                   await SharedPreferences.getInstance();
                               sharedPreferences.remove('username');
                               sharedPreferences.remove('password');
                               sharedPreferences.setBool('isLoggedIn', false);
-
+                              user = '';
                               Navigator.pushNamed(context, WelcomeScreen.id);
                             },
                           ),
@@ -105,164 +95,181 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, SettingsScreen.id);
+                },
+                child: Row(
+                  children: [
+                    Icon(Icons.settings),
+                    SizedBox(width: 10),
+                  ],
+                ),
+              ),
             ],
-          ),
-          Expanded(
-            child: GridView.count(
-              crossAxisSpacing: size.width * 0.03,
-              mainAxisSpacing: size.height * 0.05,
-              padding: EdgeInsets.only(top: 24, left: 24, right: 24),
-              shrinkWrap: true,
-              crossAxisCount: 2,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, Calendar.id);
-                  },
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text('Calendar'),
-                      Icon(Icons.calendar_month_outlined),
-                      SizedBox(
-                        height: 5,
-                      ),
-                    ],
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    await getSubjects();
-                    Navigator.pushNamed(context, SubjectScreen.id);
-                  },
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text('Revision'),
-                      Icon(Icons.book),
-                      SizedBox(
-                        height: 5,
-                      ),
-                    ],
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text('Daily Statistics'),
-                      Icon(Icons.numbers_outlined),
-                      SizedBox(
-                        height: 5,
-                      ),
-                    ],
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, SettingsScreen.id);
-                  },
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text('Settings'),
-                      Icon(Icons.settings),
-                      SizedBox(
-                        height: 5,
-                      ),
-                    ],
-                  ),
-                )
-              ],
+            title: Text(
+              'Revember 📖',
+              style: TextStyle(fontSize: 20),
             ),
-          )
-        ],
-      ));
+          ),
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              child: GridView.count(
+                crossAxisSpacing: size.width * 0.03,
+                mainAxisSpacing: size.height * 0.03,
+                padding: EdgeInsets.only(top: 24, left: 24, right: 24),
+                shrinkWrap: false,
+                crossAxisCount: 2,
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, Calendar.id);
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text('Calendar'),
+                          Icon(Icons.calendar_month_outlined),
+                          SizedBox(
+                            height: 5,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      await getSubjects();
+                      Navigator.pushNamed(context, SubjectScreen.id);
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text('Revision'),
+                        Icon(Icons.book),
+                        SizedBox(
+                          height: 5,
+                        ),
+                      ],
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text('Daily Statistics'),
+                        Icon(Icons.numbers_outlined),
+                        SizedBox(
+                          height: 5,
+                        ),
+                      ],
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, SettingsScreen.id);
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text('Settings'),
+                        Icon(Icons.settings),
+                        SizedBox(
+                          height: 5,
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      );
     } else {
       return Scaffold(
+        appBar: AppBar(
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text('Logout Confirmation'),
+                      content: Text('Do you want to logout?'),
+                      actions: <Widget>[
+                        TextButton(
+                          child: Text('No'),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                        TextButton(
+                          child: Text('Yes'),
+                          onPressed: () async {
+                            final SharedPreferences sharedPreferences =
+                                await SharedPreferences.getInstance();
+                            sharedPreferences.remove('username');
+                            sharedPreferences.remove('password');
+                            sharedPreferences.setBool('isLoggedIn', false);
+                            user = '';
+                            Navigator.pushNamed(context, WelcomeScreen.id);
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              child: Row(
+                children: [
+                  Icon(Icons.logout),
+                  SizedBox(width: 10),
+                  Text('Logout'),
+                ],
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, SettingsScreen.id);
+              },
+              child: Row(
+                children: [
+                  Icon(Icons.settings),
+                  SizedBox(width: 10),
+                  Text('Settings'),
+                ],
+              ),
+            ),
+          ],
+          title: Row(
+            children: [
+              Text('Hi $user, get started on your revision 📖'),
+            ],
+          ),
+        ),
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.all(size.height * 0.05),
             child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  //evenly spaces out widgets in the Row
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: Text('Logout Confirmation'),
-                              content: Text('Do you want to logout?'),
-                              actions: <Widget>[
-                                TextButton(
-                                  child: Text('No'),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                                TextButton(
-                                  child: Text('Yes'),
-                                  onPressed: () async {
-                                    final SharedPreferences sharedPreferences =
-                                        await SharedPreferences.getInstance();
-                                    sharedPreferences.remove('username');
-                                    sharedPreferences.remove('password');
-                                    sharedPreferences.setBool(
-                                        'isLoggedIn', false);
-                                    user = '';
-                                    Navigator.pushNamed(
-                                        context, WelcomeScreen.id);
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      },
-                      child: Row(
-                        children: [
-                          Icon(Icons.logout),
-                          SizedBox(width: 10),
-                          Text('Logout'),
-                        ],
-                      ),
-                    ),
-                    Text(
-                      'Hi $user, get started on your revision!',
-                      style: TextStyle(fontSize: size.aspectRatio * 15),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, SettingsScreen.id);
-                      },
-                      child: Row(
-                        children: [
-                          Icon(Icons.settings),
-                          SizedBox(width: 10),
-                          Text('Settings'),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -294,7 +301,7 @@ class _HomePageState extends State<HomePage> {
                         focusedDay = focusDay;
                       });
                     },
-                    rowHeight: 80,
+                    rowHeight: 60,
                     focusedDay: DateTime.now(),
                     firstDay: DateTime(now.year),
                     lastDay: DateTime.utc(2030, 3, 14),
