@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:revember_app/screens/calendar_screens/calendar_screen.dart';
 import 'package:revember_app/screens/initial_screens/welcome_screen.dart';
@@ -28,11 +30,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late SharedPreferences prefs;
+  late Map<DateTime, dynamic> selectedEvents;
   CalendarFormat format = CalendarFormat.month;
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
+  final TextEditingController _eventController = TextEditingController();
   @override
   void initState() {
+    super.initState();
+    prefsData();
+    selectedEvents = {};
     Future getUsername() async {
       final SharedPreferences pref = await SharedPreferences.getInstance();
       user = pref.getString('username');
@@ -44,8 +52,34 @@ class _HomePageState extends State<HomePage> {
     }
 
     getData();
+  }
 
-    super.initState();
+  prefsData() async {
+    prefs = await SharedPreferences.getInstance();
+    setState(() {
+      selectedEvents = Map<DateTime, dynamic>.from(
+          decodeMap(json.decode(prefs.getString("events") ?? "{}")));
+    });
+  }
+
+  Map<String, dynamic> encodeMap(Map<DateTime, dynamic> map) {
+    Map<String, dynamic> newMap = {};
+    map.forEach((key, value) {
+      newMap[key.toString()] = map[key];
+    });
+    return newMap;
+  }
+
+  Map<DateTime, dynamic> decodeMap(Map<String, dynamic> map) {
+    Map<DateTime, dynamic> newMap = {};
+    map.forEach((key, value) {
+      newMap[DateTime.parse(key)] = map[key];
+    });
+    return newMap;
+  }
+
+  List<dynamic> _getEventsfromDay(DateTime date) {
+    return selectedEvents[date] ?? [];
   }
 
   @override
@@ -283,6 +317,7 @@ class _HomePageState extends State<HomePage> {
                           focusedDay = focusDay;
                         });
                       },
+                      eventLoader: _getEventsfromDay,
                       rowHeight: 50,
                       focusedDay: DateTime.now(),
                       firstDay: DateTime(now.year),
@@ -319,6 +354,53 @@ class _HomePageState extends State<HomePage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
+                        FloatingActionButton.extended(
+                          heroTag: UniqueKey(),
+                          onPressed: () => showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: const Text("Add Event"),
+                              content: TextFormField(
+                                //_eventController is event title
+                                controller: _eventController,
+                              ),
+                              actions: [
+                                TextButton(
+                                  child: const Text(
+                                    "Cancel",
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                  onPressed: () => Navigator.pop(context),
+                                ),
+                                TextButton(
+                                  child: const Text("Ok"),
+                                  onPressed: () {
+                                    if (_eventController.text.isEmpty) {
+                                    } else {
+                                      if (selectedEvents[selectedDay] != null) {
+                                        selectedEvents[selectedDay].add(
+                                          _eventController.text,
+                                        );
+                                      } else {
+                                        selectedEvents[selectedDay] = [
+                                          _eventController.text
+                                        ];
+                                      }
+                                    }
+                                    prefs.setString('events',
+                                        json.encode(encodeMap(selectedEvents)));
+                                    Navigator.pop(context);
+                                    _eventController.clear();
+                                    setState(() {});
+                                    return;
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                          label: const Text("Add Event"),
+                          icon: const Icon(Icons.add),
+                        ),
                         SizedBox(
                           width: 10,
                         ),
