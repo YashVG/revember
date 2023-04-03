@@ -16,7 +16,6 @@ import 'package:revember_app/constants/revision_constants.dart';
 import 'package:revember_app/services/calendar_services/schedule_calc.dart';
 import 'package:revember_app/constants/calendar_constants.dart';
 import 'package:revember_app/screens/calendar_screens/calendar_phone.dart';
-
 import 'dart:io' show Platform;
 
 class HomePage extends StatefulWidget {
@@ -537,6 +536,9 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
+                    SizedBox(
+                      height: 20,
+                    ),
                     ..._getEventsfromDay(selectedDay).map(
                       // ... is a spread operator which allows for multiple items to be inserted into a collection
                       // similar to a for i in loop and adding i to a list variable declared outside loop
@@ -552,7 +554,7 @@ class _HomePageState extends State<HomePage> {
                                 onPressed: () {},
                                 child: Text(
                                   event,
-                                  style: const TextStyle(fontSize: 16),
+                                  style: const TextStyle(fontSize: 18),
                                 ),
                               ),
                             ],

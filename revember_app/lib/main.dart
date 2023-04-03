@@ -33,6 +33,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:revember_app/constants/user_constants.dart';
 import 'package:revember_app/constants/calendar_display_constants.dart';
 import 'package:revember_app/components/calendar/event.dart';
+import 'package:revember_app/screens/settings_screens/change_password.dart';
 import 'dart:convert';
 
 import 'dart:io' show Platform;
@@ -76,6 +77,7 @@ class _RevemberState extends State<Revember> {
         SignUpScreen.id: (context) => SignUpScreen(),
         SignUpScreen2.id: (context) => SignUpScreen2(),
         LoginRecoveryScreen.id: (context) => LoginRecoveryScreen(),
+        ChangePassword.id: (context) => ChangePassword(),
         HomePage.id: (context) => HomePage(),
         SettingsScreen.id: (context) => SettingsScreen(),
         AddTestDate.id: (context) => AddTestDate(),

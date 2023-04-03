@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:revember_app/components/back_button.dart';
 import 'package:revember_app/preferences/themes.dart';
+import 'package:revember_app/screens/settings_screens/change_password.dart';
 
 class SettingsScreen extends StatefulWidget {
   static const String id = 'settings_page';
@@ -40,7 +41,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             ElevatedButton(
               onPressed: () {
-                //TODO: Implement change password
+                Navigator.pushNamed(context, ChangePassword.id);
               },
               child: Text('Change password for account'),
             ),
