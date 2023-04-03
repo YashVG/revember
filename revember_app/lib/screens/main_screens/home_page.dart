@@ -283,7 +283,7 @@ class _HomePageState extends State<HomePage> {
                           focusedDay = focusDay;
                         });
                       },
-                      rowHeight: 60,
+                      rowHeight: 50,
                       focusedDay: DateTime.now(),
                       firstDay: DateTime(now.year),
                       lastDay: DateTime.utc(2030, 3, 14),
@@ -316,14 +316,29 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        SizedBox(
+                          width: 10,
+                        ),
+                        FloatingActionButton(onPressed: null),
+                      ],
+                    ),
                   ],
                 ),
+              ),
+              SizedBox(
+                width: 10,
               ),
               Expanded(
                 child: Column(
                   children: [
                     Expanded(
                       child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size.fromHeight(50), // NEW
+                        ),
                         onPressed: () async {
                           await getSubjects();
                           Navigator.pushNamed(context, SubjectScreen.id);
@@ -336,6 +351,9 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Expanded(
                       child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size.fromHeight(50), // NEW
+                        ),
                         onPressed: () async {},
                         child: Text('Statistics'),
                       ),
