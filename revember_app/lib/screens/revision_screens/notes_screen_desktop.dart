@@ -9,22 +9,22 @@ import 'dart:io' show Platform;
 import 'package:revember_app/screens/revision_screens/writing_screens/write_notes.dart';
 import 'package:revember_app/screens/revision_screens/question_screens/main_question_screen.dart';
 
-class NotesScreen extends StatefulWidget {
-  const NotesScreen({Key? key}) : super(key: key);
+class NotesScreenDesktop extends StatefulWidget {
+  const NotesScreenDesktop({Key? key}) : super(key: key);
   static const String id = 'notes_screen';
 
   @override
-  State<NotesScreen> createState() => _NotesScreenState();
+  State<NotesScreenDesktop> createState() => _NotesScreenDesktopState();
 }
 
-class _NotesScreenState extends State<NotesScreen> {
+class _NotesScreenDesktopState extends State<NotesScreenDesktop> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Notes from $currentTopic'),
+        title: Text('Notes and Questions from $currentTopic'),
         backgroundColor: Colors.blueGrey,
       ),
       body: Padding(
@@ -37,22 +37,14 @@ class _NotesScreenState extends State<NotesScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  if (Platform.isAndroid || Platform.isIOS)
-                    ElevatedButton(
-                      onPressed: null,
-                      child: Text('Scan Notes'),
-                    ),
-                  if (Platform.isMacOS || Platform.isWindows)
-                    ElevatedButton(
-                        onPressed: null,
-                        child: Text('Upload document to scan')),
-                  if (Platform.isMacOS || Platform.isWindows)
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, NotesGuidesScreen.id);
-                      },
-                      child: Text('Write notes'),
-                    ),
+                  ElevatedButton(
+                      onPressed: null, child: Text('Upload document to scan')),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, NotesGuidesScreen.id);
+                    },
+                    child: Text('Write notes'),
+                  ),
                   ElevatedButton(
                       onPressed: () {
                         Navigator.pushNamed(context, MainQuestionScreen.id);

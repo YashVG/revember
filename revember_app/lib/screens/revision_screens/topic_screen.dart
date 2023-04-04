@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:revember_app/services/revision_services/get_topichash.dart';
 import 'create_topic.dart';
 import 'package:revember_app/constants/revision_constants.dart';
-import 'notes_screen.dart';
+import 'notes_screen_desktop.dart';
 
 class TopicScreen extends StatefulWidget {
   static const String id = 'topic_screen';
@@ -61,7 +61,7 @@ class _TopicScreenState extends State<TopicScreen> {
                   currentTopic = i.toString();
                   currentTopicHash = await getTopicHash(currentTopic);
 
-                  Navigator.pushNamed(context, NotesScreen.id);
+                  Navigator.pushNamed(context, NotesScreenDesktop.id);
                 },
                 child: Text(
                   i.toString(),

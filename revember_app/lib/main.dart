@@ -20,7 +20,7 @@ import 'screens/revision_screens/subject_screen.dart';
 import 'screens/revision_screens/create_subject.dart';
 import 'screens/revision_screens/topic_screen.dart';
 import 'screens/revision_screens/create_topic.dart';
-import 'screens/revision_screens/notes_screen.dart';
+import 'screens/revision_screens/notes_screen_desktop.dart';
 import 'screens/revision_screens/writing_screens/write_notes.dart';
 import 'screens/revision_screens/writing_screens/writing_guide.dart';
 import 'package:revember_app/screens/revision_screens/question_screens/main_question_screen.dart';
@@ -86,7 +86,7 @@ class _RevemberState extends State<Revember> {
         CreateSubjectScreen.id: (context) => CreateSubjectScreen(),
         TopicScreen.id: (context) => TopicScreen(),
         CreateTopicScreen.id: (context) => CreateTopicScreen(),
-        NotesScreen.id: (context) => NotesScreen(),
+        NotesScreenDesktop.id: (context) => NotesScreenDesktop(),
         NotesGuidesScreen.id: (context) => NotesGuidesScreen(),
         WriteNotesScreen.id: (context) => WriteNotesScreen(),
         QuestionGuide.id: (context) => QuestionGuide(),
