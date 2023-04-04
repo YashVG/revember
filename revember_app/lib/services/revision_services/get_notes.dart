@@ -1,7 +1,7 @@
 import 'package:revember_app/constants/revision_constants.dart';
 import 'package:revember_app/constants/user_constants.dart';
 
-Future getNotes() async {
+Future<String> getNotes() async {
   final docRef = await firestore
       .collection('revision_notes')
       .doc(user)
@@ -13,5 +13,5 @@ Future getNotes() async {
       .doc('notes')
       .get();
   var ref = docRef.data();
-  return ref!['notes'];
+  return ref!['notes'] as String;
 }
