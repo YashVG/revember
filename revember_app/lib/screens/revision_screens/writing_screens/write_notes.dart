@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last
 
 import 'package:flutter/material.dart';
+import 'package:revember_app/screens/revision_screens/notes_screen_desktop.dart';
 import 'package:revember_app/services/revision_services/upload_notes.dart';
+import 'package:revember_app/services/stats_services/dart_stats.dart';
 
 class WriteNotesScreen extends StatefulWidget {
   const WriteNotesScreen({Key? key}) : super(key: key);
@@ -14,6 +16,7 @@ class WriteNotesScreen extends StatefulWidget {
 class _WriteNotesScreenState extends State<WriteNotesScreen> {
   bool _enabled = true;
   bool _enabled2 = true;
+  String rawNotes = '';
   String notes = '';
   @override
   Widget build(BuildContext context) {
@@ -22,7 +25,6 @@ class _WriteNotesScreenState extends State<WriteNotesScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueGrey,
-        automaticallyImplyLeading: false,
         title: Text('Write your notes down'),
       ),
       body: Padding(
@@ -41,6 +43,9 @@ class _WriteNotesScreenState extends State<WriteNotesScreen> {
                     children: [
                       SizedBox(
                         child: TextFormField(
+                          onChanged: (value) {
+                            rawNotes = value;
+                          },
                           readOnly: !_enabled,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
@@ -55,7 +60,8 @@ class _WriteNotesScreenState extends State<WriteNotesScreen> {
                       SizedBox(height: size.height * 0.05),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            primary: _enabled ? Colors.blue : Colors.grey),
+                            backgroundColor:
+                                _enabled ? Colors.blue : Colors.grey),
                         onPressed: () {
                           _enabled = !_enabled;
                           setState(() {});
@@ -109,6 +115,9 @@ class _WriteNotesScreenState extends State<WriteNotesScreen> {
                     ? null
                     : () async {
                         await uploadNotes(notes);
+                        wordPercentageComparison(rawNotes, notes);
+
+                        // ignore: use_build_context_synchronously
                         return showDialog(
                           context: context,
                           builder: (context) {
@@ -120,7 +129,14 @@ class _WriteNotesScreenState extends State<WriteNotesScreen> {
                                 TextButton(
                                   child: Text('Okay!'),
                                   onPressed: () async {
+                                    //work around to update state of screen every time new notes are added
                                     Navigator.pop(context);
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
+                                    Navigator.pushNamed(
+                                        context, NotesScreenDesktop.id);
+                                    setState(() {});
                                   },
                                 ),
                               ],

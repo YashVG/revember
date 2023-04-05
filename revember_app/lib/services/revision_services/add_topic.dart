@@ -13,4 +13,15 @@ Future addTopic(String topicName) async {
       "topic_hash": idGenerator(),
     },
   );
+
+  final docRef2 = firestore
+      .collection('revision_notes')
+      .doc(user)
+      .collection('subjects')
+      .doc(currentSubject)
+      .collection('notes')
+      .doc(topicName)
+      .collection('notes')
+      .doc('notes');
+  docRef2.set({"notes": ""});
 }

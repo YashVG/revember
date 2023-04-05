@@ -2,10 +2,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:revember_app/constants/revision_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:revember_app/services/revision_services/add_subject.dart';
 import 'package:revember_app/services/revision_services/get_subjects.dart';
 import 'package:revember_app/services/revision_services/get_topics.dart';
-import 'create_subject.dart';
 import 'topic_screen.dart';
+import 'package:revember_app/constants/user_constants.dart';
 
 class SubjectScreen extends StatefulWidget {
   static const String id = 'subject_screen';
@@ -16,6 +17,7 @@ class SubjectScreen extends StatefulWidget {
 }
 
 class _SubjectScreenState extends State<SubjectScreen> {
+  final TextEditingController subjectInput = TextEditingController();
   @override
   Widget build(BuildContext context) {
     subjectList;
@@ -29,8 +31,38 @@ class _SubjectScreenState extends State<SubjectScreen> {
           Padding(
             padding: EdgeInsets.only(right: size.width * 0.1),
             child: GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, CreateSubjectScreen.id);
+              onTap: () async {
+                // Navigator.pushNamed(context, CreateSubjectScreen.id);
+                return showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text('Enter subject name'),
+                      content: TextField(
+                        onChanged: (value) {
+                          subjectInput.text = value;
+                        },
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                          child: const Text('Cancel'),
+                          onPressed: () async {
+                            Navigator.pop(context);
+                          },
+                        ),
+                        TextButton(
+                          onPressed: () async {
+                            await addSubjectName(subjectInput.text, user);
+                            Navigator.pop(context);
+                            await getSubjects();
+                            setState(() {});
+                          },
+                          child: const Text('Create subject'),
+                        )
+                      ],
+                    );
+                  },
+                );
               },
               child: CircleAvatar(
                 backgroundColor: Colors.black,

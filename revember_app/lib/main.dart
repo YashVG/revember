@@ -14,12 +14,9 @@ import 'screens/initial_screens/signup_screen.dart';
 import 'screens/main_screens/home_page.dart';
 import 'screens/initial_screens/login_recovery.dart';
 import 'screens/main_screens/settings.dart';
-import 'screens/calendar_screens/add_testdate.dart';
 import 'screens/calendar_screens/calendar_screen.dart';
 import 'screens/revision_screens/subject_screen.dart';
-import 'screens/revision_screens/create_subject.dart';
 import 'screens/revision_screens/topic_screen.dart';
-import 'screens/revision_screens/create_topic.dart';
 import 'screens/revision_screens/notes_screen_desktop.dart';
 import 'screens/revision_screens/writing_screens/write_notes.dart';
 import 'screens/revision_screens/writing_screens/writing_guide.dart';
@@ -27,6 +24,7 @@ import 'package:revember_app/screens/revision_screens/question_screens/main_ques
 import 'package:revember_app/screens/revision_screens/question_screens/question_guide.dart';
 import 'package:revember_app/screens/quiz_screens/quiz_screen.dart';
 import 'package:revember_app/test/test_screen.dart';
+import 'package:revember_app/screens/revision_screens/statistics_screen.dart';
 import 'package:revember_app/preferences/themes.dart';
 import 'package:revember_app/screens/calendar_screens/calendar_phone.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -80,13 +78,11 @@ class _RevemberState extends State<Revember> {
         ChangePassword.id: (context) => ChangePassword(),
         HomePage.id: (context) => HomePage(),
         SettingsScreen.id: (context) => SettingsScreen(),
-        AddTestDate.id: (context) => AddTestDate(),
         CalendarScreen.id: (context) => CalendarScreen(),
         SubjectScreen.id: (context) => SubjectScreen(),
-        CreateSubjectScreen.id: (context) => CreateSubjectScreen(),
         TopicScreen.id: (context) => TopicScreen(),
-        CreateTopicScreen.id: (context) => CreateTopicScreen(),
         NotesScreenDesktop.id: (context) => NotesScreenDesktop(),
+        StatsScreen.id: (context) => StatsScreen(),
         NotesGuidesScreen.id: (context) => NotesGuidesScreen(),
         WriteNotesScreen.id: (context) => WriteNotesScreen(),
         QuestionGuide.id: (context) => QuestionGuide(),

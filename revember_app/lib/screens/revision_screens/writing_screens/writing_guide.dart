@@ -14,7 +14,9 @@ class NotesGuidesScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      floatingActionButton: GoBackButton(),
+      appBar: AppBar(
+        title: Text('Guide for writing notes'),
+      ),
       body: Container(
         padding:
             EdgeInsets.fromLTRB(size.height * 0.1, 0, size.height * 0.1, 0),
@@ -22,13 +24,6 @@ class NotesGuidesScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             SizedBox(height: size.height * 0.11),
-            Center(
-              child: Text(
-                'Guide for writing notes',
-                style: TextStyle(fontSize: 36),
-              ),
-            ),
-            SizedBox(height: size.height * 0.1),
             Center(
               child: Text(
                 'Step 1. Write down your notes as you normally would',

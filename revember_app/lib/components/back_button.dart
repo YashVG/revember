@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 //refactoring for back button in sign up and login screens
 
 class GoBackButton extends StatelessWidget {
-  const GoBackButton({Key? key}) : super(key: key);
+  const GoBackButton({super.key});
 
   @override
   Widget build(BuildContext context) {

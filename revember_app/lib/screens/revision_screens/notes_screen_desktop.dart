@@ -2,12 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:revember_app/constants/revision_constants.dart';
+import 'package:revember_app/screens/revision_screens/question_screens/create_questions.dart';
+import 'package:revember_app/screens/revision_screens/statistics_screen.dart';
 import 'package:revember_app/screens/revision_screens/writing_screens/writing_guide.dart';
-import 'writing_screens/write_notes.dart';
 
 import 'package:revember_app/screens/revision_screens/writing_screens/write_notes.dart';
 import 'package:revember_app/screens/revision_screens/question_screens/main_question_screen.dart';
 import 'package:revember_app/services/revision_services/get_notes.dart';
+import 'package:revember_app/services/revision_services/split_hypen.dart';
 
 class NotesScreenDesktop extends StatefulWidget {
   const NotesScreenDesktop({Key? key}) : super(key: key);
@@ -21,21 +23,6 @@ class _NotesScreenDesktopState extends State<NotesScreenDesktop> {
   String rawNotes = '';
   List notesToDisplay = [];
 
-  List<String> splitByHyphen(String str) {
-    List<String> result = [];
-    var temp = '';
-    for (var i = 0; i < str.length; i++) {
-      if (str[i] == '-') {
-        if (temp.isNotEmpty) result.add(temp);
-        temp = '-';
-      } else {
-        temp += str[i];
-      }
-    }
-    if (temp.isNotEmpty) result.add(temp);
-    return result;
-  }
-
   retrieveNotes() async {
     rawNotes = await getNotes();
     return rawNotes;
@@ -43,11 +30,13 @@ class _NotesScreenDesktopState extends State<NotesScreenDesktop> {
 
   @override
   void initState() {
-    retrieveNotes().then((value) {
-      notesToDisplay = splitByHyphen(value);
-      print(notesToDisplay);
-      setState(() {});
-    });
+    retrieveNotes().then(
+      (value) {
+        notesToDisplay = splitByHyphen(value);
+
+        setState(() {});
+      },
+    );
 
     super.initState();
   }
@@ -58,7 +47,7 @@ class _NotesScreenDesktopState extends State<NotesScreenDesktop> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Notes and Questions from $currentTopic'),
+        title: Text(currentTopic),
         backgroundColor: Colors.blueGrey,
       ),
       body: Padding(
@@ -76,7 +65,7 @@ class _NotesScreenDesktopState extends State<NotesScreenDesktop> {
                           height: 10,
                         ),
                         Text('Notes from topic',
-                            style: TextStyle(fontSize: 20)),
+                            style: TextStyle(fontSize: 22)),
                         SizedBox(
                           height: 20,
                         ),
@@ -86,25 +75,28 @@ class _NotesScreenDesktopState extends State<NotesScreenDesktop> {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 ListView.builder(
+                                  physics: NeverScrollableScrollPhysics(),
                                   scrollDirection: Axis.vertical,
                                   shrinkWrap: true,
                                   itemCount: notesToDisplay.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     return Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
-                                        Text(notesToDisplay[index]),
+                                        Text(
+                                          notesToDisplay[index],
+                                          style: TextStyle(fontSize: 16),
+                                        ),
                                         SizedBox(
-                                          height: 10,
+                                          height: 5,
                                         )
                                       ],
                                     );
                                   },
-                                ),
-                                SizedBox(
-                                  height: 30,
                                 ),
                               ],
                             ),
@@ -119,23 +111,24 @@ class _NotesScreenDesktopState extends State<NotesScreenDesktop> {
                   Row(
                     children: [
                       Expanded(
-                        child: TextButton(
+                        child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            minimumSize: const Size.fromHeight(150), // NEW
+                            minimumSize: const Size.fromHeight(100), // NEW
                           ),
-                          child: Text('Notes writing'),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Write notes',
+                                style: TextStyle(fontSize: 30),
+                              ),
+                              SizedBox(height: 10),
+                              Icon(Icons.article_rounded),
+                            ],
+                          ),
                           onPressed: () {
                             Navigator.pushNamed(context, NotesGuidesScreen.id);
                           },
-                        ),
-                      ),
-                      Expanded(
-                        child: TextButton(
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: const Size.fromHeight(150), // NEW
-                          ),
-                          child: Text('Notes upload'),
-                          onPressed: () {},
                         ),
                       ),
                     ],
@@ -143,26 +136,91 @@ class _NotesScreenDesktopState extends State<NotesScreenDesktop> {
                 ],
               ),
             ),
+            SizedBox(
+              width: 20,
+            ),
             Expanded(
               child: Column(
                 children: [
                   Expanded(
-                    child: TextButton(
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size.fromHeight(50), // NEW
-                      ),
-                      child: Text('Go to questions'),
-                      onPressed: () {},
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: const Size.fromHeight(50), // NEW
+                            ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 30,
+                                ),
+                                Text(
+                                  'Create questions',
+                                  style: TextStyle(fontSize: 30),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Icon(
+                                  Icons.add,
+                                  size: 30.0,
+                                )
+                              ],
+                            ),
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, CreateQuestionScreen.id);
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Expanded(
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: const Size.fromHeight(50), // NEW
+                            ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 30,
+                                ),
+                                Text(
+                                  'Answer Questions',
+                                  style: TextStyle(fontSize: 30),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Icon(
+                                  Icons.arrow_right,
+                                  size: 30.0,
+                                )
+                              ],
+                            ),
+                            onPressed: () {},
+                          ),
+                        ),
+                      ],
                     ),
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Expanded(
-                    child: TextButton(
+                    child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         minimumSize: const Size.fromHeight(50), // NEW
                       ),
                       child: Text(
                           'display average %s, notes stats, etc. for topic'),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, StatsScreen.id);
+                      },
                     ),
                   ),
                 ],

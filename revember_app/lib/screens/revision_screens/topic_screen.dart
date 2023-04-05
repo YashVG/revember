@@ -2,7 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:revember_app/services/revision_services/get_topichash.dart';
-import 'create_topic.dart';
+import 'package:revember_app/services/revision_services/get_topics.dart';
+import '../../services/revision_services/add_topic.dart';
 import 'package:revember_app/constants/revision_constants.dart';
 import 'notes_screen_desktop.dart';
 
@@ -16,6 +17,7 @@ class TopicScreen extends StatefulWidget {
 }
 
 class _TopicScreenState extends State<TopicScreen> {
+  final TextEditingController topicInput = TextEditingController();
   @override
   Widget build(BuildContext context) {
     topicList;
@@ -30,8 +32,38 @@ class _TopicScreenState extends State<TopicScreen> {
           Padding(
             padding: EdgeInsets.only(right: size.width * 0.1),
             child: GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, CreateTopicScreen.id);
+              onTap: () async {
+                // Navigator.pushNamed(context, CreateSubjectScreen.id);
+                return showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text('Enter topic name'),
+                      content: TextField(
+                        onChanged: (value) {
+                          topicInput.text = value;
+                        },
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                          child: const Text('Cancel'),
+                          onPressed: () async {
+                            Navigator.pop(context);
+                          },
+                        ),
+                        TextButton(
+                          onPressed: () async {
+                            await addTopic(topicInput.text);
+                            Navigator.pop(context);
+                            await getTopics();
+                            setState(() {});
+                          },
+                          child: const Text('Create topic'),
+                        )
+                      ],
+                    );
+                  },
+                );
               },
               child: CircleAvatar(
                 backgroundColor: Colors.black,
