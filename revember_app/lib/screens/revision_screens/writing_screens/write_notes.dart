@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last
 
 import 'package:flutter/material.dart';
+import 'package:revember_app/constants/revision_constants.dart';
 import 'package:revember_app/screens/revision_screens/notes_screen_desktop.dart';
 import 'package:revember_app/services/revision_services/upload_notes.dart';
 import 'package:revember_app/services/stats_services/dart_stats.dart';
@@ -115,7 +116,9 @@ class _WriteNotesScreenState extends State<WriteNotesScreen> {
                     ? null
                     : () async {
                         await uploadNotes(notes);
-                        wordPercentageComparison(rawNotes, notes);
+
+                        await uploadPercentage(
+                            wordPercentageComparison(rawNotes, notes));
 
                         // ignore: use_build_context_synchronously
                         return showDialog(
