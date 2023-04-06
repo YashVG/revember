@@ -12,22 +12,27 @@ class StatsScreen extends StatefulWidget {
 }
 
 class _StatsScreenState extends State<StatsScreen> {
+  late int numberComparison;
   late dynamic percentages;
   double percents = 0;
   late Map<String, double> percentagesDataMap;
 
   getValues() async {
+    //set default values for async vars
     percentagesDataMap = {
       "No notes detected\nPlease input notes": 0,
     };
-    percentages = await getDartPercentage(currentTopicHash);
+    numberComparison = 0;
 
+    //percentages process
+    percentages = await getDartPercentage(currentTopicHash);
+    //gets average percentage
     var length = percentages.length;
     for (var number in percentages) {
       percents += number;
     }
     percents = (percents / length).roundToDouble();
-    if (percents == 0.0) {
+    if (percents == 0.0 || percents.isNaN) {
     } else {
       percentagesDataMap = {
         "Words used": percents,
@@ -35,6 +40,11 @@ class _StatsScreenState extends State<StatsScreen> {
       };
       setState(() {});
     }
+
+    //number comparison process
+    numberComparison = await getDartComparison(currentTopicHash);
+    setState(() {});
+    print(numberComparison);
   }
 
   @override
@@ -58,10 +68,11 @@ class _StatsScreenState extends State<StatsScreen> {
               child: Column(
                 children: [
                   Expanded(
+                    flex: 2,
                     child: Column(
                       children: [
                         const Text(
-                          'Stats to show percentage of words used in concise notes compared to raw notes',
+                          'Percentage of words used in concise notes compared to raw notes.\n\nIdeally keep the words used % as high as possible',
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold),
                         ),
@@ -70,20 +81,42 @@ class _StatsScreenState extends State<StatsScreen> {
                         ),
                         PieChart(
                           dataMap: percentagesDataMap,
-                          chartRadius: MediaQuery.of(context).size.width / 5,
+                          chartRadius: MediaQuery.of(context).size.width / 1,
+                          chartValuesOptions: const ChartValuesOptions(
+                            showChartValuesInPercentage: true,
+                          ),
                         ),
                       ],
                     ),
                   ),
-                  const Expanded(
-                    child: Text('Stats 2'),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        const Text(
+                          'Total difference in word count between long notes and concise notes for this topic:',
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          numberComparison.toString(),
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
             Expanded(
               child: Column(
-                children: [
+                children: const [
                   Expanded(
                     child: Text('Stats 3'),
                   ),

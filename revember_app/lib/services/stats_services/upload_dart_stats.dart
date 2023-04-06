@@ -54,3 +54,17 @@ Future uploadPercentage(stats) async {
     },
   );
 }
+
+Future uploadComparison(stats) async {
+  final docRef = firestore
+      .collection('statistics')
+      .doc(currentTopicHash)
+      .collection('stats')
+      .doc('simple_stats');
+  await docRef.update(
+    {
+      "stats2": FieldValue.increment(stats)
+      //adds stats for each set of notes uploaded
+    },
+  );
+}

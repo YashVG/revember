@@ -116,11 +116,12 @@ class _WriteNotesScreenState extends State<WriteNotesScreen> {
                     ? null
                     : () async {
                         await uploadNotes(notes);
-
                         await uploadPercentage(
-                            wordPercentageComparison(rawNotes, notes));
-
-                        print(wordComparison(rawNotes, notes));
+                          wordPercentageComparison(rawNotes, notes),
+                        );
+                        await uploadComparison(
+                          wordComparison(rawNotes, notes),
+                        );
 
                         // ignore: use_build_context_synchronously
                         return showDialog(

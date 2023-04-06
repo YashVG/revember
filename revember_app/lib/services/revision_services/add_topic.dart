@@ -34,5 +34,5 @@ Future addTopic(String topicName) async {
       .doc(currentTopicHash)
       .collection('stats')
       .doc('simple_stats');
-  docRef4.set({"stats": []});
+  docRef4.set({"stats": [], "stats2": 0});
 }
