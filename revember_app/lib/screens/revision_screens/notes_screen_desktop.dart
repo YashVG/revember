@@ -281,8 +281,21 @@ class _NotesScreenDesktopState extends State<NotesScreenDesktop> {
                       style: ElevatedButton.styleFrom(
                         minimumSize: const Size.fromHeight(50), // NEW
                       ),
-                      child: Text(
-                          'display average %s, notes stats, etc. for topic'),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 30,
+                          ),
+                          Text(
+                            'Statistics for topic',
+                            style: TextStyle(fontSize: 30),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Icon(Icons.percent)
+                        ],
+                      ),
                       onPressed: () {
                         Navigator.pushNamed(context, StatsScreen.id);
                       },

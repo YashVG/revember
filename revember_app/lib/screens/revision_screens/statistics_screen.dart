@@ -81,7 +81,7 @@ class _StatsScreenState extends State<StatsScreen> {
                         ),
                         PieChart(
                           dataMap: percentagesDataMap,
-                          chartRadius: MediaQuery.of(context).size.width / 1,
+                          chartRadius: MediaQuery.of(context).size.width / 0.7,
                           chartValuesOptions: const ChartValuesOptions(
                             showChartValuesInPercentage: true,
                           ),
@@ -101,12 +101,20 @@ class _StatsScreenState extends State<StatsScreen> {
                               fontSize: 14, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(
-                          height: 20,
+                          height: 10,
                         ),
                         Text(
-                          numberComparison.toString(),
+                          '$numberComparison wasted words',
                           style: TextStyle(
                               fontSize: 30, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Text(
+                          'Ideally, keep this number from increasing as much as possible when writing notes',
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),

@@ -14,7 +14,7 @@ import 'screens/initial_screens/signup_screen.dart';
 import 'screens/main_screens/home_page.dart';
 import 'screens/initial_screens/login_recovery.dart';
 import 'screens/main_screens/settings.dart';
-import 'screens/calendar_screens/calendar_screen.dart';
+
 import 'screens/revision_screens/subject_screen.dart';
 import 'screens/revision_screens/topic_screen.dart';
 import 'screens/revision_screens/notes_screen_desktop.dart';
@@ -80,7 +80,6 @@ class _RevemberState extends State<Revember> {
         ChangePassword.id: (context) => ChangePassword(),
         HomePage.id: (context) => HomePage(),
         SettingsScreen.id: (context) => SettingsScreen(),
-        CalendarScreen.id: (context) => CalendarScreen(),
         SubjectScreen.id: (context) => SubjectScreen(),
         TopicScreen.id: (context) => TopicScreen(),
         NotesScreenDesktop.id: (context) => NotesScreenDesktop(),

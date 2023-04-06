@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'question_model.dart';
 
@@ -15,12 +17,60 @@ class _HardTestQuizScreenState extends State<HardTestQuizScreen> {
   int currentQuestionIndex = 0;
   int score = 0;
   Answer? selectedAnswer;
+  late Timer _timer;
+  int _timeLeft = 8;
+
+  @override
+  void initState() {
+    super.initState();
+    _startTimer();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        _timeLeft--;
+      });
+      if (_timeLeft == 0) {
+        _timer.cancel();
+        _nextQuestion();
+      }
+    });
+  }
+
+  void _resetTimer() {
+    _timer.cancel();
+    setState(() {
+      _timeLeft = 10;
+    });
+    _startTimer();
+  }
+
+  void _nextQuestion() {
+    _timer.cancel();
+    _resetTimer();
+
+    if (currentQuestionIndex == questionList.length - 1) {
+      _showScoreDialog();
+    } else {
+      setState(() {
+        selectedAnswer = null;
+        currentQuestionIndex++;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Questions"),
+        title: const Text("Questions"),
         backgroundColor: Colors.blueGrey,
       ),
       backgroundColor: Colors.blueGrey,
@@ -29,6 +79,7 @@ class _HardTestQuizScreenState extends State<HardTestQuizScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
+            _timerWidget(),
             _questionWidget(),
             _answerList(),
             _nextButton(),
@@ -128,6 +179,7 @@ class _HardTestQuizScreenState extends State<HardTestQuizScreen> {
           shape: const StadiumBorder(),
         ),
         onPressed: () {
+          _resetTimer();
           if (isLastQuestion) {
             //display score
 
@@ -141,6 +193,20 @@ class _HardTestQuizScreenState extends State<HardTestQuizScreen> {
           }
         },
         child: Text(isLastQuestion ? "Submit" : "Next"),
+      ),
+    );
+  }
+
+  _timerWidget() {
+    return Container(
+      alignment: Alignment.center,
+      child: Text(
+        'Time Left: $_timeLeft',
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
+        ),
       ),
     );
   }
@@ -172,7 +238,7 @@ class _HardTestQuizScreenState extends State<HardTestQuizScreen> {
               });
             },
           ),
-          SizedBox(width: 15),
+          const SizedBox(width: 15),
           ElevatedButton(
             child: const Text("Exit"),
             onPressed: () {

@@ -12,9 +12,7 @@ import 'package:revember_app/constants/user_constants.dart';
 import 'package:revember_app/constants/calendar_constants.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:revember_app/screens/revision_screens/subject_screen.dart';
-import 'package:revember_app/constants/revision_constants.dart';
 import 'package:revember_app/services/calendar_services/schedule_calc.dart';
-import 'package:revember_app/constants/calendar_constants.dart';
 import 'package:revember_app/screens/calendar_screens/calendar_phone.dart';
 import 'dart:io' show Platform;
 
@@ -30,7 +28,7 @@ class _HomePageState extends State<HomePage> {
   late DateTime testDate;
   late SharedPreferences prefs;
   late Map<DateTime, dynamic> selectedEvents;
-  CalendarFormat format = CalendarFormat.twoWeeks;
+  CalendarFormat format = CalendarFormat.month;
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
   final TextEditingController _eventController = TextEditingController();
@@ -313,189 +311,199 @@ class _HomePageState extends State<HomePage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        FloatingActionButton.extended(
-                          heroTag: UniqueKey(),
-                          onPressed: () => showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              title: const Text("Add Event"),
-                              content: TextFormField(
-                                //_eventController is event title
-                                controller: _eventController,
-                              ),
-                              actions: [
-                                TextButton(
-                                  child: const Text(
-                                    "Cancel",
-                                    style: TextStyle(color: Colors.red),
+                        SizedBox(
+                          height: 30,
+                          child: FloatingActionButton.extended(
+                            heroTag: UniqueKey(),
+                            onPressed: () => showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: const Text("Add Event"),
+                                content: TextFormField(
+                                  //_eventController is event title
+                                  controller: _eventController,
+                                ),
+                                actions: [
+                                  TextButton(
+                                    child: const Text(
+                                      "Cancel",
+                                      style: TextStyle(color: Colors.red),
+                                    ),
+                                    onPressed: () => Navigator.pop(context),
                                   ),
-                                  onPressed: () => Navigator.pop(context),
-                                ),
-                                TextButton(
-                                  child: const Text("Ok"),
-                                  onPressed: () {
-                                    if (_eventController.text.isEmpty) {
-                                    } else {
-                                      if (selectedEvents[selectedDay] != null) {
-                                        selectedEvents[selectedDay].add(
-                                          _eventController.text,
-                                        );
+                                  TextButton(
+                                    child: const Text("Ok"),
+                                    onPressed: () {
+                                      if (_eventController.text.isEmpty) {
                                       } else {
-                                        selectedEvents[selectedDay] = [
-                                          _eventController.text
-                                        ];
+                                        if (selectedEvents[selectedDay] !=
+                                            null) {
+                                          selectedEvents[selectedDay].add(
+                                            _eventController.text,
+                                          );
+                                        } else {
+                                          selectedEvents[selectedDay] = [
+                                            _eventController.text
+                                          ];
+                                        }
                                       }
-                                    }
-                                    prefs.setString('events',
-                                        json.encode(encodeMap(selectedEvents)));
-                                    Navigator.pop(context);
-                                    _eventController.clear();
-                                    setState(() {});
-                                    return;
-                                  },
-                                ),
-                              ],
+                                      prefs.setString(
+                                          'events',
+                                          json.encode(
+                                              encodeMap(selectedEvents)));
+                                      Navigator.pop(context);
+                                      _eventController.clear();
+                                      setState(() {});
+                                      return;
+                                    },
+                                  ),
+                                ],
+                              ),
                             ),
+                            label: const Text("Add Event"),
+                            icon: const Icon(Icons.add),
                           ),
-                          label: const Text("Add Event"),
-                          icon: const Icon(Icons.add),
                         ),
                         SizedBox(
                           width: 10,
                         ),
-                        FloatingActionButton.extended(
-                          heroTag: UniqueKey(),
-                          onPressed: () {
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: Text('Add Test Date'),
-                                    actions: [
-                                      TextField(
-                                        decoration: const InputDecoration(
-                                            icon: Icon(Icons.article),
-                                            labelText: 'Enter Test name'),
-                                        controller: _eventController2,
-                                      ),
-                                      TextField(
-                                        controller: _dateInput,
-                                        //editing controller of this TextField
-                                        decoration: const InputDecoration(
-                                            icon: Icon(Icons.calendar_today),
-                                            labelText: "Enter Test Date"),
-                                        readOnly: true,
+                        SizedBox(
+                          height: 30,
+                          child: FloatingActionButton.extended(
+                            heroTag: UniqueKey(),
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text('Add Test Date'),
+                                      actions: [
+                                        TextField(
+                                          decoration: const InputDecoration(
+                                              icon: Icon(Icons.article),
+                                              labelText: 'Enter Test name'),
+                                          controller: _eventController2,
+                                        ),
+                                        TextField(
+                                          controller: _dateInput,
+                                          //editing controller of this TextField
+                                          decoration: const InputDecoration(
+                                              icon: Icon(Icons.calendar_today),
+                                              labelText: "Enter Test Date"),
+                                          readOnly: true,
 
-                                        onTap: () async {
-                                          DateTime? pickedDate =
-                                              await showDatePicker(
-                                            context: context,
-                                            initialDate: DateTime.now(),
-                                            firstDate: DateTime.now(),
-                                            lastDate: DateTime(2100),
-                                          );
-
-                                          if (pickedDate != null) {
-                                            testDate = pickedDate;
-                                            setState(
-                                              () {
-                                                String formattedDate =
-                                                    DateFormat('dd-MM-yyyy')
-                                                        .format(pickedDate);
-                                                _dateInput.text = formattedDate;
-                                                //set output date to TextField value.
-                                              },
+                                          onTap: () async {
+                                            DateTime? pickedDate =
+                                                await showDatePicker(
+                                              context: context,
+                                              initialDate: DateTime.now(),
+                                              firstDate: DateTime.now(),
+                                              lastDate: DateTime(2100),
                                             );
-                                            daysBeforeTest =
-                                                getDaysBeforeTest(pickedDate);
-                                          }
-                                        },
-                                      ),
-                                      TextField(
-                                        decoration: const InputDecoration(
-                                            icon: Icon(Icons.question_mark),
-                                            labelText:
-                                                "No of revision intervals: ",
-                                            hintText:
-                                                "Default revision intervals: 5"),
-                                        keyboardType: const TextInputType
-                                            .numberWithOptions(decimal: false),
-                                        inputFormatters: <TextInputFormatter>[
-                                          FilteringTextInputFormatter.digitsOnly
-                                        ],
-                                        onChanged: (value) {
-                                          if (int.tryParse(value) != null) {
-                                            revisionIntervals =
-                                                int.parse(value);
-                                          }
-                                        },
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          TextButton(
-                                            child: const Text(
-                                              "Cancel",
-                                              style:
-                                                  TextStyle(color: Colors.red),
+
+                                            if (pickedDate != null) {
+                                              testDate = pickedDate;
+                                              setState(
+                                                () {
+                                                  String formattedDate =
+                                                      DateFormat('dd-MM-yyyy')
+                                                          .format(pickedDate);
+                                                  _dateInput.text =
+                                                      formattedDate;
+                                                  //set output date to TextField value.
+                                                },
+                                              );
+                                              daysBeforeTest =
+                                                  getDaysBeforeTest(pickedDate);
+                                            }
+                                          },
+                                        ),
+                                        TextField(
+                                          decoration: const InputDecoration(
+                                              icon: Icon(Icons.question_mark),
+                                              labelText:
+                                                  "No of revision intervals: ",
+                                              hintText:
+                                                  "Default revision intervals: 5"),
+                                          keyboardType: const TextInputType
+                                                  .numberWithOptions(
+                                              decimal: false),
+                                          inputFormatters: <TextInputFormatter>[
+                                            FilteringTextInputFormatter
+                                                .digitsOnly
+                                          ],
+                                          onChanged: (value) {
+                                            if (int.tryParse(value) != null) {
+                                              revisionIntervals =
+                                                  int.parse(value);
+                                            }
+                                          },
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            TextButton(
+                                              child: const Text(
+                                                "Cancel",
+                                                style: TextStyle(
+                                                    color: Colors.red),
+                                              ),
+                                              onPressed: () =>
+                                                  Navigator.pop(context),
                                             ),
-                                            onPressed: () =>
-                                                Navigator.pop(context),
-                                          ),
-                                          TextButton(
-                                            child:
-                                                const Text("Generate schedule"),
-                                            onPressed: () async {
-                                              List revisionScheduleInNumbers =
-                                                  createRevisionSchedule(
-                                                      revisionIntervals,
-                                                      daysBeforeTest);
+                                            TextButton(
+                                              child: const Text(
+                                                  "Generate schedule"),
+                                              onPressed: () async {
+                                                List revisionScheduleInNumbers =
+                                                    createRevisionSchedule(
+                                                        revisionIntervals,
+                                                        daysBeforeTest);
 
-                                              List<DateTime> revisionDates =
-                                                  convertToDateTime(
-                                                      revisionScheduleInNumbers,
-                                                      testDate);
+                                                List<DateTime> revisionDates =
+                                                    convertToDateTime(
+                                                        revisionScheduleInNumbers,
+                                                        testDate);
 
-                                              for (var date in revisionDates) {
-                                                print(date);
-                                                if (selectedEvents[date] ==
-                                                    null) {
-                                                  selectedEvents[date] = [
-                                                    _eventController2.text
-                                                  ];
-                                                } else {
-                                                  selectedEvents[date].add(
-                                                      _eventController2.text);
+                                                for (var date
+                                                    in revisionDates) {
+                                                  print(date);
+                                                  if (selectedEvents[date] ==
+                                                      null) {
+                                                    selectedEvents[date] = [
+                                                      _eventController2.text
+                                                    ];
+                                                  } else {
+                                                    selectedEvents[date].add(
+                                                        _eventController2.text);
+                                                  }
+                                                  prefs.setString(
+                                                      'events',
+                                                      json.encode(encodeMap(
+                                                          selectedEvents)));
                                                 }
-                                                prefs.setString(
-                                                    'events',
-                                                    json.encode(encodeMap(
-                                                        selectedEvents)));
-                                              }
 
-                                              Navigator.pop(context);
-                                              _eventController2.clear();
-                                              _dateInput.clear();
-                                              setState(() {});
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  );
-                                });
-                          },
-                          label: const Text("Add Test Date"),
-                          icon: const Icon(Icons.add),
+                                                Navigator.pop(context);
+                                                _eventController2.clear();
+                                                _dateInput.clear();
+                                                setState(() {});
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    );
+                                  });
+                            },
+                            label: const Text("Add Test Date"),
+                            icon: const Icon(Icons.add),
+                          ),
                         ),
                       ],
-                    ),
-                    SizedBox(
-                      height: 10,
                     ),
                     TableCalendar(
                       headerStyle: HeaderStyle(formatButtonVisible: false),
@@ -509,7 +517,7 @@ class _HomePageState extends State<HomePage> {
                         });
                       },
                       eventLoader: _getEventsfromDay,
-                      rowHeight: 50,
+                      rowHeight: 38,
                       focusedDay: selectedDay,
                       firstDay: DateTime(1990),
                       lastDay: DateTime(2050),
@@ -540,133 +548,154 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       height: 20,
                     ),
-                    ..._getEventsfromDay(selectedDay).map(
-                      // ... is a spread operator which allows for multiple items to be inserted into a collection
-                      // similar to a for i in loop and adding i to a list variable declared outside loop
-                      (dynamic event) => Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              TextButton(
-                                onPressed: () {},
-                                child: Text(
-                                  event,
-                                  style: const TextStyle(fontSize: 18),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.blue),
-                                onPressed: () async {
-                                  var indexReference =
-                                      selectedEvents[selectedDay]
-                                          .indexOf(event);
-                                  return showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: Text('Change event title:'),
-                                        content: TextField(
-                                          onChanged: (value) {
-                                            event = value;
-                                          },
-                                        ),
-                                        actions: <Widget>[
-                                          TextButton(
-                                            child: const Text('Cancel'),
-                                            onPressed: () async {
-                                              Navigator.pop(context);
-                                            },
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            ..._getEventsfromDay(selectedDay).map(
+                              // ... is a spread operator which allows for multiple items to be inserted into a collection
+                              // similar to a for i in loop and adding i to a list variable declared outside loop
+                              (dynamic event) => Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      SizedBox(height: 10),
+                                      Row(
+                                        children: [
+                                          const SizedBox(
+                                            width: 10,
                                           ),
                                           TextButton(
-                                            child: const Text('Change'),
-                                            onPressed: () async {
-                                              selectedEvents[selectedDay]
-                                                  [indexReference] = event;
-                                              prefs.setString(
-                                                  'events',
-                                                  json.encode(encodeMap(
-                                                      selectedEvents)));
-
-                                              Navigator.pop(context);
-                                              setState(() {});
-                                            },
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                },
-                                child: const Icon(Icons.edit),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.red),
-                                child: const Icon(Icons.delete),
-                                onPressed: () async {
-                                  // var indexReference =
-                                  //     selectedEvents[selectedDay].indexOf(event);
-                                  return showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: const Text('Delete event?',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold)),
-                                        content: Text(
-                                            'Are you sure you want to delete $event?'),
-                                        actions: <Widget>[
-                                          TextButton(
-                                            child: const Text('Yes'),
-                                            onPressed: () async {
-                                              selectedEvents[selectedDay]
-                                                  .remove(event);
-                                              prefs.setString(
-                                                  'events',
-                                                  json.encode(encodeMap(
-                                                      selectedEvents)));
-                                              Navigator.pop(context);
-                                              setState(() {});
-                                            },
-                                          ),
-                                          TextButton(
-                                            child: const Text(
-                                              'No',
+                                            onPressed: () {},
+                                            child: Text(
+                                              event,
                                               style:
-                                                  TextStyle(color: Colors.red),
+                                                  const TextStyle(fontSize: 18),
                                             ),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                          )
+                                          ),
                                         ],
-                                      );
-                                    },
-                                  );
-                                },
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.blue),
+                                        onPressed: () async {
+                                          var indexReference =
+                                              selectedEvents[selectedDay]
+                                                  .indexOf(event);
+                                          return showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title:
+                                                    Text('Change event title:'),
+                                                content: TextField(
+                                                  onChanged: (value) {
+                                                    event = value;
+                                                  },
+                                                ),
+                                                actions: <Widget>[
+                                                  TextButton(
+                                                    child: const Text('Cancel'),
+                                                    onPressed: () async {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  ),
+                                                  TextButton(
+                                                    child: const Text('Change'),
+                                                    onPressed: () async {
+                                                      selectedEvents[
+                                                                  selectedDay]
+                                                              [indexReference] =
+                                                          event;
+                                                      prefs.setString(
+                                                          'events',
+                                                          json.encode(encodeMap(
+                                                              selectedEvents)));
+
+                                                      Navigator.pop(context);
+                                                      setState(() {});
+                                                    },
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                        child: const Icon(Icons.edit),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.red),
+                                        child: const Icon(Icons.delete),
+                                        onPressed: () async {
+                                          // var indexReference =
+                                          //     selectedEvents[selectedDay].indexOf(event);
+                                          return showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: const Text(
+                                                    'Delete event?',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                                content: Text(
+                                                    'Are you sure you want to delete $event?'),
+                                                actions: <Widget>[
+                                                  TextButton(
+                                                    child: const Text('Yes'),
+                                                    onPressed: () async {
+                                                      selectedEvents[
+                                                              selectedDay]
+                                                          .remove(event);
+                                                      prefs.setString(
+                                                          'events',
+                                                          json.encode(encodeMap(
+                                                              selectedEvents)));
+                                                      Navigator.pop(context);
+                                                      setState(() {});
+                                                    },
+                                                  ),
+                                                  TextButton(
+                                                    child: const Text(
+                                                      'No',
+                                                      style: TextStyle(
+                                                          color: Colors.red),
+                                                    ),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  )
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
+                    )
                   ],
                 ),
               ),
               SizedBox(
-                width: 10,
+                width: 30,
               ),
               Expanded(
                 child: Column(
@@ -680,7 +709,10 @@ class _HomePageState extends State<HomePage> {
                           await getSubjects();
                           Navigator.pushNamed(context, SubjectScreen.id);
                         },
-                        child: Text('Revision'),
+                        child: Text(
+                          'Revision',
+                          style: TextStyle(fontSize: 30),
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -692,7 +724,24 @@ class _HomePageState extends State<HomePage> {
                           minimumSize: const Size.fromHeight(50), // NEW
                         ),
                         onPressed: () async {},
-                        child: Text('Statistics'),
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              'Overall Stats',
+                              style: TextStyle(fontSize: 30),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Icon(
+                              Icons.arrow_right,
+                              size: 30.0,
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ],
