@@ -153,6 +153,7 @@ class _CreateQuestionScreenState extends State<CreateQuestionScreen> {
                   await addUserMadeQuestion(
                       question, answer1, answer2, answer3, answer4);
 
+                  // ignore: use_build_context_synchronously
                   return showDialog(
                     context: context,
                     builder: (context) {

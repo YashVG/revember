@@ -1,7 +1,9 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:revember_app/constants/revision_constants.dart';
+import 'package:revember_app/models/question_models/question_model.dart';
+import 'package:revember_app/screens/quiz_screens/easy_quiz_screen.dart';
 import 'package:revember_app/screens/revision_screens/question_screens/create_questions.dart';
 import 'package:revember_app/screens/revision_screens/statistics_screen.dart';
 import 'package:revember_app/screens/revision_screens/writing_screens/writing_guide.dart';
@@ -9,7 +11,12 @@ import 'package:revember_app/screens/revision_screens/writing_screens/writing_gu
 import 'package:revember_app/screens/revision_screens/writing_screens/write_notes.dart';
 import 'package:revember_app/screens/revision_screens/question_screens/main_question_screen.dart';
 import 'package:revember_app/services/revision_services/get_notes.dart';
+import 'package:revember_app/services/revision_services/get_questions.dart';
 import 'package:revember_app/services/revision_services/split_hypen.dart';
+
+import '../../services/stats_services/get_dart_stats.dart';
+import '../quiz_screens/hard_quiz_screen.dart';
+import '../quiz_screens/medium_quiz_screen.dart';
 
 class NotesScreenDesktop extends StatefulWidget {
   const NotesScreenDesktop({Key? key}) : super(key: key);
@@ -202,7 +209,65 @@ class _NotesScreenDesktopState extends State<NotesScreenDesktop> {
                                 )
                               ],
                             ),
-                            onPressed: () {},
+                            onPressed: () async {
+                              return showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text('Choose difficulty:'),
+                                    actions: <Widget>[
+                                      Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              TextButton(
+                                                child: Text('Easy'),
+                                                onPressed: () async {
+                                                  await getQuestionsAndAnswers(
+                                                      currentTopicHash);
+                                                  Navigator.pushNamed(context,
+                                                      EasyTestQuizScreen.id);
+                                                },
+                                              ),
+                                              TextButton(
+                                                child: Text('Medium'),
+                                                onPressed: () async {
+                                                  await getQuestionsAndAnswers(
+                                                      currentTopicHash);
+                                                  Navigator.pushNamed(context,
+                                                      MediumTestQuizScreen.id);
+                                                },
+                                              ),
+                                              TextButton(
+                                                child: Text('Hard'),
+                                                onPressed: () async {
+                                                  await getQuestionsAndAnswers(
+                                                      currentTopicHash);
+                                                  Navigator.pushNamed(context,
+                                                      HardTestQuizScreen.id);
+                                                },
+                                              ),
+                                              TextButton(
+                                                child: Text('Your own'),
+                                                onPressed: () async {
+                                                  await getQuestionsAndAnswers(
+                                                      currentTopicHash);
+                                                  Navigator.pushNamed(context,
+                                                      MediumTestQuizScreen.id);
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
                           ),
                         ),
                       ],

@@ -22,7 +22,9 @@ import 'screens/revision_screens/writing_screens/write_notes.dart';
 import 'screens/revision_screens/writing_screens/writing_guide.dart';
 import 'package:revember_app/screens/revision_screens/question_screens/main_question_screen.dart';
 import 'package:revember_app/screens/revision_screens/question_screens/question_guide.dart';
-import 'package:revember_app/screens/quiz_screens/quiz_screen.dart';
+import 'package:revember_app/screens/quiz_screens/easy_quiz_screen.dart';
+import 'package:revember_app/screens/quiz_screens/medium_quiz_screen.dart';
+import 'package:revember_app/screens/quiz_screens/hard_quiz_screen.dart';
 import 'package:revember_app/test/test_screen.dart';
 import 'package:revember_app/screens/revision_screens/statistics_screen.dart';
 import 'package:revember_app/preferences/themes.dart';
@@ -88,7 +90,9 @@ class _RevemberState extends State<Revember> {
         QuestionGuide.id: (context) => QuestionGuide(),
         MainQuestionScreen.id: (context) => MainQuestionScreen(),
         CreateQuestionScreen.id: (context) => CreateQuestionScreen(),
-        TestQuizScreen.id: (context) => TestQuizScreen(),
+        EasyTestQuizScreen.id: (context) => EasyTestQuizScreen(),
+        MediumTestQuizScreen.id: (context) => MediumTestQuizScreen(),
+        HardTestQuizScreen.id: (context) => HardTestQuizScreen(),
         TestScreen.id: (context) => TestScreen(),
         Calendar.id: (context) => Calendar(),
       },

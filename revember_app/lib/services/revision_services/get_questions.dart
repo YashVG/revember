@@ -6,6 +6,9 @@ import 'package:revember_app/quiz_variables/variables.dart';
 import 'package:collection/collection.dart';
 
 Future getQuestionsAndAnswers(currentSubject) async {
+  //currentSubject => currentTopicHash
+  //don't change for future reference and imps
+
   questions = [];
   currentAnswers = [];
   correctAnswers = [];
@@ -36,7 +39,6 @@ Future getQuestionsAndAnswers(currentSubject) async {
     }
 
     //gets right answer for each q, always first element, tb randed l8r
-
   }
   // print(currentAnswers);
   // print(correctAnswers);

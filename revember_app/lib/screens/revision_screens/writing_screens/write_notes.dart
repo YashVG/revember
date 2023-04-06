@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:revember_app/constants/revision_constants.dart';
 import 'package:revember_app/screens/revision_screens/notes_screen_desktop.dart';
 import 'package:revember_app/services/revision_services/upload_notes.dart';
-import 'package:revember_app/services/stats_services/dart_stats.dart';
+import 'package:revember_app/services/stats_services/upload_dart_stats.dart';
 
 class WriteNotesScreen extends StatefulWidget {
   const WriteNotesScreen({Key? key}) : super(key: key);
@@ -119,6 +119,8 @@ class _WriteNotesScreenState extends State<WriteNotesScreen> {
 
                         await uploadPercentage(
                             wordPercentageComparison(rawNotes, notes));
+
+                        print(wordComparison(rawNotes, notes));
 
                         // ignore: use_build_context_synchronously
                         return showDialog(

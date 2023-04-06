@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'question_model.dart';
 
-class TestQuizScreen extends StatefulWidget {
-  static const String id = 'test_quiz_screen';
-  const TestQuizScreen({Key? key}) : super(key: key);
+class EasyTestQuizScreen extends StatefulWidget {
+  static const String id = 'easy_test_quiz_screen';
+  const EasyTestQuizScreen({Key? key}) : super(key: key);
 
   @override
-  State<TestQuizScreen> createState() => _TestQuizScreenState();
+  State<EasyTestQuizScreen> createState() => _EasyTestQuizScreenState();
 }
 
-class _TestQuizScreenState extends State<TestQuizScreen> {
+class _EasyTestQuizScreenState extends State<EasyTestQuizScreen> {
   //define the datas
   List<Question> questionList = getQuestions();
   int currentQuestionIndex = 0;
@@ -19,6 +19,10 @@ class _TestQuizScreenState extends State<TestQuizScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Questions"),
+        backgroundColor: Colors.blueGrey,
+      ),
       backgroundColor: Colors.blueGrey,
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
@@ -53,7 +57,7 @@ class _TestQuizScreenState extends State<TestQuizScreen> {
           width: double.infinity,
           padding: const EdgeInsets.all(32),
           decoration: BoxDecoration(
-            color: Colors.orangeAccent,
+            color: Colors.blue,
             borderRadius: BorderRadius.circular(16),
           ),
           child: Text(
@@ -88,22 +92,20 @@ class _TestQuizScreenState extends State<TestQuizScreen> {
       margin: const EdgeInsets.symmetric(vertical: 8),
       height: 48,
       child: ElevatedButton(
-        child: Text(answer.answerText),
         style: ElevatedButton.styleFrom(
+          foregroundColor: isSelected ? Colors.white : Colors.black,
+          backgroundColor: isSelected ? Colors.blue : Colors.white,
           shape: const StadiumBorder(),
-          primary: isSelected ? Colors.orangeAccent : Colors.white,
-          onPrimary: isSelected ? Colors.white : Colors.black,
         ),
         onPressed: () {
-          if (selectedAnswer == null) {
-            if (answer.isCorrect) {
-              score++;
-            }
-            setState(() {
-              selectedAnswer = answer;
-            });
+          if (answer.isCorrect) {
+            score++;
           }
+          setState(() {
+            selectedAnswer = answer;
+          });
         },
+        child: Text(answer.answerText),
       ),
     );
   }
@@ -114,15 +116,14 @@ class _TestQuizScreenState extends State<TestQuizScreen> {
       isLastQuestion = true;
     }
 
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width * 0.5,
       height: 48,
       child: ElevatedButton(
-        child: Text(isLastQuestion ? "Submit" : "Next"),
         style: ElevatedButton.styleFrom(
+          foregroundColor: Colors.white,
+          backgroundColor: Colors.blueAccent,
           shape: const StadiumBorder(),
-          primary: Colors.blueAccent,
-          onPrimary: Colors.white,
         ),
         onPressed: () {
           if (isLastQuestion) {
@@ -137,6 +138,7 @@ class _TestQuizScreenState extends State<TestQuizScreen> {
             });
           }
         },
+        child: Text(isLastQuestion ? "Submit" : "Next"),
       ),
     );
   }
@@ -155,16 +157,28 @@ class _TestQuizScreenState extends State<TestQuizScreen> {
         title + " | Score is $score",
         style: TextStyle(color: isPassed ? Colors.green : Colors.redAccent),
       ),
-      content: ElevatedButton(
-        child: const Text("Restart"),
-        onPressed: () {
-          Navigator.pop(context);
-          setState(() {
-            currentQuestionIndex = 0;
-            score = 0;
-            selectedAnswer = null;
-          });
-        },
+      content: Row(
+        children: [
+          ElevatedButton(
+            child: const Text("Restart"),
+            onPressed: () {
+              Navigator.pop(context);
+              setState(() {
+                currentQuestionIndex = 0;
+                score = 0;
+                selectedAnswer = null;
+              });
+            },
+          ),
+          SizedBox(width: 15),
+          ElevatedButton(
+            child: const Text("Exit"),
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.pop(context);
+            },
+          ),
+        ],
       ),
     );
   }

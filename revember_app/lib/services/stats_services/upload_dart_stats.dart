@@ -28,12 +28,29 @@ wordPercentageComparison(String text1, String text2) {
   return (count2 / count1) * 100;
 }
 
+wordComparison(String text1, String text2) {
+  List output = [];
+  List processedText1 = splitByHyphen(text1);
+  List processedText2 = splitByHyphen(text2);
+  output.add([processedText1, processedText2]);
+  output = output[0];
+
+  int count1 = countWords(output[0][0]);
+  int count2 = countWords(output[1][0]);
+  return count1 - count2;
+}
+
 Future uploadPercentage(stats) async {
   final docRef = firestore
       .collection('statistics')
       .doc(currentTopicHash)
-      .collection('simple_stats')
+      .collection('stats')
       .doc('simple_stats');
 
-  await docRef.update({"stats": FieldValue.arrayUnion(stats)});
+  await docRef.update(
+    {
+      "stats": FieldValue.arrayUnion([stats])
+      //adds stats for each set of notes uploaded
+    },
+  );
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:revember_app/constants/revision_constants.dart';
-import 'package:revember_app/screens/quiz_screens/quiz_screen.dart';
+import 'package:revember_app/screens/quiz_screens/easy_quiz_screen.dart';
 import 'package:revember_app/test/test_screen.dart';
 import 'create_questions.dart';
 import 'question_guide.dart';
@@ -61,7 +61,7 @@ class _MainQuestionScreenState extends State<MainQuestionScreen> {
               child: ElevatedButton(
                 onPressed: () async {
                   await getQuestionsAndAnswers(currentTopicHash);
-                  Navigator.pushNamed(context, TestQuizScreen.id);
+                  Navigator.pushNamed(context, EasyTestQuizScreen.id);
                 },
                 child: Text(
                   'Easy',
