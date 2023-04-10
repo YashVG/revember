@@ -3,9 +3,9 @@ import 'package:revember_app/constants/revision_constants.dart';
 import 'package:revember_app/screens/quiz_screens/easy_quiz_screen.dart';
 import 'package:revember_app/test/test_screen.dart';
 import 'create_questions.dart';
-import 'question_guide.dart';
+
 import 'package:revember_app/test/test_query.dart';
-import 'package:revember_app/services/revision_services/get_questions.dart';
+import 'package:revember_app/services/question_services/get_user_questions.dart';
 
 class MainQuestionScreen extends StatefulWidget {
   const MainQuestionScreen({Key? key}) : super(key: key);
@@ -60,7 +60,7 @@ class _MainQuestionScreenState extends State<MainQuestionScreen> {
             Expanded(
               child: ElevatedButton(
                 onPressed: () async {
-                  await getQuestionsAndAnswers(currentTopicHash);
+                  await getUserMadeQuestionsAndAnswers(currentTopicHash);
                   Navigator.pushNamed(context, EasyTestQuizScreen.id);
                 },
                 child: Text(

@@ -47,34 +47,7 @@ List<Question> getQuestions() {
     );
     finalAnswerList = [];
   }
-
-  // for (var i = 0; i != questions.length; i++) {
-  //   list.add(
-  //     Question(questions[i].toString(), finalAnswerList),
-  //   );
-  //   list.add(
-  //     Question(i.toString(), [
-  //       Answer("Nokia", true),
-  //     ]),
-  //   );
-  // }
-
-  // list.add(
-  //   Question(
-  //     "Who is the owner of Flutter?",
-  //     [
-  //       Answer("Nokia", false),
-  //       Answer("Samsung", false),
-  //       Answer("Google", true),
-  //       Answer("Apple", false),
-  //     ],
-  //   ),
-  // );
-
-  // for (var i in c) {
-  //   print(c[23]);
-  // }
-  // print(c);
+  list.shuffle();
 
   return list;
 }

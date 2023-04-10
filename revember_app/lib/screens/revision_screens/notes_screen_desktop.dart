@@ -2,16 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:revember_app/constants/revision_constants.dart';
-import 'package:revember_app/models/question_models/question_model.dart';
 import 'package:revember_app/screens/quiz_screens/easy_quiz_screen.dart';
 import 'package:revember_app/screens/revision_screens/question_screens/create_questions.dart';
 import 'package:revember_app/screens/revision_screens/statistics_screen.dart';
 import 'package:revember_app/screens/revision_screens/writing_screens/writing_guide.dart';
 
-import 'package:revember_app/screens/revision_screens/writing_screens/write_notes.dart';
-import 'package:revember_app/screens/revision_screens/question_screens/main_question_screen.dart';
 import 'package:revember_app/services/revision_services/get_notes.dart';
-import 'package:revember_app/services/revision_services/get_questions.dart';
+import 'package:revember_app/services/question_services/get_user_questions.dart';
 import 'package:revember_app/services/revision_services/split_hypen.dart';
 
 import '../../services/stats_services/get_dart_stats.dart';
@@ -81,30 +78,45 @@ class _NotesScreenDesktopState extends State<NotesScreenDesktop> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                ListView.builder(
-                                  physics: NeverScrollableScrollPhysics(),
-                                  scrollDirection: Axis.vertical,
-                                  shrinkWrap: true,
-                                  itemCount: notesToDisplay.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          notesToDisplay[index],
-                                          style: TextStyle(fontSize: 16),
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        )
-                                      ],
-                                    );
-                                  },
-                                ),
+                                rawNotes == ""
+                                    ? Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'No notes available, please write some',
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.red),
+                                          )
+                                        ],
+                                      )
+                                    : ListView.builder(
+                                        physics: NeverScrollableScrollPhysics(),
+                                        scrollDirection: Axis.vertical,
+                                        shrinkWrap: true,
+                                        itemCount: notesToDisplay.length,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                notesToDisplay[index],
+                                                style: TextStyle(fontSize: 16),
+                                              ),
+                                              SizedBox(
+                                                height: 5,
+                                              )
+                                            ],
+                                          );
+                                        },
+                                      ),
                               ],
                             ),
                           ),
@@ -223,7 +235,7 @@ class _NotesScreenDesktopState extends State<NotesScreenDesktop> {
                                               TextButton(
                                                 child: Text('Easy'),
                                                 onPressed: () async {
-                                                  await getQuestionsAndAnswers(
+                                                  await getUserMadeQuestionsAndAnswers(
                                                       currentTopicHash);
                                                   Navigator.pushNamed(context,
                                                       EasyTestQuizScreen.id);
@@ -232,7 +244,7 @@ class _NotesScreenDesktopState extends State<NotesScreenDesktop> {
                                               TextButton(
                                                 child: Text('Medium'),
                                                 onPressed: () async {
-                                                  await getQuestionsAndAnswers(
+                                                  await getUserMadeQuestionsAndAnswers(
                                                       currentTopicHash);
                                                   Navigator.pushNamed(context,
                                                       MediumTestQuizScreen.id);
@@ -241,7 +253,7 @@ class _NotesScreenDesktopState extends State<NotesScreenDesktop> {
                                               TextButton(
                                                 child: Text('Hard'),
                                                 onPressed: () async {
-                                                  await getQuestionsAndAnswers(
+                                                  await getUserMadeQuestionsAndAnswers(
                                                       currentTopicHash);
                                                   Navigator.pushNamed(context,
                                                       HardTestQuizScreen.id);
@@ -250,7 +262,7 @@ class _NotesScreenDesktopState extends State<NotesScreenDesktop> {
                                               TextButton(
                                                 child: Text('Your own'),
                                                 onPressed: () async {
-                                                  await getQuestionsAndAnswers(
+                                                  await getUserMadeQuestionsAndAnswers(
                                                       currentTopicHash);
                                                   Navigator.pushNamed(context,
                                                       MediumTestQuizScreen.id);

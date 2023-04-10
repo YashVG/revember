@@ -5,7 +5,7 @@ import 'package:revember_app/services/id_generator.dart';
 import 'package:revember_app/quiz_variables/variables.dart';
 import 'package:collection/collection.dart';
 
-Future getQuestionsAndAnswers(currentSubject) async {
+Future getUserMadeQuestionsAndAnswers(currentSubject) async {
   //currentSubject => currentTopicHash
   //don't change for future reference and imps
 

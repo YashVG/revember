@@ -1,7 +1,10 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:revember_app/constants/revision_constants.dart';
+import 'package:http/http.dart' as http;
 import 'package:revember_app/screens/revision_screens/notes_screen_desktop.dart';
 import 'package:revember_app/services/revision_services/upload_notes.dart';
 import 'package:revember_app/services/stats_services/upload_dart_stats.dart';
@@ -15,6 +18,48 @@ class WriteNotesScreen extends StatefulWidget {
 }
 
 class _WriteNotesScreenState extends State<WriteNotesScreen> {
+  final data = {'value1': 'hello', 'value2': 'world'};
+
+  void _sendDataForQuestions(String method) async {
+    String apiUrl = 'http://127.0.0.1:5000/createQuestions';
+    late http.Response response;
+    //switch func used in case additional API methods need to be added later for future development
+    switch (method) {
+      case 'POST':
+        response = await http.post(Uri.parse(apiUrl),
+            headers: {'Content-Type': 'application/json'},
+            body: jsonEncode([notes, currentTopicHash]));
+        break;
+    }
+
+    if (response.statusCode == 200) {
+      print('Data sent successfully!');
+      print(response.body);
+    } else {
+      print('Error sending data: ${response.statusCode}');
+    }
+  }
+
+  void _sendDataForStats(String method) async {
+    String apiUrl = 'http://127.0.0.1:5000/stats';
+    late http.Response response;
+    //switch func used in case additional API methods need to be added later for future development
+    switch (method) {
+      case 'POST':
+        response = await http.post(Uri.parse(apiUrl),
+            headers: {'Content-Type': 'application/json'},
+            body: jsonEncode([notes, currentTopicHash]));
+        break;
+    }
+
+    if (response.statusCode == 200) {
+      print('Data sent successfully!');
+      print(response.body);
+    } else {
+      print('Error sending data: ${response.statusCode}');
+    }
+  }
+
   bool _enabled = true;
   bool _enabled2 = true;
   String rawNotes = '';
@@ -122,6 +167,8 @@ class _WriteNotesScreenState extends State<WriteNotesScreen> {
                         await uploadComparison(
                           wordComparison(rawNotes, notes),
                         );
+                        _sendDataForStats('POST');
+                        _sendDataForQuestions('POST');
 
                         // ignore: use_build_context_synchronously
                         return showDialog(
@@ -151,9 +198,6 @@ class _WriteNotesScreenState extends State<WriteNotesScreen> {
                         );
                       },
                 child: Text('Save and upload notes'),
-              ),
-              SizedBox(
-                height: size.height * 0.1,
               ),
             ],
           ),
