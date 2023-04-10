@@ -33,6 +33,9 @@ Future getHardQuestionsAndAnswers(currentSubject) async {
 
     //gets answer for each question, processed via array indexing
     for (var i in query.docs) {
+      if (counter2 == query.docs.length - 1) {
+        break;
+      }
       currentAnswers.add(query.docs[counter2].data()['answers']);
       correctAnswers.add(query.docs[counter2].data()['answers'][0]);
       counter2 = counter2 + 1;
