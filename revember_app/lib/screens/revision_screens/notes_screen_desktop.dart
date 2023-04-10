@@ -6,6 +6,9 @@ import 'package:revember_app/screens/quiz_screens/easy_quiz_screen.dart';
 import 'package:revember_app/screens/revision_screens/question_screens/create_questions.dart';
 import 'package:revember_app/screens/revision_screens/statistics_screen.dart';
 import 'package:revember_app/screens/revision_screens/writing_screens/writing_guide.dart';
+import 'package:revember_app/services/question_services/get_easy_questions.dart';
+import 'package:revember_app/services/question_services/get_hard_questions.dart';
+import 'package:revember_app/services/question_services/get_medium_questions.dart';
 
 import 'package:revember_app/services/revision_services/get_notes.dart';
 import 'package:revember_app/services/question_services/get_user_questions.dart';
@@ -235,7 +238,7 @@ class _NotesScreenDesktopState extends State<NotesScreenDesktop> {
                                               TextButton(
                                                 child: Text('Easy'),
                                                 onPressed: () async {
-                                                  await getUserMadeQuestionsAndAnswers(
+                                                  await getEasyQuestionsAndAnswers(
                                                       currentTopicHash);
                                                   Navigator.pushNamed(context,
                                                       EasyTestQuizScreen.id);
@@ -244,7 +247,7 @@ class _NotesScreenDesktopState extends State<NotesScreenDesktop> {
                                               TextButton(
                                                 child: Text('Medium'),
                                                 onPressed: () async {
-                                                  await getUserMadeQuestionsAndAnswers(
+                                                  await getMediumQuestionsAndAnswers(
                                                       currentTopicHash);
                                                   Navigator.pushNamed(context,
                                                       MediumTestQuizScreen.id);
@@ -253,14 +256,14 @@ class _NotesScreenDesktopState extends State<NotesScreenDesktop> {
                                               TextButton(
                                                 child: Text('Hard'),
                                                 onPressed: () async {
-                                                  await getUserMadeQuestionsAndAnswers(
+                                                  await getHardQuestionsAndAnswers(
                                                       currentTopicHash);
                                                   Navigator.pushNamed(context,
                                                       HardTestQuizScreen.id);
                                                 },
                                               ),
                                               TextButton(
-                                                child: Text('Your own'),
+                                                child: Text('User-Made'),
                                                 onPressed: () async {
                                                   await getUserMadeQuestionsAndAnswers(
                                                       currentTopicHash);
