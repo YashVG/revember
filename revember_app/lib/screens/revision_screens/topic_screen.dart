@@ -8,7 +8,7 @@ import 'package:revember_app/services/revision_services/get_topics.dart';
 import '../../services/revision_services/add_topic.dart';
 import 'package:revember_app/constants/revision_constants.dart';
 import 'notes_screen_desktop.dart';
-import 'notes_screen_phone.dart';
+import 'phone_screens/notes_screen_phone.dart';
 
 class TopicScreen extends StatefulWidget {
   static const String id = 'topic_screen';

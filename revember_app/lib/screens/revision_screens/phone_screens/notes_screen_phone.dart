@@ -6,6 +6,7 @@ import 'package:revember_app/screens/quiz_screens/easy_quiz_screen.dart';
 import 'package:revember_app/screens/quiz_screens/hard_quiz_screen.dart';
 import 'package:revember_app/screens/quiz_screens/medium_quiz_screen.dart';
 import 'package:revember_app/screens/revision_screens/phone_screens/view_notes.dart';
+import 'package:revember_app/screens/revision_screens/phone_screens/view_stats.dart';
 import 'package:revember_app/services/question_services/get_easy_questions.dart';
 import 'package:revember_app/services/question_services/get_hard_questions.dart';
 import 'package:revember_app/services/question_services/get_medium_questions.dart';
@@ -167,7 +168,9 @@ class NotesScreenPhone extends StatelessWidget {
             ),
             Expanded(
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, ViewStatsPhone.id);
+                },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15), // <-- Radius

@@ -26,13 +26,14 @@ import 'package:revember_app/screens/quiz_screens/hard_quiz_screen.dart';
 import 'package:revember_app/test/test_screen.dart';
 import 'package:revember_app/screens/revision_screens/statistics_screen.dart';
 import 'package:revember_app/preferences/themes.dart';
-import 'package:revember_app/screens/revision_screens/notes_screen_phone.dart';
+import 'package:revember_app/screens/revision_screens/phone_screens/notes_screen_phone.dart';
 import 'package:revember_app/screens/calendar_screens/calendar_phone.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:revember_app/constants/user_constants.dart';
 import 'package:revember_app/constants/calendar_display_constants.dart';
 import 'package:revember_app/components/calendar/event.dart';
 import 'package:revember_app/screens/settings_screens/change_password.dart';
+import 'package:revember_app/screens/revision_screens/phone_screens/view_stats.dart';
 import 'dart:convert';
 
 import 'dart:io' show Platform;
@@ -85,6 +86,7 @@ class _RevemberState extends State<Revember> {
         NotesScreenDesktop.id: (context) => NotesScreenDesktop(),
         NotesScreenPhone.id: (context) => NotesScreenPhone(),
         PhoneViewNotes.id: (context) => PhoneViewNotes(),
+        ViewStatsPhone.id: (context) => ViewStatsPhone(),
         StatsScreen.id: (context) => StatsScreen(),
         NotesGuidesScreen.id: (context) => NotesGuidesScreen(),
         WriteNotesScreen.id: (context) => WriteNotesScreen(),
