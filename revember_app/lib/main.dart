@@ -13,7 +13,7 @@ import 'screens/initial_screens/signup_screen.dart';
 import 'screens/main_screens/home_page.dart';
 import 'screens/initial_screens/login_recovery.dart';
 import 'screens/main_screens/settings.dart';
-
+import 'screens/revision_screens/phone_screens/view_notes.dart';
 import 'screens/revision_screens/subject_screen.dart';
 import 'screens/revision_screens/topic_screen.dart';
 import 'screens/revision_screens/notes_screen_desktop.dart';
@@ -84,6 +84,7 @@ class _RevemberState extends State<Revember> {
         TopicScreen.id: (context) => TopicScreen(),
         NotesScreenDesktop.id: (context) => NotesScreenDesktop(),
         NotesScreenPhone.id: (context) => NotesScreenPhone(),
+        PhoneViewNotes.id: (context) => PhoneViewNotes(),
         StatsScreen.id: (context) => StatsScreen(),
         NotesGuidesScreen.id: (context) => NotesGuidesScreen(),
         WriteNotesScreen.id: (context) => WriteNotesScreen(),

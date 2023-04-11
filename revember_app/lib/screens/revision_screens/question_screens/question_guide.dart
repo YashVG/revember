@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:revember_app/components/back_button.dart';
 import 'package:revember_app/screens/revision_screens/question_screens/create_questions.dart';
-import 'package:revember_app/screens/revision_screens/writing_screens/write_notes.dart';
 
 class QuestionGuide extends StatelessWidget {
   static const String id = 'question_guide';

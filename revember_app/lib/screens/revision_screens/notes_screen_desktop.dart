@@ -40,7 +40,6 @@ class _NotesScreenDesktopState extends State<NotesScreenDesktop> {
     retrieveNotes().then(
       (value) {
         notesToDisplay = splitByHyphen(value);
-
         setState(() {});
       },
     );

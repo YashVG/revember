@@ -159,6 +159,9 @@ class _HomePageState extends State<HomePage> {
                     Navigator.pushNamed(context, Calendar.id);
                   },
                   style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15), // <-- Radius
+                    ),
                     minimumSize: const Size.fromHeight(100),
                   ),
                   child: Column(
@@ -179,7 +182,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 15),
               Expanded(
                 child: ElevatedButton(
                   onPressed: () async {
@@ -187,6 +190,9 @@ class _HomePageState extends State<HomePage> {
                     Navigator.pushNamed(context, SubjectScreen.id);
                   },
                   style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15), // <-- Radius
+                    ),
                     minimumSize: const Size.fromHeight(100),
                   ),
                   child: Column(
@@ -207,6 +213,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
+              SizedBox(height: 20),
             ],
           ),
         ),

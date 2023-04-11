@@ -222,7 +222,7 @@ class _HardTestQuizScreenState extends State<HardTestQuizScreen> {
 
     return AlertDialog(
       title: Text(
-        title + " | Score is $score",
+        "$title | Score is $score",
         style: TextStyle(color: isPassed ? Colors.green : Colors.redAccent),
       ),
       content: Row(
