@@ -1,11 +1,14 @@
 // ignore_for_file: use_build_context_synchronously, prefer_const_constructors
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:revember_app/services/revision_services/get_topichash.dart';
 import 'package:revember_app/services/revision_services/get_topics.dart';
 import '../../services/revision_services/add_topic.dart';
 import 'package:revember_app/constants/revision_constants.dart';
 import 'notes_screen_desktop.dart';
+import 'notes_screen_phone.dart';
 
 class TopicScreen extends StatefulWidget {
   static const String id = 'topic_screen';
@@ -92,8 +95,11 @@ class _TopicScreenState extends State<TopicScreen> {
                 onPressed: () async {
                   currentTopic = i.toString();
                   currentTopicHash = await getTopicHash(currentTopic);
-
-                  Navigator.pushNamed(context, NotesScreenDesktop.id);
+                  if (Platform.isIOS || Platform.isIOS) {
+                    Navigator.pushNamed(context, NotesScreenPhone.id);
+                  } else {
+                    Navigator.pushNamed(context, NotesScreenDesktop.id);
+                  }
                 },
                 child: Text(
                   i.toString(),

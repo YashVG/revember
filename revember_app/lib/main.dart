@@ -26,6 +26,7 @@ import 'package:revember_app/screens/quiz_screens/hard_quiz_screen.dart';
 import 'package:revember_app/test/test_screen.dart';
 import 'package:revember_app/screens/revision_screens/statistics_screen.dart';
 import 'package:revember_app/preferences/themes.dart';
+import 'package:revember_app/screens/revision_screens/notes_screen_phone.dart';
 import 'package:revember_app/screens/calendar_screens/calendar_phone.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:revember_app/constants/user_constants.dart';
@@ -82,6 +83,7 @@ class _RevemberState extends State<Revember> {
         SubjectScreen.id: (context) => SubjectScreen(),
         TopicScreen.id: (context) => TopicScreen(),
         NotesScreenDesktop.id: (context) => NotesScreenDesktop(),
+        NotesScreenPhone.id: (context) => NotesScreenPhone(),
         StatsScreen.id: (context) => StatsScreen(),
         NotesGuidesScreen.id: (context) => NotesGuidesScreen(),
         WriteNotesScreen.id: (context) => WriteNotesScreen(),

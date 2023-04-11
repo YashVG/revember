@@ -147,93 +147,68 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-        body: Column(
-          children: [
-            Expanded(
-              child: GridView.count(
-                crossAxisSpacing: size.width * 0.03,
-                mainAxisSpacing: size.height * 0.03,
-                padding: EdgeInsets.only(top: 24, left: 24, right: 24),
-                shrinkWrap: false,
-                crossAxisCount: 2,
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, Calendar.id);
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text('Calendar'),
-                          Icon(Icons.calendar_month_outlined),
-                          SizedBox(
-                            height: 5,
-                          ),
-                        ],
+        body: Padding(
+          padding: EdgeInsets.all(size.height * 0.03),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, Calendar.id);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(100),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Calendar',
+                        style: TextStyle(fontSize: 50),
                       ),
-                    ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Icon(
+                        Icons.calendar_month_outlined,
+                        size: 60,
+                      ),
+                    ],
                   ),
-                  ElevatedButton(
-                    onPressed: () async {
-                      await getSubjects();
-                      Navigator.pushNamed(context, SubjectScreen.id);
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text('Revision'),
-                        Icon(Icons.book),
-                        SizedBox(
-                          height: 5,
-                        ),
-                      ],
-                    ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text('Daily Statistics'),
-                        Icon(Icons.numbers_outlined),
-                        SizedBox(
-                          height: 5,
-                        ),
-                      ],
-                    ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, SettingsScreen.id);
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text('Settings'),
-                        Icon(Icons.settings),
-                        SizedBox(
-                          height: 5,
-                        ),
-                      ],
-                    ),
-                  )
-                ],
+                ),
               ),
-            )
-          ],
+              SizedBox(height: 20),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () async {
+                    await getSubjects();
+                    Navigator.pushNamed(context, SubjectScreen.id);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(100),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Revision',
+                        style: TextStyle(fontSize: 50),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Icon(
+                        Icons.book,
+                        size: 60,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       );
     } else {
@@ -712,35 +687,6 @@ class _HomePageState extends State<HomePage> {
                         child: Text(
                           'Revision',
                           style: TextStyle(fontSize: 30),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Expanded(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: const Size.fromHeight(50), // NEW
-                        ),
-                        onPressed: () async {},
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              'Overall Stats',
-                              style: TextStyle(fontSize: 30),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Icon(
-                              Icons.arrow_right,
-                              size: 30.0,
-                            )
-                          ],
                         ),
                       ),
                     ),
