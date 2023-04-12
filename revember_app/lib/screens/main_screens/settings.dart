@@ -1,11 +1,15 @@
 // ignore_for_file: prefer_const_constructors, no_logic_in_create_state, use_build_context_synchronously
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:revember_app/constants/user_constants.dart';
 
 import 'package:revember_app/preferences/themes.dart';
 import 'package:revember_app/screens/initial_screens/welcome_screen.dart';
 import 'package:revember_app/screens/settings_screens/change_password.dart';
+import 'package:revember_app/screens/settings_screens/erase_data_screen.dart';
+import 'package:revember_app/screens/settings_screens/nuke_account.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -23,79 +27,117 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Settings'),
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 60,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                isDark = isDark == true ? false : true;
-                setState(() {});
-              },
-              child: Text('Change light/dark mode'),
-            ),
-            SizedBox(
-              height: 35,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, ChangePassword.id);
-              },
-              child: Text('Change password for account'),
-            ),
-            SizedBox(
-              height: 35,
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text('Change app theme'),
-            ),
-            SizedBox(
-              height: 35,
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text('Reset app settings'),
-            ),
-            SizedBox(
-              height: 35,
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.white70),
-              onPressed: () async {
-                final SharedPreferences sharedPreferences =
-                    await SharedPreferences.getInstance();
-                sharedPreferences.remove('username');
-                sharedPreferences.remove('password');
-                sharedPreferences.setBool('isLoggedIn', false);
-                user = '';
-                Navigator.pushNamed(context, WelcomeScreen.id);
-              },
-              child: Text(
-                'Erase all data',
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.white70),
-              onPressed: () {},
-              child: Text(
-                'Delete account',
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
-          ],
+    if (Platform.isMacOS || Platform.isWindows) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('Settings'),
         ),
-      ),
-    );
+        body: Center(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 90,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  isDark = isDark == true ? false : true;
+                  setState(() {});
+                },
+                child: Text('Change light/dark mode'),
+              ),
+              SizedBox(
+                height: 35,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, ChangePassword.id);
+                },
+                child: Text('Change password for account'),
+              ),
+              SizedBox(
+                height: 35,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  isDark = false;
+                },
+                child: Text('Change app theme'),
+              ),
+              SizedBox(
+                height: 35,
+              ),
+              ElevatedButton(
+                style:
+                    ElevatedButton.styleFrom(backgroundColor: Colors.white70),
+                onPressed: () {
+                  Navigator.pushNamed(context, EraseDataScreen.id);
+                },
+                child: Text(
+                  'Erase all data',
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              ElevatedButton(
+                style:
+                    ElevatedButton.styleFrom(backgroundColor: Colors.white70),
+                onPressed: () {
+                  Navigator.pushNamed(context, NukeAccount.id);
+                },
+                child: Text(
+                  'Delete account',
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    } else {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('Settings'),
+        ),
+        body: Center(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 90,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  isDark = isDark == true ? false : true;
+                  setState(() {});
+                },
+                child: Text('Change light/dark mode'),
+              ),
+              SizedBox(
+                height: 35,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, ChangePassword.id);
+                },
+                child: Text('Change password for account'),
+              ),
+              SizedBox(
+                height: 35,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  isDark = false;
+                },
+                child: Text('Change app theme'),
+              ),
+              SizedBox(
+                height: 35,
+              ),
+            ],
+          ),
+        ),
+      );
+    }
   }
 }

@@ -59,7 +59,8 @@ class NotesGuidesScreen extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    primary: Colors.redAccent, //background color of button
+                    backgroundColor:
+                        Colors.redAccent, //background color of button
                     side: BorderSide(
                         width: 3, color: Colors.brown), //border width and color
                     elevation: 3, //elevation of button

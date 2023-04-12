@@ -28,6 +28,8 @@ import 'package:revember_app/screens/revision_screens/statistics_screen.dart';
 import 'package:revember_app/preferences/themes.dart';
 import 'package:revember_app/screens/revision_screens/phone_screens/notes_screen_phone.dart';
 import 'package:revember_app/screens/calendar_screens/calendar_phone.dart';
+import 'package:revember_app/screens/settings_screens/nuke_account.dart';
+import 'package:revember_app/screens/settings_screens/erase_data_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:revember_app/constants/user_constants.dart';
 import 'package:revember_app/constants/calendar_display_constants.dart';
@@ -81,6 +83,8 @@ class _RevemberState extends State<Revember> {
         ChangePassword.id: (context) => ChangePassword(),
         HomePage.id: (context) => HomePage(),
         SettingsScreen.id: (context) => SettingsScreen(),
+        EraseDataScreen.id: (context) => EraseDataScreen(),
+        NukeAccount.id: (context) => NukeAccount(),
         SubjectScreen.id: (context) => SubjectScreen(),
         TopicScreen.id: (context) => TopicScreen(),
         NotesScreenDesktop.id: (context) => NotesScreenDesktop(),

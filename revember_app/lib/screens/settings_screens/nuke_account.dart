@@ -1,20 +1,21 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables
+// ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:revember_app/constants/user_constants.dart';
+import 'package:revember_app/screens/initial_screens/welcome_screen.dart';
 import 'package:revember_app/services/delete_services/clear_data.dart';
-import 'package:revember_app/services/user_services/password_checker.dart';
+import 'package:revember_app/services/delete_services/nuke_user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class EraseDataScreen extends StatefulWidget {
-  static const String id = 'erase_data';
-  const EraseDataScreen({super.key});
+class NukeAccount extends StatefulWidget {
+  static const String id = 'nuke_account';
+  const NukeAccount({super.key});
 
   @override
-  State<EraseDataScreen> createState() => _EraseDataScreenState();
+  State<NukeAccount> createState() => _NukeAccountState();
 }
 
-class _EraseDataScreenState extends State<EraseDataScreen> {
+class _NukeAccountState extends State<NukeAccount> {
   late SharedPreferences prefs;
   late String defaultPassword;
 
@@ -37,7 +38,7 @@ class _EraseDataScreenState extends State<EraseDataScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Erase data'),
+        title: const Text('Delete account'),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -45,10 +46,10 @@ class _EraseDataScreenState extends State<EraseDataScreen> {
           child: Column(
             children: [
               const SizedBox(
-                height: 80.0,
+                height: 70.0,
               ),
               const Text(
-                'Erase Data',
+                'Delete Account',
                 style: TextStyle(fontSize: 30.0),
               ),
               const SizedBox(
@@ -87,7 +88,7 @@ class _EraseDataScreenState extends State<EraseDataScreen> {
                         builder: (context) {
                           return AlertDialog(
                             title: const Text(
-                              'Are you sure you want to erase all your data?',
+                              'Are you sure you want to delete your account?',
                             ),
                             actions: <Widget>[
                               TextButton(
@@ -101,23 +102,38 @@ class _EraseDataScreenState extends State<EraseDataScreen> {
                                     builder: (context) {
                                       return AlertDialog(
                                         title: const Text(
-                                          'Data erased!',
+                                          'User deleted, you will be re-directed to the homepage',
                                           style: TextStyle(color: Colors.red),
                                         ),
                                         actions: <Widget>[
                                           TextButton(
                                             child: const Text('Okay'),
                                             onPressed: () async {
-                                              await clearNotes(user);
+                                              await deleteUser(user);
+
                                               Navigator.pop(context);
                                               Navigator.pop(context);
+                                              final SharedPreferences
+                                                  sharedPreferences =
+                                                  await SharedPreferences
+                                                      .getInstance();
+                                              sharedPreferences
+                                                  .remove('username');
+                                              sharedPreferences
+                                                  .remove('password');
+                                              sharedPreferences.setBool(
+                                                  'isLoggedIn', false);
+                                              sharedPreferences.setString(
+                                                  'events', '{}');
+                                              user = '';
+                                              Navigator.pushNamed(
+                                                  context, WelcomeScreen.id);
                                             },
                                           ),
                                         ],
                                       );
                                     },
                                   );
-                                  Navigator.pop(context);
                                 },
                               ),
                               TextButton(
@@ -176,7 +192,7 @@ class _EraseDataScreenState extends State<EraseDataScreen> {
                     );
                   }
                 },
-                child: const Text('Erase Data'),
+                child: const Text('Delete Account'),
               ),
             ],
           ),
