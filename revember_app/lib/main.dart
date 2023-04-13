@@ -52,7 +52,6 @@ void main() async {
   if (checker == true) {
     isLoggedIn = true;
   }
-
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(Revember());
 }

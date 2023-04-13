@@ -18,8 +18,6 @@ class WriteNotesScreen extends StatefulWidget {
 }
 
 class _WriteNotesScreenState extends State<WriteNotesScreen> {
-  final data = {'value1': 'hello', 'value2': 'world'};
-
   void _sendDataForQuestions(String method) async {
     String apiUrl = 'http://127.0.0.1:5000/createQuestions';
     late http.Response response;

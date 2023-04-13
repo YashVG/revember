@@ -3,14 +3,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:revember_app/constants/user_constants.dart';
 
 import 'package:revember_app/preferences/themes.dart';
-import 'package:revember_app/screens/initial_screens/welcome_screen.dart';
 import 'package:revember_app/screens/settings_screens/change_password.dart';
 import 'package:revember_app/screens/settings_screens/erase_data_screen.dart';
 import 'package:revember_app/screens/settings_screens/nuke_account.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsScreen extends StatefulWidget {
   static const String id = 'settings_page';

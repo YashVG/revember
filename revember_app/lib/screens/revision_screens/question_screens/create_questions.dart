@@ -150,6 +150,28 @@ class _CreateQuestionScreenState extends State<CreateQuestionScreen> {
               ),
               ElevatedButton(
                 onPressed: () async {
+                  if (question == '' ||
+                      answer1 == '' ||
+                      answer2 == '' ||
+                      answer3 == '' ||
+                      answer4 == '') {
+                    return showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text('Error!'),
+                            content: Text('One or more fields are left blank!'),
+                            actions: <Widget>[
+                              TextButton(
+                                child: Text('Okay'),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ],
+                          );
+                        });
+                  }
                   await addUserMadeQuestion(
                       question, answer1, answer2, answer3, answer4);
 

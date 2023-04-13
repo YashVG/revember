@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:revember_app/constants/revision_constants.dart';
+import 'package:revember_app/quiz_variables/variables.dart';
 import 'package:revember_app/screens/quiz_screens/easy_quiz_screen.dart';
 import 'package:revember_app/screens/quiz_screens/hard_quiz_screen.dart';
 import 'package:revember_app/screens/quiz_screens/medium_quiz_screen.dart';
@@ -79,10 +80,35 @@ class NotesScreenPhone extends StatelessWidget {
                                       style: TextStyle(fontSize: 22),
                                     ),
                                     onPressed: () async {
-                                      await getEasyQuestionsAndAnswers(
-                                          currentTopicHash);
-                                      Navigator.pushNamed(
-                                          context, EasyTestQuizScreen.id);
+                                      if (questions.isEmpty) {
+                                        return showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              title: const Text(
+                                                  'No questions detected!'),
+                                              content: const Text(
+                                                'Please input notes to get questions',
+                                                style: TextStyle(
+                                                    color: Colors.red),
+                                              ),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: const Text('Okay'),
+                                                )
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      } else {
+                                        await getEasyQuestionsAndAnswers(
+                                            currentTopicHash);
+                                        Navigator.pushNamed(
+                                            context, EasyTestQuizScreen.id);
+                                      }
                                     },
                                   ),
                                   const SizedBox(
@@ -94,10 +120,35 @@ class NotesScreenPhone extends StatelessWidget {
                                       style: TextStyle(fontSize: 22),
                                     ),
                                     onPressed: () async {
-                                      await getMediumQuestionsAndAnswers(
-                                          currentTopicHash);
-                                      Navigator.pushNamed(
-                                          context, MediumTestQuizScreen.id);
+                                      if (questions.isEmpty) {
+                                        return showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              title: const Text(
+                                                  'No questions detected!'),
+                                              content: const Text(
+                                                'Please input notes to get questions',
+                                                style: TextStyle(
+                                                    color: Colors.red),
+                                              ),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: const Text('Okay'),
+                                                )
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      } else {
+                                        await getMediumQuestionsAndAnswers(
+                                            currentTopicHash);
+                                        Navigator.pushNamed(
+                                            context, MediumTestQuizScreen.id);
+                                      }
                                     },
                                   ),
                                   const SizedBox(
@@ -109,10 +160,35 @@ class NotesScreenPhone extends StatelessWidget {
                                       style: TextStyle(fontSize: 22),
                                     ),
                                     onPressed: () async {
-                                      await getHardQuestionsAndAnswers(
-                                          currentTopicHash);
-                                      Navigator.pushNamed(
-                                          context, HardTestQuizScreen.id);
+                                      if (questions.isEmpty) {
+                                        return showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              title: const Text(
+                                                  'No questions detected!'),
+                                              content: const Text(
+                                                'Please input notes to get questions',
+                                                style: TextStyle(
+                                                    color: Colors.red),
+                                              ),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: const Text('Okay'),
+                                                )
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      } else {
+                                        await getHardQuestionsAndAnswers(
+                                            currentTopicHash);
+                                        Navigator.pushNamed(
+                                            context, HardTestQuizScreen.id);
+                                      }
                                     },
                                   ),
                                   const SizedBox(
@@ -124,10 +200,35 @@ class NotesScreenPhone extends StatelessWidget {
                                       style: TextStyle(fontSize: 22),
                                     ),
                                     onPressed: () async {
-                                      await getUserMadeQuestionsAndAnswers(
-                                          currentTopicHash);
-                                      Navigator.pushNamed(
-                                          context, MediumTestQuizScreen.id);
+                                      if (questions.isEmpty) {
+                                        return showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              title: const Text(
+                                                'No questions detected!',
+                                                style: TextStyle(
+                                                    color: Colors.red),
+                                              ),
+                                              content: const Text(
+                                                  'Please create some questions'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: const Text('Okay'),
+                                                )
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      } else {
+                                        await getUserMadeQuestionsAndAnswers(
+                                            currentTopicHash);
+                                        Navigator.pushNamed(
+                                            context, MediumTestQuizScreen.id);
+                                      }
                                     },
                                   ),
                                 ],

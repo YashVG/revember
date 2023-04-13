@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:revember_app/constants/revision_constants.dart';
+import 'package:revember_app/quiz_variables/variables.dart';
 import 'package:revember_app/screens/quiz_screens/easy_quiz_screen.dart';
 import 'package:revember_app/screens/revision_screens/question_screens/create_questions.dart';
 import 'package:revember_app/screens/revision_screens/statistics_screen.dart';
@@ -239,35 +240,151 @@ class _NotesScreenDesktopState extends State<NotesScreenDesktop> {
                                                 onPressed: () async {
                                                   await getEasyQuestionsAndAnswers(
                                                       currentTopicHash);
-                                                  Navigator.pushNamed(context,
-                                                      EasyTestQuizScreen.id);
+                                                  if (questions.isEmpty) {
+                                                    return showDialog(
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return AlertDialog(
+                                                          title: Text(
+                                                              'No questions detected!'),
+                                                          content: Text(
+                                                            'Please input notes to get questions',
+                                                            style: TextStyle(
+                                                                color:
+                                                                    Colors.red),
+                                                          ),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () {
+                                                                Navigator.pop(
+                                                                    context);
+                                                              },
+                                                              child:
+                                                                  Text('Okay'),
+                                                            )
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
+                                                  } else {
+                                                    Navigator.pushNamed(context,
+                                                        EasyTestQuizScreen.id);
+                                                  }
                                                 },
                                               ),
                                               TextButton(
                                                 child: Text('Medium'),
                                                 onPressed: () async {
-                                                  await getMediumQuestionsAndAnswers(
-                                                      currentTopicHash);
-                                                  Navigator.pushNamed(context,
-                                                      MediumTestQuizScreen.id);
+                                                  if (questions.isEmpty) {
+                                                    return showDialog(
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return AlertDialog(
+                                                          title: Text(
+                                                            'No questions detected!',
+                                                            style: TextStyle(
+                                                                color:
+                                                                    Colors.red),
+                                                          ),
+                                                          content: Text(
+                                                              'Please input notes to get questions'),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () {
+                                                                Navigator.pop(
+                                                                    context);
+                                                              },
+                                                              child:
+                                                                  Text('Okay'),
+                                                            )
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
+                                                  } else {
+                                                    await getMediumQuestionsAndAnswers(
+                                                        currentTopicHash);
+                                                    Navigator.pushNamed(
+                                                        context,
+                                                        MediumTestQuizScreen
+                                                            .id);
+                                                  }
                                                 },
                                               ),
                                               TextButton(
                                                 child: Text('Hard'),
                                                 onPressed: () async {
-                                                  await getHardQuestionsAndAnswers(
-                                                      currentTopicHash);
-                                                  Navigator.pushNamed(context,
-                                                      HardTestQuizScreen.id);
+                                                  if (questions.isEmpty) {
+                                                    return showDialog(
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return AlertDialog(
+                                                          title: Text(
+                                                            'No questions detected!',
+                                                            style: TextStyle(
+                                                                color:
+                                                                    Colors.red),
+                                                          ),
+                                                          content: Text(
+                                                              'Please input notes to get questions'),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () {
+                                                                Navigator.pop(
+                                                                    context);
+                                                              },
+                                                              child:
+                                                                  Text('Okay'),
+                                                            )
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
+                                                  } else {
+                                                    await getHardQuestionsAndAnswers(
+                                                        currentTopicHash);
+                                                    Navigator.pushNamed(context,
+                                                        HardTestQuizScreen.id);
+                                                  }
                                                 },
                                               ),
                                               TextButton(
                                                 child: Text('User-Made'),
                                                 onPressed: () async {
-                                                  await getUserMadeQuestionsAndAnswers(
-                                                      currentTopicHash);
-                                                  Navigator.pushNamed(context,
-                                                      MediumTestQuizScreen.id);
+                                                  if (questions.isEmpty) {
+                                                    return showDialog(
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return AlertDialog(
+                                                          title: Text(
+                                                            'No questions detected!',
+                                                            style: TextStyle(
+                                                                color:
+                                                                    Colors.red),
+                                                          ),
+                                                          content: Text(
+                                                              'Please create some questions'),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () {
+                                                                Navigator.pop(
+                                                                    context);
+                                                              },
+                                                              child:
+                                                                  Text('Okay'),
+                                                            )
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
+                                                  } else {
+                                                    await getUserMadeQuestionsAndAnswers(
+                                                        currentTopicHash);
+                                                    Navigator.pushNamed(
+                                                        context,
+                                                        MediumTestQuizScreen
+                                                            .id);
+                                                  }
                                                 },
                                               ),
                                             ],
