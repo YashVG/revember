@@ -17,7 +17,6 @@ Future<User?> createUser(String username, String email, String password) async {
   );
 }
 
-//TODO: Fix checkDuplicateUsername function so that it actually works
 Future checkDuplicateUsername(String username) async {
   var query = await firestore
       .collection('users')

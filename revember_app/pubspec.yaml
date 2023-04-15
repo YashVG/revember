@@ -45,6 +45,7 @@ dependencies:
   intl: ^0.18.0
   http:
   pie_chart:
+  mailer:
 
 dev_dependencies:
   flutter_test:
