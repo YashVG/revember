@@ -11,7 +11,6 @@ import 'screens/initial_screens/welcome_screen.dart';
 import 'screens/initial_screens/login_screen.dart';
 import 'screens/initial_screens/signup_screen.dart';
 import 'screens/main_screens/home_page.dart';
-import 'screens/initial_screens/login_recovery.dart';
 import 'screens/main_screens/settings.dart';
 import 'screens/revision_screens/phone_screens/view_notes.dart';
 import 'screens/revision_screens/subject_screen.dart';
@@ -31,18 +30,13 @@ import 'package:revember_app/screens/calendar_screens/calendar_phone.dart';
 import 'package:revember_app/screens/settings_screens/nuke_account.dart';
 import 'package:revember_app/screens/settings_screens/erase_data_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:revember_app/constants/user_constants.dart';
-import 'package:revember_app/constants/calendar_display_constants.dart';
 import 'package:revember_app/components/calendar/event.dart';
 import 'package:revember_app/screens/settings_screens/change_password.dart';
 import 'package:revember_app/screens/revision_screens/phone_screens/view_stats.dart';
-import 'dart:convert';
 
-import 'dart:io' show Platform;
 //Platform allows us to identify the current platform
 
 bool isLoggedIn = false;
-Map<DateTime, List<Event>> calendar = {};
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

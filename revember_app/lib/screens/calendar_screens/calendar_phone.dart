@@ -84,6 +84,7 @@ class _CalendarState extends State<Calendar> {
             firstDay: DateTime(1990),
             lastDay: DateTime(2050),
             calendarFormat: format,
+            // ignore: no_leading_underscores_for_local_identifiers
             onFormatChanged: (CalendarFormat _format) {
               setState(() {
                 format = _format;

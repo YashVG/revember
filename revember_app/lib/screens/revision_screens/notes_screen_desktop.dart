@@ -351,6 +351,8 @@ class _NotesScreenDesktopState extends State<NotesScreenDesktop> {
                                               TextButton(
                                                 child: Text('User-Made'),
                                                 onPressed: () async {
+                                                  await getUserMadeQuestionsAndAnswers(
+                                                      currentTopicHash);
                                                   if (questions.isEmpty) {
                                                     return showDialog(
                                                       context: context,
@@ -378,8 +380,6 @@ class _NotesScreenDesktopState extends State<NotesScreenDesktop> {
                                                       },
                                                     );
                                                   } else {
-                                                    await getUserMadeQuestionsAndAnswers(
-                                                        currentTopicHash);
                                                     Navigator.pushNamed(
                                                         context,
                                                         MediumTestQuizScreen

@@ -80,6 +80,8 @@ class NotesScreenPhone extends StatelessWidget {
                                       style: TextStyle(fontSize: 22),
                                     ),
                                     onPressed: () async {
+                                      await getEasyQuestionsAndAnswers(
+                                          currentTopicHash);
                                       if (questions.isEmpty) {
                                         return showDialog(
                                           context: context,
@@ -104,8 +106,6 @@ class NotesScreenPhone extends StatelessWidget {
                                           },
                                         );
                                       } else {
-                                        await getEasyQuestionsAndAnswers(
-                                            currentTopicHash);
                                         Navigator.pushNamed(
                                             context, EasyTestQuizScreen.id);
                                       }
@@ -120,6 +120,8 @@ class NotesScreenPhone extends StatelessWidget {
                                       style: TextStyle(fontSize: 22),
                                     ),
                                     onPressed: () async {
+                                      await getMediumQuestionsAndAnswers(
+                                          currentTopicHash);
                                       if (questions.isEmpty) {
                                         return showDialog(
                                           context: context,
@@ -144,8 +146,6 @@ class NotesScreenPhone extends StatelessWidget {
                                           },
                                         );
                                       } else {
-                                        await getMediumQuestionsAndAnswers(
-                                            currentTopicHash);
                                         Navigator.pushNamed(
                                             context, MediumTestQuizScreen.id);
                                       }
@@ -160,6 +160,8 @@ class NotesScreenPhone extends StatelessWidget {
                                       style: TextStyle(fontSize: 22),
                                     ),
                                     onPressed: () async {
+                                      await getHardQuestionsAndAnswers(
+                                          currentTopicHash);
                                       if (questions.isEmpty) {
                                         return showDialog(
                                           context: context,
@@ -184,8 +186,6 @@ class NotesScreenPhone extends StatelessWidget {
                                           },
                                         );
                                       } else {
-                                        await getHardQuestionsAndAnswers(
-                                            currentTopicHash);
                                         Navigator.pushNamed(
                                             context, HardTestQuizScreen.id);
                                       }
@@ -200,6 +200,8 @@ class NotesScreenPhone extends StatelessWidget {
                                       style: TextStyle(fontSize: 22),
                                     ),
                                     onPressed: () async {
+                                      await getUserMadeQuestionsAndAnswers(
+                                          currentTopicHash);
                                       if (questions.isEmpty) {
                                         return showDialog(
                                           context: context,
@@ -224,8 +226,6 @@ class NotesScreenPhone extends StatelessWidget {
                                           },
                                         );
                                       } else {
-                                        await getUserMadeQuestionsAndAnswers(
-                                            currentTopicHash);
                                         Navigator.pushNamed(
                                             context, MediumTestQuizScreen.id);
                                       }

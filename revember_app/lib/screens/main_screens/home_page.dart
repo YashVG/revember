@@ -90,6 +90,7 @@ class _HomePageState extends State<HomePage> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(80.0),
           child: AppBar(
+            automaticallyImplyLeading: false,
             actions: [
               ElevatedButton(
                 onPressed: () {

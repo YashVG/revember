@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class ColorPickerWidget extends StatefulWidget {
   const ColorPickerWidget({Key? key}) : super(key: key);
+  static const String id = 'colors';
 
   @override
   _ColorPickerWidgetState createState() => _ColorPickerWidgetState();
@@ -34,7 +35,7 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
         for (var color in colors)
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: color,
+              backgroundColor: color,
               shape: CircleBorder(),
             ),
             onPressed: () {
